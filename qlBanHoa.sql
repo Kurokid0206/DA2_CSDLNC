@@ -172,12 +172,12 @@ GO
 CREATE TABLE [KhachHang]
 (
 	[MaKH] varchar(10) NOT NULL,
-	[TaiKhoan] varchar(50) NULL,
+	[TaiKhoan] varchar(50) NOT NULL,
 	[MatKhau] varchar(50) NULL,
 	[HoTen] nvarchar(50) NULL,
 	[Email] varchar(50) NULL,
 	[SDT] varchar(12) NULL,
-	[DiaChi] nvarchar(100) NULL
+	[DiaChi] nvarchar(100) NULL,
 )
 GO
 
@@ -195,7 +195,8 @@ CREATE TABLE [NhanVien]
 	[TenDN] varchar(50) NULL,
 	[MatKhauDN] varchar(50) NULL,
 	[MucTieu] int NULL,
-	[HieuSuat] float NULL
+	[HieuSuat] float NULL,
+	[TaiKhoan] varchar(50) NOT NULL
 )
 GO
 
@@ -215,6 +216,16 @@ CREATE TABLE [SanPham]
 	[SoLuongTon] varchar(50) NULL,
 	[LoaiSP] varchar(50) NULL,
 	[MoTaSP] varchar(50) NULL
+)
+GO
+
+CREATE TABLE [TaiKhoan]
+(
+	[TenTK] varchar(50) NOT NULL,
+	[MatKhau] varchar(20) NOT NULL,
+	[NguoiDung] nvarchar(50) NOT NULL,
+	[VaiTro] nvarchar(20) NOT NULL,
+	[TrangThai] varchar(10) NOT NULL
 )
 GO
 
@@ -280,6 +291,10 @@ ALTER TABLE [SanPham]
 	PRIMARY KEY CLUSTERED ([MaSP] ASC)
 GO
 
+ALTER TABLE [TaiKhoan] 
+ ADD CONSTRAINT [PK_TaiKhoan]
+	PRIMARY KEY CLUSTERED ([TenTK] ASC)
+GO
 /* Create Foreign Key Constraints */
 
 ALTER TABLE [BangGiaSP] ADD CONSTRAINT [FK_BangGiaSP_SanPham]
@@ -320,4 +335,12 @@ GO
 
 ALTER TABLE [NgayLamViec] ADD CONSTRAINT [FK_NgayLamViec_NhanVien]
 	FOREIGN KEY ([MaNV]) REFERENCES [NhanVien] ([MaNV]) ON DELETE No Action ON UPDATE No Action
+GO
+
+ALTER TABLE [NhanVien] ADD CONSTRAINT [FK_NhanVien_TaiKhoan]
+	FOREIGN KEY ([TaiKhoan]) REFERENCES [TaiKhoan] ([TenTK]) ON DELETE No Action ON UPDATE No Action
+GO
+
+ALTER TABLE [KhachHang] ADD CONSTRAINT [FK_KhachHang_TaiKhoan]
+	FOREIGN KEY ([TaiKhoan]) REFERENCES [TaiKhoan] ([TenTK]) ON DELETE No Action ON UPDATE No Action
 GO
