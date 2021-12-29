@@ -20,12 +20,10 @@ app.use(session({
             maxAge: 600000
         }
     }))
-    //app.set("view engine","ejs");
+app.set("view engine","ejs");
 
 const sql = require('mssql');
-const { json, redirect } = require("express/lib/response");
-const { syncBuiltinESMExports } = require("module");
-//const { config } = require("nodemon");
+
 
 
 

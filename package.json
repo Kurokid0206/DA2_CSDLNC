@@ -1,0 +1,28 @@
+{
+  "name": "da2_csdlnc",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "ejs": "^3.1.6",
+    "express": "^4.17.2",
+    "express-session": "^1.17.2",
+    "mssql": "^7.3.0",
+    "nodemon": "^2.0.15"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Kurokid0206/DA2_CSDLNC.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Kurokid0206/DA2_CSDLNC/issues"
+  },
+  "homepage": "https://github.com/Kurokid0206/DA2_CSDLNC#readme"
+}
