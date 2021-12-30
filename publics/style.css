@@ -1,0 +1,26 @@
+/*==========================================================
+    Template Name: Cultura - Education HTML Template
+    Created By: RegalTheme
+    Envato Profile: https://themeforest.net/user/regaltheme
+    Website: http://regaltheme.com
+    Description: Cultura is Fully Responsive Education HTML Template with awesome features.
+    Version: v1.1
+    Support: http://regaltheme.com/support
+============================================================*/
+
+/* Google fonts
+========================== */
+@import url('https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600,700,800');
+@import url('https://fonts.googleapis.com/css?family=Poppins:300,400');
+
+/* css files
+====================== */
+@import url('assets/css/bootstrap.min.css');
+@import url('assets/css/material-design-iconic-font.min.css');
+@import url('assets/css/custom-animate.css');
+@import url('assets/css/slick.min.css');
+@import url('assets/css/swiper.min.css');
+@import url('assets/css/venobox.css');
+@import url('assets/css/progressbar.css');
+@import url('assets/css/style.css');
+@import url('assets/css/responsive.css');
