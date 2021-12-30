@@ -24,10 +24,6 @@ app.set("view engine","ejs");
 
 const sql = require('mssql');
 
-
-
-
-
 app.listen(3000, function() {
     console.log("server is listen on port 3000.");
 });
@@ -70,7 +66,7 @@ app.get("/", function(req, res) {
     //         res.sendFile(__dirname + "/html/index.html")
     //     }
     // } else { 
-        res.sendFile(__dirname + "/html/index.html") //}
+       res.render("index") //}
 })
 
 
