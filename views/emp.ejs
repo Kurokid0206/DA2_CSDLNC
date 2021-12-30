@@ -1,0 +1,413 @@
+<!doctype html>
+<html class="no-js" lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Cultura is a Education HTML Template">
+    <meta name="keywords"
+        content="	classes, college, course, courses, educational, learning, online courses, revolution slider, school, seminar, tutorials, university, workshop">
+    <meta name="author" content="regaltheme.com">
+    <title>Dịch vụ giao hàng C4</title>
+    <!-- favicon -->
+    <link rel="shortcut icon" type="image/x-icon" href="/assets/img/favicon.ico">
+    <!-- style css -->
+    <link rel="stylesheet" href="/style.css">
+    <!-- modernizr js -->
+    <script src="/assets/js/vendor/modernizr-2.8.3.min.js"></script>
+    <!-- client interact script -->
+    <script src="/js/emp_func.js"></script>
+</head>
+
+
+<body onload="show('receive-order-section')">
+    <!--[if lt IE 8]>
+            <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+          <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+          <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+        <![endif]-->
+    <!-- Wrapper Start -->
+    <div class="wrapper">
+        <!-- Header Section Start -->
+        <header class="main-header">
+            <div class="top-bar">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div class="d-flex justify-end">
+                                <div class="left mr-auto">
+                                    <ul class="clearfix">
+                                        <li>Phone: <a href="tel:+98698547258">+837 3638 201</a></li>
+                                        <li>Open hours: 24/7</li>
+                                    </ul>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.row -->
+                </div>
+                <!-- /.container -->
+            </div>
+            <div id="active-sticky" class="navgation-bar">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div class="d-flex justify-end">
+                                <div class="logo mr-auto" style="width:auto;">
+                                    <a href="http://localhost:3000"><img src="/images/home-logo.png" alt="Home Page"
+                                            style="width: 80px;display:inline" />
+                                        <p style="display:inline">Hoa Yêu Thương</p>
+                                    </a>
+                                </div>
+                                <!-- Static navbar -->
+                                <nav class="mainmenu">
+
+                                    <div id="navbar" class="navbar-collapse collapse no-padding">
+                                        <ul class="navbar-nav dropdown">
+                                            <li><a onclick="show('receive-order-section')">Nhận đơn hàng</a></li>
+                                            <li><a onclick="show('received-order-section')">Đơn đã nhận</a></li>
+                                            <li><a onclick="show('delivered-order-section')">Đơn đã giao</a></li>
+                                            <li><a onclick="show('salary-section')">Xem lương</a></li>
+                                            <li><a href="/log-out">Đăng xuất</a></li>
+                                            <li>
+                                                <a href="javascript:viod(0)" class="dropdown-toggle"
+                                                    data-toggle="dropdown" title="Show contact">
+                                                    Contact <i class="zmdi zmdi-chevron-down"></i>
+                                                </a>
+                                                <ul class="dropdown-menu">
+                                                    <li><a href="courses.html">Facebook</a></li>
+                                                    <li><a href="courses-list-view.html">EMail</a></li>
+                                                    <li><a href="course-details.html">Skype</a></li>
+                                                </ul>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <!--/.nav-collapse -->
+                                </nav>
+                                <!-- <div class="search-toggle pull-right">
+                                    <i class="zmdi zmdi-search"></i>
+                                </div> -->
+                                <div class="courses-searching">
+                                    <div class="close-search"></div>
+                                    <form action="#">
+                                        <input type="text" name="search" placeholder="Courses Search..." />
+                                        <button id="close" type="submit"><i class="zmdi zmdi-search"></i></button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.row -->
+                </div>
+                <!-- /.container -->
+            </div>
+        </header>
+
+        <!-- Header Section End -->
+
+        <!-- receive order section Start -->
+        <section class="register-area section-padding white-bg" id="receive-order-section">
+            <div class="container">
+                <div class="row">
+                    <div class="" style="margin: 0 auto; width: auto;">
+                        <div class="enter-box" style="padding: 87px;width: 1100px; margin: 0 auto;">
+                            <h3 class="mb-35">Nhận đơn hàng</h3>
+                            <form class="custom-input">
+                                <br>
+                                <table class="table " id="driver-order-table">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col" style="width: 200px;">
+                                                <h6 style="margin:5px 0 0 0;">Mã đơn hàng</h6>
+                                            </th>
+                                            <th scope="col" style="width: 300px;">
+                                                <h6 style="margin:5px 0 0 0;">Tên người nhận</h6>
+                                            </th>
+                                            <th scope="col" style="width: 100px;">
+                                                <h6 style="margin:5px 0 0 0;">Giá trị</h6>
+                                            </th>
+                                            <th scope="col" style="width: 300px;">
+                                                <h6 style="margin:5px 0 0 0;">Địa chỉ</h6>
+                                            </th>
+                                            <th scope="col" style="width: 100px;">
+                                                <h6 style="margin:5px 0 0 0;">Nhận đơn</h6>
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
+                                </table>
+                                <h6 style="margin:5px 0 0 0;">Tổng số lượng đơn hàng:</h6>
+                                <h6 style="margin:5px 0 0 0;" id="tongsoluong"></h6>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!--  receive order order section END -->
+
+
+        <!-- received order section Start -->
+        <section class="register-area section-padding white-bg" id="received-order-section">
+            <div class="container">
+                <div class="row">
+                    <div class="" style="margin: 0 auto; width: auto;">
+                        <div class="enter-box" style="padding: 87px;width: 1100px; margin: 0 auto;">
+                            <h3 class="mb-35">Đơn đã nhận</h3>
+                            <form class="custom-input">
+                                <br>
+                                <table class="table " id="driver-order-table">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col" style="width: 200px;">
+                                                <h6 style="margin:5px 0 0 0;">Mã đơn hàng</h6>
+                                            </th>
+                                            <th scope="col" style="width: 300px;">
+                                                <h6 style="margin:5px 0 0 0;">Tên người nhận</h6>
+                                            </th>
+                                            <th scope="col" style="width: 100px;">
+                                                <h6 style="margin:5px 0 0 0;">Giá trị</h6>
+                                            </th>
+                                            <th scope="col" style="width: 300px;">
+                                                <h6 style="margin:5px 0 0 0;">Địa chỉ</h6>
+                                            </th>
+                                            <th scope="col" style="width: 100px;">
+                                                <h6 style="margin:5px 0 0 0;">Nhận đơn</h6>
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
+                                </table>
+                                <h6 style="margin:5px 0 0 0;">Tổng số lượng đơn hàng:</h6>
+                                <h6 style="margin:5px 0 0 0;" id="tongsoluong"></h6>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!--  received order section END -->
+
+        <!-- delivered order section Start -->
+        <section class="register-area section-padding white-bg" id="delivered-order-section">
+            <div class="container">
+                <div class="row">
+                    <div class="" style="margin: 0 auto; width: auto;">
+                        <div class="enter-box" style="padding: 87px;width: 1100px; margin: 0 auto;">
+                            <h3 class="mb-35">Đơn đã giao</h3>
+                            <form class="custom-input">
+                                <br>
+                                <table class="table " id="driver-order-table">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col" style="width: 200px;">
+                                                <h6 style="margin:5px 0 0 0;">Mã đơn hàng</h6>
+                                            </th>
+                                            <th scope="col" style="width: 300px;">
+                                                <h6 style="margin:5px 0 0 0;">Tên người nhận</h6>
+                                            </th>
+                                            <th scope="col" style="width: 100px;">
+                                                <h6 style="margin:5px 0 0 0;">Giá trị</h6>
+                                            </th>
+                                            <th scope="col" style="width: 300px;">
+                                                <h6 style="margin:5px 0 0 0;">Địa chỉ</h6>
+                                            </th>
+                                            <th scope="col" style="width: 100px;">
+                                                <h6 style="margin:5px 0 0 0;">Nhận đơn</h6>
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
+                                </table>
+                                <h6 style="margin:5px 0 0 0;">Tổng số lượng đơn hàng:</h6>
+                                <h6 style="margin:5px 0 0 0;" id="tongsoluong"></h6>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!--  delivered order section END -->
+
+        <!-- Salary section Start -->
+        <section class="register-area section-padding white-bg" id="salary-section">
+            <div class="container">
+                <div class="row">
+                    <div class="" style="margin: 0 auto; width: auto;">
+                        <div class="enter-box" style="padding: 87px;width: 1000px; margin: 0 auto;">
+                            <h3 class="mb-35">Lịch sử lương</h3>
+                            <form class="custom-input">
+
+                                <br>
+                                <table class="table ">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col" style="width: 200px;">
+                                                <h6 style="margin:5px 0 0 0;">Ngày nhận lương</h6>
+                                            </th>
+                                            <th scope="col" style="width: 200px;">
+                                                <h6 style="margin:5px 0 0 0;">Lương</h6>
+                                            </th>
+                                            <th scope="col" style="width: 200px;">
+                                                <h6 style="margin:5px 0 0 0;">Thưởng</h6>
+                                            </th>
+                                            <th scope="col" style="width: 200px;">
+                                                <h6 style="margin:5px 0 0 0;">Tổng lương</h6>
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
+                                </table>
+                                <table class="table " id="driver-salary-table">
+                                    <thead>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <th scope="col" style="width: 400px;">
+                                                <h4 style="margin:5px 0 0 0; margin-left: 138px; font-weight: bold;">
+                                                    Lương hiện tại</h4>
+                                            </th>
+
+                                            <th scope="col" style="width: 200px;">
+                                                <h6 style="margin:5px 0 0 0; font-weight: bold;" id="total-salary">
+                                                    123456789 vnd</h6>
+                                            </th>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Salary section END -->
+
+        <!-- Footer Section Start -->
+        <footer class="section-pt bg-color-5">
+            <div class="footer-widget-area pb-100">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-6 col-md-3 mobi-mb-50 tab-mb-50">
+                            <div class="footer-widget address">
+                                <div class="title mb-40">
+                                    <a href="index.html"><img src="assets/img/white-logo.png" alt="Cultura" /></a>
+                                </div>
+                                <ul>
+                                    <li class="mb-10"><span>Address:</span> 10 North 10 Street,
+                                        <br /> Office 120 Barinai UK 200
+                                    </li>
+                                    <li><span>Phone:</span> <a href="tel:+895245485565">+89 524 5485 565</a></li>
+                                    <li><span>Email:</span> <a href="mailto:cultura@email.com">cultura@email.com</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <!-- /.Widget end -->
+                        <div class="col-xs-12 col-sm-6 col-md-3 mobi-mb-50 tab-mb-50">
+                            <div class="footer-widget links">
+                                <div class="title mb-40">
+                                    <h4 class="text-capitalize">Author <span class="theme-color">Links</span></h4>
+                                    <div class="horizontal-line">
+                                        <hr class="top">
+                                        <hr class="bottom">
+                                    </div>
+                                </div>
+                                <ul class="pull-left" style="width: 100%">
+                                    <li>
+                                        <h4 class="text-capitalize">Bộ môn Hệ quản trị CSDL</h4>
+                                    </li>
+                                    <li>
+                                        <h4 class="text-capitalize">Trần Minh Sơn</h4>
+                                    </li>
+                                    <li>
+                                        <h4 class="text-capitalize">Phạm Tân Tị</h4>
+                                    </li>
+                                    <li>
+                                        <h4 class="text-capitalize">Hồ Minh Quân</h4>
+                                    </li>
+                                    <li>
+                                        <h4 class="text-capitalize">Lê Nam Thái Sơn</h4>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-- /.Widget end -->
+                    </div>
+                    <!-- /.row -->
+                </div>
+                <!-- /.container -->
+            </div>
+            <!-- /.Widget Area End -->
+            <div class="divide">
+                <div class="container">
+                    <hr class="line" />
+                </div>
+            </div>
+            <!-- /.Divede Line -->
+            <div class="copyright">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-6">
+                            <div class="left">
+                                <p>Copyright &copy; 2018 <a
+                                        href="https://themeforest.net/user/regaltheme/portfolio">Regaltheme</a>.</p>
+                            </div>
+                            <!-- Change your Copyright -->
+                        </div>
+                        <div class="col-xs-12 col-sm-6">
+                            <div class="social-icon text-right">
+                                <ul class="clearfix d-inblock">
+                                    <li><a href="https://www.facebook.com/regaltheme/" target="_blank"><i
+                                                class="zmdi zmdi-facebook"></i></a></li>
+                                    <li><a href="https://twitter.com/regaltheme" target="_blank"><i
+                                                class="zmdi zmdi-twitter"></i></a></li>
+                                    <li><a href="https://www.pinterest.com/regaltheme/" target="_blank"><i
+                                                class="zmdi zmdi-pinterest"></i></a></li>
+                                    <li><a href="http://www.instagram.com" target="_blank"><i
+                                                class="zmdi zmdi-instagram"></i></a></li>
+                                </ul>
+                            </div>
+                            <!-- Change your social media link -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+        <!-- Footer Section End -->
+    </div>
+    <!-- Wrapper Start -->
+
+    <!-- All JS Here -->
+    <!-- jQuery Latest Version -->
+    <script src="assets/js/vendor/jquery-1.12.4.min.js"></script>
+    <!-- Bootstrap JS -->
+    <script src="assets/js/bootstrap.min.js"></script>
+    <!-- Form Validate -->
+    <script src="assets/js/jquery.validate.min.js"></script>
+    <!-- Slick Slider JS -->
+    <script src="assets/js/slick.min.js"></script>
+    <!-- Swiper JS -->
+    <script src="assets/js/swiper.min.js"></script>
+    <!-- Isotope JS -->
+    <script src="assets/js/isotope.pkgd.min.js"></script>
+    <!-- Plugins JS -->
+    <script src="assets/js/plugins.js"></script>
+    <!-- Progressbar JS -->
+    <script src="assets/js/progressbar.js"></script>
+    <!-- main JS -->
+    <script src="assets/js/main.js"></script>
+</body>
+
+</html>
