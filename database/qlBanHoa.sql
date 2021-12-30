@@ -156,7 +156,8 @@ CREATE TABLE [GiamGia]
 	[MaGiamGia] varchar(10) NOT NULL,
 	[LoaiGiamGia] nvarchar(50) NULL,
 	[SoTienGiam] int NULL,
-	[PhanTramGiam] int NULL
+	[PhanTramGiam] int NULL,
+	[NgayHetHan] date NOT NULL
 )
 GO
 
