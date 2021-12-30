@@ -4,6 +4,11 @@
 /*  DBMS       : SQL Server 2012 						*/
 /* ---------------------------------------------------- */
 
+/*USE MASTER
+CREATE DATABASE qlBanHoa
+GO
+USE qlBanHoa*/
+
 /* Drop Foreign Key Constraints */
 
 IF EXISTS (SELECT 1 FROM dbo.sysobjects WHERE id = object_id(N'[FK_BangGiaSP_SanPham]') AND OBJECTPROPERTY(id, N'IsForeignKey') = 1) 
@@ -104,7 +109,7 @@ GO
 
 CREATE TABLE [BangGiaSP]
 (
-	[MaSP] varchar(10) NOT NULL,
+	[MaSP] char(10) NOT NULL,
 	[NgayApDung] date NOT NULL,
 	[GiaNhap] int NULL,
 	[GiaBan] int NULL
@@ -123,7 +128,7 @@ CREATE TABLE [CT_HoaDon]
 (
 	[MaHD] varchar(10) NOT NULL,
 	[STT] int NOT NULL,
-	[MaSP] varchar(10) NULL,
+	[MaSP] char(10) NULL,
 	[SoLuong] int NULL,
 	[ThanhTien] int NULL
 )
@@ -133,7 +138,7 @@ CREATE TABLE [CT_NhapHang]
 (
 	[STT] int NOT NULL,
 	[MaDonNhap] varchar(10) NOT NULL,
-	[MaSP] varchar(10) NULL,
+	[MaSP] char(10) NULL,
 	[SoLuong] int NULL
 )
 GO
@@ -162,7 +167,7 @@ CREATE TABLE [HoaDon]
 	[DiaChiGiaoHang] nvarchar(100) NULL,
 	[LoiNhan] nvarchar(500) NULL,
 	[TrangThai] nvarchar(20) NULL,
-	[MaKH] varchar(20) NULL,
+	[MaKH] char(10) NULL,
 	[NVGiaoHang] varchar(10) NULL,
 	[MaGiamGia] varchar(10) NULL,
 	[TongTien] int NULL
@@ -171,7 +176,7 @@ GO
 
 CREATE TABLE [KhachHang]
 (
-	[MaKH] varchar(10) NOT NULL,
+	[MaKH] char(10) NOT NULL,
 	[TaiKhoan] varchar(50) NOT NULL,
 	[MatKhau] varchar(50) NULL,
 	[HoTen] nvarchar(50) NULL,
@@ -211,7 +216,7 @@ GO
 
 CREATE TABLE [SanPham]
 (
-	[MaSP] varchar(50) NOT NULL,
+	[MaSP] char(10) NOT NULL,
 	[TenSP] varchar(50) NULL,
 	[SoLuongTon] varchar(50) NULL,
 	[LoaiSP] varchar(50) NULL,
