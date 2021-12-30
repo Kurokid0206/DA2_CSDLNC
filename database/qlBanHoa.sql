@@ -119,17 +119,18 @@ GO
 
 CREATE TABLE [BangLuong]
 (
-	[MaNV] varchar(10) NOT NULL,
+	[MaNV] char(10) NOT NULL,
 	[NgayTangLuong] date NOT NULL,
-	[Luong] int NULL
+	[Luong] int NULL,
+	[Thuong] int NULL
 )
 GO
 
 CREATE TABLE [CT_HoaDon]
 (
-	[MaHD] varchar(10) NOT NULL,
+	[MaHD] char(10) NOT NULL,
 	[STT] int NOT NULL,
-	[MaSP] varchar(10) NULL,
+	[MaSP] char(10) NULL,
 	[SoLuong] int NULL,
 	[ThanhTien] int NULL
 )
@@ -138,15 +139,15 @@ GO
 CREATE TABLE [CT_NhapHang]
 (
 	[STT] int NOT NULL,
-	[MaDonNhap] varchar(10) NOT NULL,
-	[MaSP] varchar(10) NULL,
+	[MaDonNhap] char(10) NOT NULL,
+	[MaSP] char(10) NULL,
 	[SoLuong] int NULL
 )
 GO
 
 CREATE TABLE [DonNhapHang]
 (
-	[MaDonNhap] varchar(10) NOT NULL,
+	[MaDonNhap] char(10) NOT NULL,
 	[NgayNhap] date NULL,
 )
 GO
@@ -163,13 +164,13 @@ GO
 
 CREATE TABLE [HoaDon]
 (
-	[MaHD] varchar(10) NOT NULL,
+	[MaHD] char(10) NOT NULL,
 	[NgayLap] date NULL,
 	[TenNguoiNhan] nvarchar(50) NULL,
 	[DiaChiGiaoHang] nvarchar(100) NULL,
 	[LoiNhan] nvarchar(500) NULL,
 	[TrangThai] nvarchar(20) NULL,
-	[MaKH] varchar(10) NULL,
+	[MaKH] char(10) NULL,
 	[NVGiaoHang] varchar(10) NULL,
 	[MaGiamGia] varchar(10) NULL,
 	[TongTien] int NULL
@@ -178,7 +179,7 @@ GO
 
 CREATE TABLE [KhachHang]
 (
-	[MaKH] varchar(10) NOT NULL,
+	[MaKH] char(10) NOT NULL,
 	[TaiKhoan] varchar(50) NOT NULL,
 	[HoTen] nvarchar(50) NULL,
 	[Email] varchar(50) NULL,
@@ -189,7 +190,7 @@ GO
 
 CREATE TABLE [NgayLamViec]
 (
-	[MaNV] varchar(10) NOT NULL,
+	[MaNV] char(10) NOT NULL,
 	[NgayLamViec] int NOT NULL,
 	[SoDonGiao] int NULL
 )
@@ -197,8 +198,8 @@ GO
 
 CREATE TABLE [NhanVien]
 (
-	[MaNV] varchar(10) NOT NULL,
-	[TenNV] varchar(50) NULL,
+	[MaNV] char(10) NOT NULL,
+	[TenNV] nvarchar(50) NULL,
 	[MucTieu] int NULL,
 	[HieuSuat] float NULL,
 	[TaiKhoan] varchar(50) NOT NULL
@@ -207,7 +208,7 @@ GO
 
 CREATE TABLE [QuaTangKem]
 (
-	[MaQua] varchar(10) NOT NULL,
+	[MaQua] char(10) NOT NULL,
 	[TenQua] nvarchar(50) NULL,
 	[GiaNhap] int NULL,
 	[GiaBan] int NULL
@@ -216,7 +217,7 @@ GO
 
 CREATE TABLE [SanPham]
 (
-	[MaSP] varchar(10) NOT NULL,
+	[MaSP] char(10) NOT NULL,
 	[TenSP] nvarchar(50) NULL,
 	[SoLuongTon] int NULL,
 	[LoaiSP] nvarchar(50) NULL,
