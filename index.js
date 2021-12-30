@@ -24,6 +24,21 @@ app.set("view engine","ejs");
 
 const sql = require('mssql');
 
+//router
+const customer=require('./routes/customer')
+const manage_product=require('./routes/manage_product')
+const emp=require('./routes/emp')
+const manager=require('./routes/manager')
+
+//use router
+app.use("/customer",customer)
+app.use("/manage_product",manage_product)
+app.use("/emp",emp)
+app.use("/manager",manager)
+
+
+
+
 app.listen(3000, function() {
     console.log("server is listen on port 3000.");
 });
@@ -40,54 +55,21 @@ config = {
     }
 }
 
+
 //API
 
 //home page
 app.get("/", function(req, res) {
-    //console.log(req.session.user)
-    // if (req.session.user) {
-    //     //console.log(req.session.user)
-    //     let type = req.session.user
-    //     if (type.indexOf("KH") > -1) {
-    //         res.sendFile(__dirname + "/html/customer.html")
-    //     } else if (type.indexOf("TX") > -1) {
-    //         //res.redirect("/driver")
-    //         res.sendFile(__dirname + "/html/driver.html")
-    //     } else if (type.indexOf("DT") > -1) {
-    //         //res.redirect("/supplier")
-    //         res.sendFile(__dirname + "/html/supplier.html")
-    //     } else if (type.indexOf("NV") > -1) {
-    //         //res.redirect("/employee")
-    //         res.sendFile(__dirname + "/html/employee.html")
-    //     } else if (type.indexOf("QTV") > -1) {
-    //         //res.redirect("/admin")
-    //         res.sendFile(__dirname + "/html/admin.html")
-    //     } else {
-    //         res.sendFile(__dirname + "/html/index.html")
-    //     }
-    // } else { 
        res.render("index") //}
 })
 
 
-//customer page
-app.get("/customer", function(req, res) {
-        res.sendFile(__dirname + "/html/customer.html")
-})
 
-//manager page
-app.get("/manager", function(req, res) {
-        res.sendFile(__dirname + "/html/manager.html")
-    })
-//driver page
-app.get("/driver", function(req, res) {
-        res.sendFile(__dirname + "/html/driver.html")
-    })
 
-//admin page
-app.get("/admin", function(req, res) {
-    res.sendFile(__dirname + "/html/admin.html")
-})
+
+
+
+
 
 // app.get("/registration", function(req, res) {
 //     res.sendFile(__dirname + "/html/registration.html")
