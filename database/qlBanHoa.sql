@@ -4,10 +4,15 @@
 /*  DBMS       : SQL Server 2012 						*/
 /* ---------------------------------------------------- */
 
-/*USE MASTER
-CREATE DATABASE qlBanHoa
-GO
-USE qlBanHoa*/
+use master
+go
+if DB_ID('qlBanHoa') is not null
+	drop database qlBanHoa
+go
+create database qlBanHoa
+go
+use qlBanHoa
+go
 
 /* Drop Foreign Key Constraints */
 
@@ -219,8 +224,8 @@ CREATE TABLE [SanPham]
 	[MaSP] char(10) NOT NULL,
 	[TenSP] varchar(50) NULL,
 	[SoLuongTon] varchar(50) NULL,
-	[LoaiSP] varchar(50) NULL,
-	[MoTaSP] varchar(50) NULL
+	[LoaiSP] nvarchar(50) NULL,
+	[MoTaSP] nvarchar(300) NULL
 )
 GO
 

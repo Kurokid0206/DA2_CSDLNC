@@ -59,7 +59,7 @@
                             <div class="d-flex justify-end">
                                 <div class="logo mr-auto" style="width:auto;">
                                     <a href="http://localhost:3000"><img src="/images/home-logo.png" alt="Home Page" style="width: 80px;display:inline" />
-                                        <p style="display:inline">GIAO HÀNG C4</p>
+                                        <p style="display:inline">Hoa yêu thương</p>
                                     </a>
 
                                 </div>
@@ -68,8 +68,10 @@
 
                                     <div id="navbar" class="navbar-collapse collapse no-padding">
                                         <ul class="navbar-nav dropdown">
-                                            <li><a onclick="ad_show('add-employee-section')">Thêm nhân viên</a></li>
-                                            <li><a onclick="get_user();">Quản lý tài khoản</a></li>
+                                            <li><a onclick="">Quản lý sản phẩm</a></li>
+                                            <li><a onclick="">Theo dõi giá bán</a></li>
+                                            <li><a onclick="">Quản lý tồn kho</a></li>
+                                            <li><a onclick="">Lịch sử nhập</a></li>
                                             <li><a href="/log-out">Đăng xuất</a></li>
                                             <li>
                                                 <a href="javascript:viod(0)" class="dropdown-toggle" data-toggle="dropdown" title="Show contact">
@@ -136,42 +138,61 @@
         <!-- Add employee section End -->
 
 
-        <!-- manager account section Start -->
-        <section class="register-area section-padding white-bg" id="manager-account-section">
+        <!-- manager products section Start -->
+        <section class="register-area section-padding white-bg" id="manager-products-section">
             <div class="container">
                 <div class="row">
                     <div class="" style="margin: 0 auto; width: auto;">
                         <div class="enter-box" style="padding: 87px;width: 1100px; margin: 0 auto;">
                             <h3 class="mb-35">Quản lí tài khoản</h3>
                             <form class="custom-input">
-                                <!-- lọc theo tên tài khoản, ko biết tên tài khoản thì khỏi vọc -->
-                                <h6 style="margin:5px 0 0 0;">Tìm kiếm người dùng:</h6>
-                                <input type="text" id="username-for-seach-lock" placeholder="Nhập tên người dùng" style="max-width:30%;" />
-                                <button type="button" class="btn-primary" onclick="get_user();">Tìm kiếm</button>
+                                <!-- lọc theo tên sản phẩm, ko biết tên sản phẩm thì khỏi coi -->
+                                <h6 style="margin:5px 0 0 0;">Tìm kiếm sản phẩm:</h6>
+                                <input type="text" id="product_name-for-seach" placeholder="Nhập teensanr phẩm" style="max-width:30%;" />
+                                <button type="button" class="btn-primary" onclick="get_product();">Tìm kiếm</button>
                                 <br><br>
 
-                                <table class="table " id="manager-account-table">
+                                <table class="table " id="manager-products-table">
                                     <thead>
                                         <tr>
+                                            <th scope="col" style="width: 100px;">
+                                                <h6 style="margin:5px 0 0 0;">Mã sản phẩm</h6>
+                                            </th>
                                             <th scope="col" style="width: 200px;">
-                                                <h6 style="margin:5px 0 0 0;">Tên tài khoản</h6>
+                                                <h6 style="margin:5px 0 0 0;">Tên sản phẩm</h6>
                                             </th>
                                             <th scope="col" style="width: 300px;">
-                                                <h6 style="margin:5px 0 0 0;">Tên người dùng</h6>
+                                                <h6 style="margin:5px 0 0 0;">Mô tả</h6>
                                             </th>
                                             <th scope="col" style="width: 150px;">
-                                                <h6 style="margin:5px 0 0 0;">Vai trò</h6>
-                                            </th>
-                                            <th scope="col" style="width: 150px;">
-                                                <h6 style="margin:5px 0 0 0;">Trạng thái</h6>
+                                                <h6 style="margin:5px 0 0 0;">Giá bán</h6>
                                             </th>
                                             <th scope="col" style="width: 200px;">
-                                                <h6 style="margin:5px 0 0 0;">Quản lý</h6>
+                                                <h6 style="margin:5px 0 0 0;">Thao tác</h6>
                                             </th>
                                         </tr>
                                     </thead>
 
                                     <tbody>
+                                        <tr id="SP3456789">
+                                            <td>
+                                                <input type="text" value="SP3456789">
+                                                <h6 style="margin:5px 0 0 0;">SƠ3456789</h6>
+                                            </td>
+                                            <td>
+                                                <input type="text" value="Hoa thanh tâm">
+                                            </td>
+                                            <td>
+                                                <textarea name="" id="" cols="30" rows="4">Hoa màu trắng tinh khiết, có tác dụng an thần giải tỏa căng thẳng. Thích hợp tặng cho dê dừa trong đợt rerun sắp tới.</textarea>
+                                            </td>
+                                            <td>
+                                                <h6 style="margin:5px 0 0 0;">160,000 vnd</h6>
+                                            </td>
+                                            <td>
+                                                <button type="button" class="btn-primary" onclick="">edit</button>
+                                            </td>
+
+                                        </tr>
                                     </tbody>
                                 </table>
 
@@ -181,7 +202,7 @@
                 </div>
             </div>
         </section>
-        <!-- manager account section END -->
+        <!-- manager products section END -->
 
 
 
