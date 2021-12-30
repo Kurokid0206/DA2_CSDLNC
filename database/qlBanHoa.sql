@@ -219,7 +219,8 @@ CREATE TABLE [SanPham]
 	[TenSP] nvarchar(50) NULL,
 	[SoLuongTon] int NULL,
 	[LoaiSP] nvarchar(50) NULL,
-	[MoTaSP] nvarchar(200) NULL
+	[MauSac] nvarchar(50) NULL,
+	[ChuDe] nvarchar(50) NULL
 )
 GO
 
