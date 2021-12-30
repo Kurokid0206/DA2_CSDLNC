@@ -5,6 +5,12 @@
 /* ---------------------------------------------------- */
 
 /* Drop Foreign Key Constraints */
+USE master
+GO
+CREATE DATABASE QLBanHoa
+GO
+USE QLBanHoa
+GO
 
 IF EXISTS (SELECT 1 FROM dbo.sysobjects WHERE id = object_id(N'[FK_BangGiaSP_SanPham]') AND OBJECTPROPERTY(id, N'IsForeignKey') = 1) 
 ALTER TABLE [BangGiaSP] DROP CONSTRAINT [FK_BangGiaSP_SanPham]
@@ -162,7 +168,7 @@ CREATE TABLE [HoaDon]
 	[DiaChiGiaoHang] nvarchar(100) NULL,
 	[LoiNhan] nvarchar(500) NULL,
 	[TrangThai] nvarchar(20) NULL,
-	[MaKH] varchar(20) NULL,
+	[MaKH] varchar(10) NULL,
 	[NVGiaoHang] varchar(10) NULL,
 	[MaGiamGia] varchar(10) NULL,
 	[TongTien] int NULL
@@ -173,7 +179,6 @@ CREATE TABLE [KhachHang]
 (
 	[MaKH] varchar(10) NOT NULL,
 	[TaiKhoan] varchar(50) NOT NULL,
-	[MatKhau] varchar(50) NULL,
 	[HoTen] nvarchar(50) NULL,
 	[Email] varchar(50) NULL,
 	[SDT] varchar(12) NULL,
@@ -192,8 +197,7 @@ GO
 CREATE TABLE [NhanVien]
 (
 	[MaNV] varchar(10) NOT NULL,
-	[TenDN] varchar(50) NULL,
-	[MatKhauDN] varchar(50) NULL,
+	[TenNV] varchar(50) NULL,
 	[MucTieu] int NULL,
 	[HieuSuat] float NULL,
 	[TaiKhoan] varchar(50) NOT NULL
@@ -211,11 +215,11 @@ GO
 
 CREATE TABLE [SanPham]
 (
-	[MaSP] varchar(50) NOT NULL,
-	[TenSP] varchar(50) NULL,
-	[SoLuongTon] varchar(50) NULL,
-	[LoaiSP] varchar(50) NULL,
-	[MoTaSP] varchar(50) NULL
+	[MaSP] varchar(10) NOT NULL,
+	[TenSP] nvarchar(50) NULL,
+	[SoLuongTon] int NULL,
+	[LoaiSP] nvarchar(50) NULL,
+	[MoTaSP] nvarchar(200) NULL
 )
 GO
 
