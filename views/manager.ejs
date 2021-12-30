@@ -6,9 +6,10 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="Cultura is a Education HTML Template">
-    <meta name="keywords" content="	classes, college, course, courses, educational, learning, online courses, revolution slider, school, seminar, tutorials, university, workshop">
+    <meta name="keywords"
+        content="	classes, college, course, courses, educational, learning, online courses, revolution slider, school, seminar, tutorials, university, workshop">
     <meta name="author" content="regaltheme.com">
-    <title>Dịch vụ giao hàng C4</title>
+    <title>Hoa Yêu Thương</title>
     <!-- favicon -->
     <link rel="shortcut icon" type="image/x-icon" href="/assets/img/favicon.ico">
     <!-- style css -->
@@ -16,11 +17,10 @@
     <!-- modernizr js -->
     <script src="/assets/js/vendor/modernizr-2.8.3.min.js"></script>
     <!-- client interact script -->
-    <script src="/js/homepage.js"></script>
-    <script src="/js/emp-function.js"></script>
+    <script src="/js/manager_func.js"></script>
 </head>
 
-<body onload="emp_show('confirm-contract-section');emp_view_notconfirm_contract();">
+<body onload="">
     <!--[if lt IE 8]>
             <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
@@ -58,22 +58,31 @@
                         <div class="col-xs-12">
                             <div class="d-flex justify-end">
                                 <div class="logo mr-auto" style="width:auto;">
-                                    <a href="http://localhost:3000"><img src="/images/home-logo.png" alt="Home Page" style="width: 80px;display:inline" />
-                                        <p style="display:inline">GIAO HÀNG C4</p>
+                                    <a href="http://localhost:3000"><img src="/images/home-logo.png" alt="Home Page"
+                                            style="width: 80px;display:inline" />
+                                        <p style="display:inline">Hoa Yêu Thương</p>
                                     </a>
                                 </div>
                                 <!-- Static navbar -->
+                                <!-- Phân hệ quản lý (các chức năng thống kê doanh thu, 
+                                    số lượng hàng, các mặt hàng bán chạy, bán chậm, 
+                                    hiệu suất làm việc của nhân viên, so sánh doanh thu, thiết lập giảm giá…)  -->
+
                                 <nav class="mainmenu">
                                     <div id="navbar" class="navbar-collapse collapse no-padding">
                                         <ul class="navbar-nav dropdown">
 
-                                            <li><a onclick="emp_show('confirm-contract-section');emp_view_notconfirm_contract();">Duyệt hợp đồng</a></li>
-                                            <li><a onclick="emp_show('view-contract-section'); emp_view_contract()">Quản lý hợp đồng</a></li>
-                                            <li><a href="/log-out">Đăng xuất</a></li>
+                                            <li><a onclick="">Doanh thu</a></li>
+                                            <li><a onclick="">Số lượng hàng</a></li>
+                                            <li><a onclick="">Số lượng hàng</a></li>
+                                            <li><a onclick="">Hiệu suất nhân viên</a></li>
+                                            <li><a onclick="">Giảm giá</a></li>
+                                            <!-- <li><a href="/log-out">Đăng xuất</a></li> -->
 
 
                                             <li>
-                                                <a href="javascript:viod(0)" class="dropdown-toggle" data-toggle="dropdown" title="Show contact">
+                                                <a href="javascript:viod(0)" class="dropdown-toggle"
+                                                    data-toggle="dropdown" title="Show contact">
                                                     Contact <i class="zmdi zmdi-chevron-down"></i>
                                                 </a>
                                                 <ul class="dropdown-menu">
@@ -108,127 +117,243 @@
         <!-- Header Section End -->
 
 
-        <!-- confirm contract section Start -->
-        <section class="register-area section-padding white-bg" id="confirm-contract-section">
+        <!-- Revenue section Start -->
+        <section class="register-area section-padding white-bg" id="Revenue-section">
             <div class="container">
                 <div class="row">
                     <div class="" style="margin: 0 auto; width: auto;">
-                        <div class="enter-box" style="padding: 87px;width: 1200px; margin: 0 auto;">
-                            <h3 class="mb-35">Duyệt hợp đồng</h3>
+                        <div class="enter-box" style="padding: 87px;width: 1000px; margin: 0 auto;">
+                            <h3 class="mb-35">Doanh thu</h3>
                             <form class="custom-input">
-
+                                <h4>Theo tháng:</h4>
+                                <select name="" id="">
+                                    <% for(var i=0;i<12;i++){%>
+                                        <option value=<%=i+1%>>Tháng <%=i+1%>
+                                        </option>
+                                        <%}%>
+                                </select>
                                 <br>
-
-                                <h6 id="confirm-contract-help" style="margin:5px 0 0 0; color: brown;">
-                                </h6>
-                                <br>
-                                <table class="table " id="confirm-contract-table">
+                                <table class="table" id="Revenue-table">
                                     <thead>
                                         <tr>
-                                            <th scope="col" style="width: 150px;">
-                                                <h6 style="margin:5px 0 0 0;">Mã hợp đồng</h6>
+                                            <th scope="col" style="width: 100px;">
+                                                <h6 style="margin:5px 0 0 0;">Mã sản phẩm</h6>
+                                            </th>
+                                            <th scope="col" style="width: 300px;">
+                                                <h6 style="margin:5px 0 0 0;">Tên sản phẩm</h6>
                                             </th>
                                             <th scope="col" style="width: 200px;">
-                                                <h6 style="margin:5px 0 0 0;">Tên đối tác</h6>
-                                            </th>
-                                            <th scope="col" style="width: 200px;">
-                                                <h6 style="margin:5px 0 0 0;">Người đại diện</h6>
-                                            </th>
-                                            <th scope="col" style="width: 150px;">
-                                                <h6 style="margin:5px 0 0 0;">Số chi nhánh</h6>
-                                            </th>
-                                            <th scope="col" style="width: 100px;">
-                                                <h6 style="margin:5px 0 0 0;">Thời hạn</h6>
-                                            </th>
-                                            <th scope="col" style="width: 100px;">
-                                                <h6 style="margin:5px 0 0 0;">Chấp nhận</h6>
+                                                <h6 style="margin:5px 0 0 0;">Doanh thu</h6>
                                             </th>
                                         </tr>
-
-
                                     </thead>
-
                                     <tbody>
-
                                     </tbody>
                                 </table>
-
-
-
+                                <table class="table">
+                                    <thead>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <th scope="col" style="width: 400px;">
+                                                <h4 style="margin:5px 0 0 0; margin-left: 138px; font-weight: bold;">
+                                                    Tổng doanh thu</h4>
+                                            </th>
+                                            <th scope="col" style="width: 200px;">
+                                                <h6 style="margin:5px 0 0 0; font-weight: bold;" id="total-salary"
+                                                    id="Sum_Revenue">123456789 vnd</h6>
+                                            </th>
+                                        </tr>
+                                    </tbody>
+                                </table>
                             </form>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
-        <!-- confirm contract section END -->
+        <!-- Revenue section END -->
 
-        <!-- view contract section Start -->
-        <section class="register-area section-padding white-bg" id="view-contract-section">
+        <!-- So luong, ban chay, ban cham section Start -->
+        <section class="register-area section-padding white-bg" id="dddd-section">
             <div class="container">
                 <div class="row">
                     <div class="" style="margin: 0 auto; width: auto;">
-                        <div class="enter-box" style="padding: 87px;width: 1100px; margin: 0 auto;">
-                            <h3 class="mb-35">Quản lý hợp đồng</h3>
+                        <div class="enter-box" style="padding: 87px;width: 1000px; margin: 0 auto;">
+                            <h3 class="mb-35">Số lượng hàng</h3>
                             <form class="custom-input">
-
+                                <h4>Theo tháng:</h4>
+                                <select name="" id="">
+                                    <% for(var i=0;i<12;i++){%>
+                                        <option value=<%=i+1%>>Tháng <%=i+1%>
+                                        </option>
+                                        <%}%>
+                                </select>
                                 <br>
-                                <table class="table " id="view-contract-table">
+                                <table class="table" id="Revenue-table">
                                     <thead>
                                         <tr>
-                                            <th scope="col" style="width: 150px;">
-                                                <h6 style="margin:5px 0 0 0;">Mã hợp đồng</h6>
-                                            </th>
                                             <th scope="col" style="width: 200px;">
-                                                <h6 style="margin:5px 0 0 0;">Tên đối tác</h6>
+                                                <h6 style="margin:5px 0 0 0;">Mã sản phẩm</h6>
                                             </th>
-                                            <th scope="col" style="width: 200px;">
-                                                <h6 style="margin:5px 0 0 0;">Người đại diện</h6>
+                                            <th scope="col" style="width: 300px;">
+                                                <h6 style="margin:5px 0 0 0;">Tên sản phẩm</h6>
                                             </th>
-                                            <th scope="col" style="width: 150px;">
-                                                <h6 style="margin:5px 0 0 0;">Số chi nhánh</h6>
+                                            <th scope="col" style="width: 100px;">
+                                                <h6 style="margin:5px 0 0 0;">Tổng nhập</h6>
                                             </th>
-                                            <th scope="col" style="width: 200px;">
-                                                <h6 style="margin:5px 0 0 0;">Thời hạn (yyyy/mm/dd)</h6>
+                                            <th scope="col" style="width: 100px;">
+                                                <h6 style="margin:5px 0 0 0;">Tổng xuất</h6>
                                             </th>
                                         </tr>
-
                                     </thead>
-
                                     <tbody>
-
-
+                                    </tbody>
+                                </table>
+                                <table class="table">  
+                                    <thead>
+                                    </thead>
+                                    <tbody>
                                         <tr>
-                                            <td scope="col">
-                                                <h6 style="margin:5px 0 0 0;">#123456</h6>
-                                            </td>
-                                            <td scope="col">
-                                                <h6 style="margin:5px 0 0 0;">Công ty TNHH Dê Dừa</h6>
-                                            </td>
-                                            <td scope="col">
-                                                <h6 style="margin:5px 0 0 0;">Ganyu</h6>
-                                            </td>
-                                            <td scope="col">
-                                                <h6 style="margin:5px 0 0 0;">3</h6>
-                                            </td>
-                                            <td scope="col">
-                                                <h6 style="margin:5px 0 0 0;">2021-12-06</h6>
-                                            </td>
+                                            <th scope="col" style="width: 400px;">
+                                                <h4 style="margin:5px 0 0 0; margin-left: 138px; font-weight: bold;">
+                                                    Tổng doanh thu</h4>
+                                            </th>
+                                            <th scope="col" style="width: 200px;">
+                                                <h6 style="margin:5px 0 0 0; font-weight: bold;" id="total-salary"
+                                                    id="Sum_Revenue">123456789 vnd</h6>
+                                            </th>
                                         </tr>
                                     </tbody>
                                 </table>
-
-
-
                             </form>
-
                         </div>
                     </div>
                 </div>
             </div>
         </section>
-        <!-- view contract section END -->
+        <!--  So luong, ban chay, ban cham  section END -->
 
+
+        <!-- Employee effective section Start -->
+        <section class="register-area section-padding white-bg" id="dddd-section">
+            <div class="container">
+                <div class="row">
+                    <div class="" style="margin: 0 auto; width: auto;">
+                        <div class="enter-box" style="padding: 87px;width: 1000px; margin: 0 auto;">
+                            <h3 class="mb-35">Hiệu suất của nhân viên</h3>
+                            <form class="custom-input">
+                                <h4>Theo tháng:</h4>
+                                <select name="" id="">
+                                    <% for(var i=0;i<12;i++){%>
+                                        <option value=<%=i+1%>>Tháng <%=i+1%>
+                                        </option>
+                                        <%}%>
+                                </select>
+                                <br>
+                                <table class="table" id="Revenue-table">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col" style="width: 100px;">
+                                                <h6 style="margin:5px 0 0 0;">Mã nhân viên</h6>
+                                            </th>
+                                            <th scope="col" style="width: 200px;">
+                                                <h6 style="margin:5px 0 0 0;">Tên nhân viên</h6>
+                                            </th>
+                                            <th scope="col" style="width: 100px;">
+                                                <h6 style="margin:5px 0 0 0;">Chỉ tiêu</h6>
+                                            </th>
+                                            <th scope="col" style="width: 100px;">
+                                                <h6 style="margin:5px 0 0 0;">Hiểu suất</h6>
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
+                                </table>
+                                <table class="table">
+                                    <thead>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <th scope="col" style="width: 400px;">
+                                                <h4 style="margin:5px 0 0 0; margin-left: 138px; font-weight: bold;">
+                                                    Tổng doanh thu</h4>
+                                            </th>
+                                            <th scope="col" style="width: 200px;">
+                                                <h6 style="margin:5px 0 0 0; font-weight: bold;" id="total-salary"
+                                                    id="Sum_Revenue">123456789 vnd</h6>
+                                            </th>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!--  Employee effective section END -->
+
+        <!-- Discount section Start -->
+        <section class="register-area section-padding white-bg" id="dddd-section">
+            <div class="container">
+                <div class="row">
+                    <div class="" style="margin: 0 auto; width: auto;">
+                        <div class="enter-box" style="padding: 87px;width: 1000px; margin: 0 auto;">
+                            <h3 class="mb-35">Thêm giảm giá</h3>
+                            <form class="custom-input">
+                                <h4>Theo tháng:</h4>
+                                <select name="" id="">
+                                    <% for(var i=0;i<12;i++){%>
+                                        <option value=<%=i+1%>>Tháng <%=i+1%>
+                                        </option>
+                                        <%}%>
+                                </select>
+                                <br>
+                                <table class="table" id="Discount-table">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col" style="width: 100px;">
+                                                <h6 style="margin:5px 0 0 0;">Mã nhân viên</h6>
+                                            </th>
+                                            <th scope="col" style="width: 200px;">
+                                                <h6 style="margin:5px 0 0 0;">Tên nhân viên</h6>
+                                            </th>
+                                            <th scope="col" style="width: 100px;">
+                                                <h6 style="margin:5px 0 0 0;">Chỉ tiêu</h6>
+                                            </th>
+                                            <th scope="col" style="width: 100px;">
+                                                <h6 style="margin:5px 0 0 0;">Hiểu suất</h6>
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
+                                </table>
+                                <table class="table">
+                                    <thead>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <th scope="col" style="width: 400px;">
+                                                <h4 style="margin:5px 0 0 0; margin-left: 138px; font-weight: bold;">
+                                                    Tổng doanh thu</h4>
+                                            </th>
+                                            <th scope="col" style="width: 200px;">
+                                                <h6 style="margin:5px 0 0 0; font-weight: bold;" id="total-salary"
+                                                    id="Sum_Revenue">123456789 vnd</h6>
+                                            </th>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!--  Discount section END -->
 
         <!-- Footer Section Start -->
         <footer class="section-pt bg-color-5 ">
@@ -262,7 +387,7 @@
                                 </div>
                                 <ul class="pull-left " style="width: 100% ">
                                     <li>
-                                        <h4 class="text-capitalize ">Bộ môn Hệ quản trị CSDL</h4>
+                                        <h4 class="text-capitalize ">Môn CSDL nâng cao</h4>
                                     </li>
                                     <li>
                                         <h4 class="text-capitalize ">Trần Minh Sơn</h4>
@@ -276,7 +401,9 @@
                                     <li>
                                         <h4 class="text-capitalize ">Lê Nam Thái Sơn</h4>
                                     </li>
-
+                                    <li>
+                                        <h4 class="text-capitalize ">Lâm Quốc Bình</h4>
+                                    </li>
                                 </ul>
 
                             </div>
@@ -300,7 +427,8 @@
                     <div class="row ">
                         <div class="col-xs-12 col-sm-6 ">
                             <div class="left ">
-                                <p>Copyright &copy; 2018 <a href="https://themeforest.net/user/regaltheme/portfolio ">Regaltheme</a>.</p>
+                                <p>Copyright &copy; 2018 <a
+                                        href="https://themeforest.net/user/regaltheme/portfolio ">Regaltheme</a>.</p>
                             </div>
                             <!-- Change your Copyright -->
                         </div>

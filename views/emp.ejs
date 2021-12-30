@@ -6,7 +6,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="Cultura is a Education HTML Template">
-    <meta name="keywords" content="	classes, college, course, courses, educational, learning, online courses, revolution slider, school, seminar, tutorials, university, workshop">
+    <meta name="keywords"
+        content="	classes, college, course, courses, educational, learning, online courses, revolution slider, school, seminar, tutorials, university, workshop">
     <meta name="author" content="regaltheme.com">
     <title>Dịch vụ giao hàng C4</title>
     <!-- favicon -->
@@ -16,12 +17,11 @@
     <!-- modernizr js -->
     <script src="/assets/js/vendor/modernizr-2.8.3.min.js"></script>
     <!-- client interact script -->
-    <script src="/js/homepage.js"></script>
-    <script src="/js/dri-function.js"></script>
+    <script src="/js/emp_func.js"></script>
 </head>
 
 
-<body onload="driver_view_order();">
+<body onload="show('receive-order-section')">
     <!--[if lt IE 8]>
             <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
@@ -60,8 +60,9 @@
                         <div class="col-xs-12">
                             <div class="d-flex justify-end">
                                 <div class="logo mr-auto" style="width:auto;">
-                                    <a href="http://localhost:3000"><img src="/images/home-logo.png" alt="Home Page" style="width: 80px;display:inline" />
-                                        <p style="display:inline">GIAO HÀNG C4</p>
+                                    <a href="http://localhost:3000"><img src="/images/home-logo.png" alt="Home Page"
+                                            style="width: 80px;display:inline" />
+                                        <p style="display:inline">Hoa Yêu Thương</p>
                                     </a>
                                 </div>
                                 <!-- Static navbar -->
@@ -69,12 +70,14 @@
 
                                     <div id="navbar" class="navbar-collapse collapse no-padding">
                                         <ul class="navbar-nav dropdown">
-                                            <li><a onclick="driver_view_order();">Nhận đơn hàng</a></li>
-                                            <li><a onclick="dri_my_order();">Xác nhận giao hàng</a></li>
-                                            <li><a onclick="dri_income();">Theo dõi thu nhập</a></li>
+                                            <li><a onclick="show('receive-order-section')">Nhận đơn hàng</a></li>
+                                            <li><a onclick="show('received-order-section')">Đơn đã nhận</a></li>
+                                            <li><a onclick="show('delivered-order-section')">Đơn đã giao</a></li>
+                                            <li><a onclick="show('salary-section')">Xem lương</a></li>
                                             <li><a href="/log-out">Đăng xuất</a></li>
                                             <li>
-                                                <a href="javascript:viod(0)" class="dropdown-toggle" data-toggle="dropdown" title="Show contact">
+                                                <a href="javascript:viod(0)" class="dropdown-toggle"
+                                                    data-toggle="dropdown" title="Show contact">
                                                     Contact <i class="zmdi zmdi-chevron-down"></i>
                                                 </a>
                                                 <ul class="dropdown-menu">
@@ -108,20 +111,19 @@
 
         <!-- Header Section End -->
 
-        <!-- drive get order section Start -->
-        <section class="register-area section-padding white-bg" id="driver-order-section">
+        <!-- receive order section Start -->
+        <section class="register-area section-padding white-bg" id="receive-order-section">
             <div class="container">
                 <div class="row">
                     <div class="" style="margin: 0 auto; width: auto;">
                         <div class="enter-box" style="padding: 87px;width: 1100px; margin: 0 auto;">
-                            <h3 class="mb-35">Nhận giao đơn đặt hàng</h3>
+                            <h3 class="mb-35">Nhận đơn hàng</h3>
                             <form class="custom-input">
-
                                 <br>
                                 <table class="table " id="driver-order-table">
                                     <thead>
                                         <tr>
-                                            <th scope="col" style="width: 100px;">
+                                            <th scope="col" style="width: 200px;">
                                                 <h6 style="margin:5px 0 0 0;">Mã đơn hàng</h6>
                                             </th>
                                             <th scope="col" style="width: 300px;">
@@ -137,43 +139,38 @@
                                                 <h6 style="margin:5px 0 0 0;">Nhận đơn</h6>
                                             </th>
                                         </tr>
-
-
                                     </thead>
-
                                     <tbody>
                                     </tbody>
                                 </table>
                                 <h6 style="margin:5px 0 0 0;">Tổng số lượng đơn hàng:</h6>
                                 <h6 style="margin:5px 0 0 0;" id="tongsoluong"></h6>
-
                             </form>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
-        <!-- drive get order section END -->
+        <!--  receive order order section END -->
 
 
-        <!-- driver confirm section Start -->
-        <section class="register-area section-padding white-bg" id="driver-confirm-section">
+        <!-- received order section Start -->
+        <section class="register-area section-padding white-bg" id="received-order-section">
             <div class="container">
                 <div class="row">
                     <div class="" style="margin: 0 auto; width: auto;">
                         <div class="enter-box" style="padding: 87px;width: 1100px; margin: 0 auto;">
-                            <h3 class="mb-35">Xác nhận giao hàng</h3>
+                            <h3 class="mb-35">Đơn đã nhận</h3>
                             <form class="custom-input">
-
                                 <br>
-                                <table class="table " id="driver-confirm-table">
+                                <table class="table " id="driver-order-table">
                                     <thead>
                                         <tr>
-                                            <th scope="col" style="width: 100px;">
+                                            <th scope="col" style="width: 200px;">
                                                 <h6 style="margin:5px 0 0 0;">Mã đơn hàng</h6>
                                             </th>
                                             <th scope="col" style="width: 300px;">
-                                                <h6 style="margin:5px 0 0 0;">Sản phẩm</h6>
+                                                <h6 style="margin:5px 0 0 0;">Tên người nhận</h6>
                                             </th>
                                             <th scope="col" style="width: 100px;">
                                                 <h6 style="margin:5px 0 0 0;">Giá trị</h6>
@@ -182,41 +179,89 @@
                                                 <h6 style="margin:5px 0 0 0;">Địa chỉ</h6>
                                             </th>
                                             <th scope="col" style="width: 100px;">
-                                                <h6 style="margin:5px 0 0 0;">Xác nhận</h6>
+                                                <h6 style="margin:5px 0 0 0;">Nhận đơn</h6>
                                             </th>
                                         </tr>
                                     </thead>
-                                    <tbody></tbody>
+                                    <tbody>
+                                    </tbody>
                                 </table>
+                                <h6 style="margin:5px 0 0 0;">Tổng số lượng đơn hàng:</h6>
+                                <h6 style="margin:5px 0 0 0;" id="tongsoluong"></h6>
                             </form>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
-        <!-- driver confirm section END -->
+        <!--  received order section END -->
 
-        <!-- driver view salary section Start -->
-        <section class="register-area section-padding white-bg" id="driver-salary-section">
+        <!-- delivered order section Start -->
+        <section class="register-area section-padding white-bg" id="delivered-order-section">
+            <div class="container">
+                <div class="row">
+                    <div class="" style="margin: 0 auto; width: auto;">
+                        <div class="enter-box" style="padding: 87px;width: 1100px; margin: 0 auto;">
+                            <h3 class="mb-35">Đơn đã giao</h3>
+                            <form class="custom-input">
+                                <br>
+                                <table class="table " id="driver-order-table">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col" style="width: 200px;">
+                                                <h6 style="margin:5px 0 0 0;">Mã đơn hàng</h6>
+                                            </th>
+                                            <th scope="col" style="width: 300px;">
+                                                <h6 style="margin:5px 0 0 0;">Tên người nhận</h6>
+                                            </th>
+                                            <th scope="col" style="width: 100px;">
+                                                <h6 style="margin:5px 0 0 0;">Giá trị</h6>
+                                            </th>
+                                            <th scope="col" style="width: 300px;">
+                                                <h6 style="margin:5px 0 0 0;">Địa chỉ</h6>
+                                            </th>
+                                            <th scope="col" style="width: 100px;">
+                                                <h6 style="margin:5px 0 0 0;">Nhận đơn</h6>
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
+                                </table>
+                                <h6 style="margin:5px 0 0 0;">Tổng số lượng đơn hàng:</h6>
+                                <h6 style="margin:5px 0 0 0;" id="tongsoluong"></h6>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!--  delivered order section END -->
+
+        <!-- Salary section Start -->
+        <section class="register-area section-padding white-bg" id="salary-section">
             <div class="container">
                 <div class="row">
                     <div class="" style="margin: 0 auto; width: auto;">
                         <div class="enter-box" style="padding: 87px;width: 1000px; margin: 0 auto;">
-                            <h3 class="mb-35">Theo dõi thu nhập</h3>
+                            <h3 class="mb-35">Lịch sử lương</h3>
                             <form class="custom-input">
 
                                 <br>
                                 <table class="table ">
                                     <thead>
                                         <tr>
-                                            <th scope="col" style="width: 100px;">
-                                                <h6 style="margin:5px 0 0 0;">Mã đơn hàng</h6>
-                                            </th>
-                                            <th scope="col" style="width: 300px;">
-                                                <h6 style="margin:5px 0 0 0;">Địa chỉ</h6>
+                                            <th scope="col" style="width: 200px;">
+                                                <h6 style="margin:5px 0 0 0;">Ngày nhận lương</h6>
                                             </th>
                                             <th scope="col" style="width: 200px;">
-                                                <h6 style="margin:5px 0 0 0;">Phí thu được</h6>
+                                                <h6 style="margin:5px 0 0 0;">Lương</h6>
+                                            </th>
+                                            <th scope="col" style="width: 200px;">
+                                                <h6 style="margin:5px 0 0 0;">Thưởng</h6>
+                                            </th>
+                                            <th scope="col" style="width: 200px;">
+                                                <h6 style="margin:5px 0 0 0;">Tổng lương</h6>
                                             </th>
                                         </tr>
                                     </thead>
@@ -229,11 +274,13 @@
                                     <tbody>
                                         <tr>
                                             <th scope="col" style="width: 400px;">
-                                                <h4 style="margin:5px 0 0 0; margin-left: 138px; font-weight: bold;">Tổng tiền</h4>
+                                                <h4 style="margin:5px 0 0 0; margin-left: 138px; font-weight: bold;">
+                                                    Lương hiện tại</h4>
                                             </th>
 
                                             <th scope="col" style="width: 200px;">
-                                                <h6 style="margin:5px 0 0 0; font-weight: bold;" id="total-salary">123456789 vnd</h6>
+                                                <h6 style="margin:5px 0 0 0; font-weight: bold;" id="total-salary">
+                                                    123456789 vnd</h6>
                                             </th>
                                         </tr>
                                     </tbody>
@@ -244,7 +291,7 @@
                 </div>
             </div>
         </section>
-        <!-- driver view salary section END -->
+        <!-- Salary section END -->
 
         <!-- Footer Section Start -->
         <footer class="section-pt bg-color-5">
@@ -292,9 +339,7 @@
                                     <li>
                                         <h4 class="text-capitalize">Lê Nam Thái Sơn</h4>
                                     </li>
-
                                 </ul>
-
                             </div>
                         </div>
 
@@ -316,7 +361,8 @@
                     <div class="row">
                         <div class="col-xs-12 col-sm-6">
                             <div class="left">
-                                <p>Copyright &copy; 2018 <a href="https://themeforest.net/user/regaltheme/portfolio">Regaltheme</a>.</p>
+                                <p>Copyright &copy; 2018 <a
+                                        href="https://themeforest.net/user/regaltheme/portfolio">Regaltheme</a>.</p>
                             </div>
                             <!-- Change your Copyright -->
                         </div>
