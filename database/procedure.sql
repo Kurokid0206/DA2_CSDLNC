@@ -18,12 +18,7 @@ begin tran
 		values (@MaKH, @HoTen, @SDT, @DiaChi, @Email, @TK)
 	end try
 	begin catch
-		select  error_number() as errornumber,
-				error_severity() as errorseverity, 
-				error_state() as errorstate,  
-				error_procedure() as errorprocedure,  
-				error_line() as errorline,  
-				error_message() as errormessage; 
+		select  error_message() as errormessage; 
 		if @@trancount > 0  
 			rollback tran
 	end catch
@@ -46,12 +41,7 @@ begin tran
 		values(@MaSP, @TenSP, @SL, @LoaiSP, @Mau, @ChuDe)
 	end try
 	begin catch
-		select  error_number() as errornumber,
-				error_severity() as errorseverity, 
-				error_state() as errorstate,  
-				error_procedure() as errorprocedure,  
-				error_line() as errorline,  
-				error_message() as errormessage; 
+		select  error_message() as errormessage; 
 		if @@trancount > 0  
 			rollback tran
 	end catch
@@ -74,12 +64,7 @@ begin tran
 		values (@MaNV,@HoTen,@MucTieu,@TK)
 	end try
 	begin catch
-		select  error_number() as errornumber,
-				error_severity() as errorseverity, 
-				error_state() as errorstate,  
-				error_procedure() as errorprocedure,  
-				error_line() as errorline,  
-				error_message() as errormessage; 
+		select  error_message() as errormessage; 
 		if @@trancount > 0  
 			rollback tran
 	end catch
@@ -95,15 +80,12 @@ begin tran
 		insert into NgayLamViec(MaNV, NgayLamViec) values (@MaNV, GETDATE())
 	end try
 	begin catch
-		select  error_number() as errornumber,
-				error_severity() as errorseverity, 
-				error_state() as errorstate,  
-				error_procedure() as errorprocedure,  
-				error_line() as errorline,  
-				error_message() as errormessage; 
+		select  error_message() as errormessage; 
 		if @@trancount > 0  
 			rollback tran
 	end catch
 if @@trancount > 0  
     commit tran;
 go
+
+create proc
