@@ -29,13 +29,14 @@ const customer=require('./routes/customer')
 const manage_product=require('./routes/manage_product')
 const emp=require('./routes/emp')
 const manager=require('./routes/manager')
+const emp_manager=require('./routes/emp_manager')
 
 //use router
 app.use("/customer",customer)
 app.use("/manage_product",manage_product)
 app.use("/emp",emp)
 app.use("/manager",manager)
-
+app.use("/emp_manager",emp_manager)
 
 
 
