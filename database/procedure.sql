@@ -173,7 +173,7 @@ create proc sp_XemCTBL
 as	
 begin tran
 	begin try
-		select * from BangLuong BL 
+		select NgayPhatLuong, Luong, Thuong from BangLuong BL 
 		where MaNV = @MaNV
 	end try
 	begin catch
@@ -211,7 +211,7 @@ create proc sp_Xem_CTDoanhThu
 as
 begin tran
 	begin try
-		select * from HoaDon 
+		select MaHD, NgayLap, TongTien from HoaDon 
 		where NVGiaoHang = @MaNV and month(NgayLap) = @Thang
 	end try
 	begin catch
