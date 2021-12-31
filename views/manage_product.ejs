@@ -19,7 +19,7 @@
     <script src="/js/manager-products-function.js"></script>
 </head>
 
-<body onload="section_show('manager-products-section');">
+<body onload="section_show('manager-products-section');get_product_for_manage();">
     <!--[if lt IE 8]>
             <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
@@ -378,8 +378,8 @@
                             <form class="custom-input">
                                 <!-- lọc theo tên sản phẩm, ko biết tên sản phẩm thì khỏi coi -->
                                 <h6 style="margin:5px 0 0 0;">Tìm kiếm sản phẩm:</h6>
-                                <input type="text" id="product_name-for-seach-manager-products" placeholder="Nhập mã sản phẩm" style="max-width:30%;" />
-                                <button type="button" class="btn-primary" onclick="get_product();">Tìm kiếm</button>
+                                <input type="text" id="product_name-for-seach-manager-products-price" placeholder="Nhập mã sản phẩm" style="max-width:30%;" />
+                                <button type="button" class="btn-primary" onclick="get_product_price();">Tìm kiếm</button>
                                 <br><br>
 
                                 <table class="table " id="manager-products-price-table">
@@ -449,11 +449,11 @@
                             <form class="custom-input">
                                 <!-- lọc theo tên sản phẩm, ko biết tên sản phẩm thì khỏi coi -->
                                 <h6 style="margin:5px 0 0 0;">Tìm kiếm sản phẩm:</h6>
-                                <input type="text" id="product_name-for-seach" placeholder="Nhập tên sản phẩm" style="max-width:30%;" />
-                                <button type="button" class="btn-primary" onclick="get_product();">Tìm kiếm</button>
+                                <input type="text" id="product_name-for-seach-manager-products" placeholder="Nhập tên sản phẩm" style="max-width:30%;" />
+                                <button type="button" class="btn-primary" onclick="get_product_for_manage()">Tìm kiếm</button>
                                 <br><br>
 
-                                <table class="table " id="manager-products-table">
+                                <table class="table " id="manage-products-table">
                                     <thead>
                                         <tr>
                                             <th scope="col" style="width: 100px;">
@@ -463,45 +463,24 @@
                                                 <h6 style="margin:5px 0 0 0;">Tên sản phẩm</h6>
                                             </th>
                                             <th scope="col" style="width: 300px;">
-                                                <h6 style="margin:5px 0 0 0;">Mô tả</h6>
+                                                <h6 style="margin:5px 0 0 0;">Màu sắc</h6>
+                                            </th>
+                                            <th scope="col" style="width: 300px;">
+                                                <h6 style="margin:5px 0 0 0;">Chủ đề</h6>
                                             </th>
                                             <th scope="col" style="width: 100px;">
                                                 <h6 style="margin:5px 0 0 0;">Giá bán (vnd)</h6>
                                             </th>
-                                            <th scope="col" style="width: 100px;">
+                                            <th scope="col" style="width: 150px;">
                                                 <h6 style="margin:5px 0 0 0;">Số lượng tồn</h6>
                                             </th>
-                                            <th scope="col" style="width: 200px;">
+                                            <th scope="col" style="width: 150px;">
                                                 <h6 style="margin:5px 0 0 0;">Thao tác</h6>
                                             </th>
                                         </tr>
                                     </thead>
 
                                     <tbody>
-                                        <tr id="SP345689">
-                                            <td>
-                                                <h6 style="margin:15px 0 0 0;">SP3456789</h6>
-                                            </td>
-                                            <td>
-                                                <input class="TenSP-for-edit" type="text" value="Hoa thanh tâm">
-                                            </td>
-                                            <td>
-                                                <textarea class="MoTa-for-edit" cols="30" rows="4">Hoa màu trắng tinh khiết, có tác dụng an thần giải tỏa căng thẳng. Thích hợp tặng cho dê dừa trong đợt rerun sắp tới.</textarea>
-                                            </td>
-                                            <td>
-                                                <input class="GiaBan-for-edit" type="number" value="160000">
-                                            </td>
-                                            <td>
-                                                <input class="SLTon-for-edit" type="number" value="100">
-                                            </td>
-                                            <td style="padding-top:15px;">
-                                                <button type="button" class="btn-primary" onclick="">Save</button>
-                                                <button type="button" class="btn-secondary" onclick="">Edit</button>
-                                                <button type="button" class="btn-danger" onclick="">Delete</button>
-                                            </td>
-
-                                        </tr>
-
 
                                     </tbody>
                                 </table>
@@ -513,22 +492,25 @@
 
                             <div id="add-product-container" class="enter-box" style="display: none; width: 70%; margin: 0 auto;">
 
-                                <form class="custom-input" id="add-new-product-form" onsubmit="return false;">
+                                <form class="custom-input" id="add-new-product-form" onsubmit="manage_add_new_product()">
                                     <h4>Thêm sản phẩm mới</h4>
 
                                     <h6 style="margin:5px 0 0 0;">Tên sản phẩm:</h6>
-                                    <input type="text" name="productName" placeholder="Tên sản phẩm" />
+                                    <input type="text" name="TenSP" placeholder="Nhập tên sản phẩm" required/>
 
-                                    <h6 style="margin:5px 0 0 0;">Mô tả:</h6>
-                                    <textarea class="MoTa-for-edit" cols="30" rows="4" placeholder="Nhập mô tả sản phẩm"></textarea>
+                                    <h6 style="margin:5px 0 0 0;">Màu sắc:</h6>
+                                    <input type="text" name="MauSac" placeholder="Nhập màu sắc" required/>
+
+                                    <h6 style="margin:5px 0 0 0;">Chủ đề:</h6>
+                                    <input type="text" name="ChuDe" placeholder="Nhập chủ đề" required/>
 
                                     <h6 style="margin:5px 0 0 0;">Giá bán:</h6>
-                                    <input type="number" name="productPrice" placeholder="Giá bán" />
+                                    <input type="number" name="GiaBan" placeholder="Nhập giá bán" required />
 
                                     <h6 style="margin:5px 0 0 0;">Số lượng tồn:</h6>
-                                    <input type="number" name="productRemaining" placeholder="Số lượng tồn" />
+                                    <input type="number" name="productRemaining" placeholder="Nhập số lượng tồn" required/>
                                     <br>
-                                    <button class="btn " name="submit" type="button" onclick="add_new_product_tobranch()">Lưu</button>
+                                    <button class="btn " name="submit" type="submit">Lưu</button>
                                 </form>
                             </div>
                         </div>
