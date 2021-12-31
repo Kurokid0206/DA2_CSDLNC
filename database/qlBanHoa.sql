@@ -112,7 +112,7 @@ GO
 
 CREATE TABLE [BangGiaSP]
 (
-	[MaSP] varchar(10) NOT NULL,
+	[MaSP] char(10) NOT NULL,
 	[NgayApDung] date NOT NULL,
 	[GiaNhap] int NULL,
 	[GiaBan] int NULL
@@ -173,7 +173,7 @@ CREATE TABLE [HoaDon]
 	[LoiNhan] nvarchar(500) NULL,
 	[TrangThai] nvarchar(20) NULL,
 	[MaKH] char(10) NULL,
-	[NVGiaoHang] varchar(10) NULL,
+	[NVGiaoHang] char(10) NULL,
 	[MaGiamGia] varchar(10) NULL,
 	[TongTien] int NULL
 )

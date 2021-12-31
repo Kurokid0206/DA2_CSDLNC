@@ -2,9 +2,9 @@ use QLBanHoa
 go
 
 create procedure sp_Insert_KhackHang 
-	@MaKH varchar(10) output,
+	@MaKH char(10) output,
 	@HoTen nvarchar(50), 
-	@SDT char(10), 
+	@SDT varchar(12), 
 	@DiaChi nvarchar(100), 
 	@Email varchar(50),
 	@TK varchar(50),
@@ -32,17 +32,18 @@ if @@trancount > 0
 go
 
 create procedure sp_Insert_SanPham
-	@MaSP varchar(10) output,
+	@MaSP char(10) output,
     @TenSP nvarchar(50),
     @SL int,
 	@LoaiSP nvarchar(50),
-	@MoTa nvarchar(200)
+	@Mau nvarchar(50),
+	@ChuDe nvarchar(100)
 as
 begin tran
 	begin try
 		set @MaSP = dbo.f_Auto_MaSP()
 		insert into SanPham
-		values(@MaSP, @TenSP, @SL, @LoaiSP, @MoTa)
+		values(@MaSP, @TenSP, @SL, @LoaiSP, @Mau, @ChuDe)
 	end try
 	begin catch
 		select  error_number() as errornumber,
@@ -56,9 +57,10 @@ begin tran
 	end catch
 if @@trancount > 0  
     commit tran;
+go
 
 create procedure sp_Insert_NV
-	@MaNV varchar(10) output,
+	@MaNV char(10) output,
 	@HoTen nvarchar(50), 
 	@MucTieu int, 
 	@TK varchar(50),
@@ -70,6 +72,27 @@ begin tran
 		set @MaNV = dbo.f_Auto_MaNV()
 		insert into NhanVien(MaNV,TenNV,MucTieu,TaiKhoan)
 		values (@MaNV,@HoTen,@MucTieu,@TK)
+	end try
+	begin catch
+		select  error_number() as errornumber,
+				error_severity() as errorseverity, 
+				error_state() as errorstate,  
+				error_procedure() as errorprocedure,  
+				error_line() as errorline,  
+				error_message() as errormessage; 
+		if @@trancount > 0  
+			rollback tran
+	end catch
+if @@trancount > 0  
+    commit tran;
+go
+
+create procedure sp_NV_DiemDanh
+	@MaNV char(10)
+as	
+begin tran
+	begin try
+		insert into NgayLamViec(MaNV, NgayLamViec) values (@MaNV, GETDATE())
 	end try
 	begin catch
 		select  error_number() as errornumber,
