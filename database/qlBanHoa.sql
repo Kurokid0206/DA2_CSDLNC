@@ -100,10 +100,6 @@ IF EXISTS (SELECT 1 FROM dbo.sysobjects WHERE id = object_id(N'[NhanVien]') AND 
 DROP TABLE [NhanVien]
 GO
 
-IF EXISTS (SELECT 1 FROM dbo.sysobjects WHERE id = object_id(N'[QuaTangKem]') AND OBJECTPROPERTY(id, N'IsUserTable') = 1) 
-DROP TABLE [QuaTangKem]
-GO
-
 IF EXISTS (SELECT 1 FROM dbo.sysobjects WHERE id = object_id(N'[SanPham]') AND OBJECTPROPERTY(id, N'IsUserTable') = 1) 
 DROP TABLE [SanPham]
 GO
@@ -208,15 +204,6 @@ CREATE TABLE [NhanVien]
 )
 GO
 
-CREATE TABLE [QuaTangKem]
-(
-	[MaQua] char(10) NOT NULL,
-	[TenQua] nvarchar(50) NULL,
-	[GiaNhap] int NULL,
-	[GiaBan] int NULL
-)
-GO
-
 CREATE TABLE [SanPham]
 (
 	[MaSP] char(10) NOT NULL,
@@ -288,11 +275,6 @@ GO
 ALTER TABLE [NhanVien] 
  ADD CONSTRAINT [PK_NhanVien]
 	PRIMARY KEY CLUSTERED ([MaNV] ASC)
-GO
-
-ALTER TABLE [QuaTangKem] 
- ADD CONSTRAINT [PK_QuaTangKem]
-	PRIMARY KEY CLUSTERED ([MaQua] ASC)
 GO
 
 ALTER TABLE [SanPham] 
