@@ -39,16 +39,16 @@ create function f_Auto_MaQua()
 returns char(10)
 AS
 begin
-	declare @MaQua as varchar(10) ='00000001'
+	declare @MaQT as varchar(10) ='00000001'
 	while(exists(SELECT*
-				 FROM QuaTangKem
-				 WHERE MaQua ='QU'+ @MaQua))
+				 FROM SanPham
+				 WHERE MaSP ='QT'+ @MaQT))
 		BEGIN
-			SET @MaQua = @MaQua + 1
-			SET @MaQua=REPLICATE('0',8-LEN(RTRIM(CONVERT(varchar(10),@MaQua)))) + CONVERT(varchar(10),@MaQua)
+			SET @MaQT = @MaQT + 1
+			SET @MaQT=REPLICATE('0',8-LEN(RTRIM(CONVERT(varchar(10),@MaQT)))) + CONVERT(varchar(10),@MaQT)
 		END
-	set @MaQua = 'QU' + @MaQua
-	return @MaQua
+	set @MaQT = 'QT' + @MaQT
+	return @MaQT
 end
 go
 

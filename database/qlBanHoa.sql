@@ -100,10 +100,6 @@ IF EXISTS (SELECT 1 FROM dbo.sysobjects WHERE id = object_id(N'[NhanVien]') AND 
 DROP TABLE [NhanVien]
 GO
 
-IF EXISTS (SELECT 1 FROM dbo.sysobjects WHERE id = object_id(N'[QuaTangKem]') AND OBJECTPROPERTY(id, N'IsUserTable') = 1) 
-DROP TABLE [QuaTangKem]
-GO
-
 IF EXISTS (SELECT 1 FROM dbo.sysobjects WHERE id = object_id(N'[SanPham]') AND OBJECTPROPERTY(id, N'IsUserTable') = 1) 
 DROP TABLE [SanPham]
 GO
@@ -122,9 +118,9 @@ GO
 CREATE TABLE [BangLuong]
 (
 	[MaNV] char(10) NOT NULL,
-	[NgayTangLuong] date NOT NULL,
+	[NgayPhatLuong] date NOT NULL,
 	[Luong] int NULL,
-	[Thuong] int NULL
+	[Thuong] int DEFAULT 0
 )
 GO
 
@@ -134,7 +130,7 @@ CREATE TABLE [CT_HoaDon]
 	[STT] int NOT NULL,
 	[MaSP] char(10) NULL,
 	[SoLuong] int NULL,
-	[ThanhTien] int NULL
+	[ThanhTien] int DEFAULT 0
 )
 GO
 
@@ -175,7 +171,7 @@ CREATE TABLE [HoaDon]
 	[MaKH] char(10) NULL,
 	[NVGiaoHang] char(10) NULL,
 	[MaGiamGia] varchar(10) NULL,
-	[TongTien] int NULL
+	[TongTien] int DEFAULT 0
 )
 GO
 
@@ -193,8 +189,8 @@ GO
 CREATE TABLE [NgayLamViec]
 (
 	[MaNV] char(10) NOT NULL,
-	[NgayLamViec] int NOT NULL,
-	[SoDonGiao] int NULL
+	[NgayLamViec] date NOT NULL,
+	[SoDonGiao] int DEFAULT 0
 )
 GO
 
@@ -205,15 +201,6 @@ CREATE TABLE [NhanVien]
 	[MucTieu] int NULL,
 	[HieuSuat] float NULL,
 	[TaiKhoan] varchar(50) NOT NULL
-)
-GO
-
-CREATE TABLE [QuaTangKem]
-(
-	[MaQua] char(10) NOT NULL,
-	[TenQua] nvarchar(50) NULL,
-	[GiaNhap] int NULL,
-	[GiaBan] int NULL
 )
 GO
 
@@ -247,7 +234,7 @@ GO
 
 ALTER TABLE [BangLuong] 
  ADD CONSTRAINT [PK_BangLuong]
-	PRIMARY KEY CLUSTERED ([MaNV] ASC,[NgayTangLuong] ASC)
+	PRIMARY KEY CLUSTERED ([MaNV] ASC,[NgayPhatLuong] ASC)
 GO
 
 ALTER TABLE [CT_HoaDon] 
@@ -288,11 +275,6 @@ GO
 ALTER TABLE [NhanVien] 
  ADD CONSTRAINT [PK_NhanVien]
 	PRIMARY KEY CLUSTERED ([MaNV] ASC)
-GO
-
-ALTER TABLE [QuaTangKem] 
- ADD CONSTRAINT [PK_QuaTangKem]
-	PRIMARY KEY CLUSTERED ([MaQua] ASC)
 GO
 
 ALTER TABLE [SanPham] 
