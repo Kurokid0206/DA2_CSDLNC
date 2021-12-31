@@ -9,6 +9,9 @@
     <meta name="keywords" content="	classes, college, course, courses, educational, learning, online courses, revolution slider, school, seminar, tutorials, university, workshop">
     <meta name="author" content="regaltheme.com">
     <title>Dịch vụ giao hàng C4</title>
+    <!-- font awesome cdn -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha512-Fo3rlrZj/k7ujTnHg4CGR2D7kSs0v4LLanw2qksYuRlEzO+tcaEPQogQ0KaoGN26/zrn20ImR1DfuLWnOo7aBA==" crossorigin="anonymous" referrerpolicy="no-referrer"
+    />
     <!-- favicon -->
     <link rel="shortcut icon" type="image/x-icon" href="/assets/img/favicon.ico">
     <!-- style css -->
@@ -20,7 +23,7 @@
     <script src="/js/cus-function.js"></script>
 </head>
 
-<body onload="cus_show('new-order-section'); get_supplier();">
+<body onload="">
     <!--[if lt IE 8]>
             <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
@@ -70,8 +73,9 @@
                                     <div id="navbar" class="navbar-collapse collapse no-padding">
                                         <ul class="navbar-nav dropdown">
 
-                                            <li><a onclick="cus_show('new-order-section')">Đặt hàng</a></li>
-                                            <li><a onclick="customer_view_order();">Theo dõi đơn hàng</a></li>
+                                            <li><a onclick="">Tìm kiếm sản phẩm</a></li>
+                                            <li><a onclick="">Theo dõi đơn hàng</a></li>
+                                            <li><a onclick=""><i class="fas fa-shopping-cart" style="color: darkgoldenrod;margin-right: 10px; font-size: 175%;"></i>Thanh toán</a></li>
                                             <li><a href="/log-out">Đăng xuất</a></li>
 
                                             <li>
@@ -164,39 +168,116 @@
         </section>
         <!-- Order section End -->
 
-        <!-- View bill section Start -->
-        <section class="register-area section-padding white-bg" id="view-order-section">
+        <!-- Search product section Start -->
+        <section class="register-area section-padding white-bg" id="Search product-section">
             <div class="container">
                 <div class="row">
-                    <div class="" style="margin: 0 auto; width: auto;">
-                        <div class="enter-box" style="padding: 87px;width: 900px; margin: 0 auto;">
-                            <h3 class="mb-35">Quản lý đơn hàng</h3>
-                            <table class="table " id="bill">
-                                <thead>
-                                    <tr>
-                                        <th scope="col" style="width: 120px;">
-                                            <h6 style="margin:5px 0 0 0;">Mã đơn hàng</h6>
-                                        </th>
-                                        <th scope="col" style="width: 200px;">
-                                            <h6 style="margin:5px 0 0 0;">Địa chỉ</h6>
-                                        </th>
-                                        <th scope="col" style="width: 100px;">
-                                            <h6 style="margin:5px 0 0 0;">Tổng tiền</h6>
-                                        </th>
-                                        <th scope="col" style="width: 100px;">
-                                            <h6 style="margin:5px 0 0 0;">Tình trạng</h6>
-                                        </th>
-                                        <th scope="col" style="width: 100px;">
-                                            <h6 style="margin:5px 0 0 0;">Xem đơn</h6>
-                                        </th>
-                                        <th scope="col" style="width: 100px;">
-                                            <h6 style="margin:5px 0 0 0;">Hủy đơn</h6>
-                                        </th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                </tbody>
-                            </table>
+                    <div class="" style="margin: 0 auto; width: 100%;">
+                        <div class="enter-box" style="padding: 87px;width: 100%; margin: 0 auto;">
+                            <h3 class="mb-35">Tìm kiếm sản phẩm</h3>
+                            <!-- /.row -->
+                            <div class="row">
+                                <div class="col-xs-12">
+                                    <div class="tab-content">
+                                        <div class="tab-pane fade" id="grid-view">
+                                            <div class="row">
+                                                <!-- product card start -->
+                                                <div class="col-xs-12 col-sm-6 col-md-4 mb-50">
+                                                    <div class="course-box">
+                                                        <div class="course-content plr-25">
+                                                            <div class="thumb text-center">
+                                                                <a href="courses.html"><img src="assets/img/course/1.jpg" alt="Thumbnail Image" /></a>
+                                                                <div class="price">
+                                                                    <h3 class="no-margin"><span>$</span>25</h3>
+                                                                </div>
+                                                            </div>
+                                                            <a href="courses.html">
+                                                                <h3 class="text-capitalize">Learn Photoshop 2017</h3>
+                                                            </a>
+                                                            <div class="date-comment clearfix">
+                                                                <div class="pull-left">
+                                                                    <h6><span>Date: </span>15.6.17</h6>
+                                                                </div>
+                                                                <div class="pull-right">
+                                                                    <h6><i class="zmdi zmdi-comments"></i> 20</h6>
+                                                                </div>
+                                                            </div>
+                                                            <p class="mb-20">There are many variations of ages om Ipsum available, but the mrity ave suffered aleration in some orm altime to share.</p>
+                                                            <a class="btn btn-1" href="courses.html">Learn Now</a>
+                                                        </div>
+                                                        <div class="footer clearfix plr-25">
+                                                            <div class="pull-left">
+                                                                <img class="pull-left" src="assets/img/course/t1.png" alt="Teacher Image" />
+                                                                <h5 class="no-margin">Steven Keller</h5>
+                                                            </div>
+                                                            <div class="pull-right rating">
+                                                                <i class="zmdi zmdi-star"></i>
+                                                                <i class="zmdi zmdi-star"></i>
+                                                                <i class="zmdi zmdi-star"></i>
+                                                                <i class="zmdi zmdi-star"></i>
+                                                                <i class="zmdi zmdi-star-half"></i>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!-- product card end -->
+
+                                            </div>
+                                            <!-- /.row -->
+                                        </div>
+                                        <!-- /.Grid View End -->
+                                        <div class="tab-pane fade in active" id="list-view">
+                                            <div class="row">
+                                                <!-- product card start -->
+                                                <div class="col-xs-12 mb-30">
+                                                    <div class="course-box list-view clearfix">
+                                                        <div class="thumb text-center pull-left">
+                                                            <a href="course-details.html"><img src="assets/img/course/list/1.jpg" alt="Thumbnail Image" /></a>
+                                                            <div class="price">
+                                                                <h3 class="no-margin"><span>$</span>30</h3>
+                                                            </div>
+                                                        </div>
+                                                        <div class="course-content">
+                                                            <a href="course-details.html">
+                                                                <h3 class="text-capitalize">Learn Photoshop 2017</h3>
+                                                            </a>
+                                                            <div class="date-comment clearfix">
+                                                                <div class="pull-left">
+                                                                    <h6><span>Date: </span>15.6.17</h6>
+                                                                </div>
+                                                                <div class="pull-right">
+                                                                    <h6><i class="zmdi zmdi-comments"></i> 20</h6>
+                                                                </div>
+                                                            </div>
+                                                            <p class="mb-20">There are many variations of passages of Lorem Ipsum available, but the majorit sufalteration in some form, by injected humour, or randomised words which don't look slightly believable. If you
+                                                                are going to use a passage of Lorem Ipsum, you need to be sure there isn't embarrassing hidden in the middle of text.</p>
+                                                            <a class="btn btn-1" href="course-details.html">Learn Now</a>
+                                                            <div class="footer clearfix plr-25">
+                                                                <div class="pull-left">
+                                                                    <img class="pull-left" src="assets/img/course/t1.png" alt="Teacher Image" />
+                                                                    <h5 class="no-margin">Mark Thomas</h5>
+                                                                </div>
+                                                                <div class="pull-right rating">
+                                                                    <i class="zmdi zmdi-star"></i>
+                                                                    <i class="zmdi zmdi-star"></i>
+                                                                    <i class="zmdi zmdi-star"></i>
+                                                                    <i class="zmdi zmdi-star"></i>
+                                                                    <i class="zmdi zmdi-star-half"></i>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!-- = product card end -->
+                                            </div>
+                                            <!-- /.row -->
+                                        </div>
+                                        <!-- /.List View End -->
+                                    </div>
+                                    <!-- /.Tab panes -->
+                                </div>
+                            </div>
+                            <!-- /.row -->
                         </div>
                     </div>
                 </div>
