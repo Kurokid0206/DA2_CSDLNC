@@ -7,6 +7,8 @@
 /* Drop Foreign Key Constraints */
 USE master
 GO
+IF DB_ID('QLBanHoa') is not NULL
+	DROP DATABASE QLBanHoa
 CREATE DATABASE QLBanHoa
 GO
 USE QLBanHoa

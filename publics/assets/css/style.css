@@ -4367,7 +4367,7 @@ ul.pull-left {
 
 .enter-box {
     -webkit-box-shadow: 0 1px 4.25px 0.75px rgba(0, 0, 0, 0.15);
-    box-shadow: 0 1px 4.25px 0.75px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 1px 4.25px 0.75px rgba(0, 0, 0, 0.25);
     padding: 77px 175px 93px 87px;
 }
 

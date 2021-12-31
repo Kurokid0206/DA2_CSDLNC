@@ -16,11 +16,10 @@
     <!-- modernizr js -->
     <script src="/assets/js/vendor/modernizr-2.8.3.min.js"></script>
     <!-- client interact script -->
-    <script src="/js/homepage.js"></script>
-    <script src="/js/ad-function.js"></script>
+    <script src="/js/manager-products-function.js"></script>
 </head>
 
-<body onload="get_user();">
+<body onload="section_show('manager-products-section');">
     <!--[if lt IE 8]>
             <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
@@ -59,7 +58,7 @@
                             <div class="d-flex justify-end">
                                 <div class="logo mr-auto" style="width:auto;">
                                     <a href="http://localhost:3000"><img src="/images/home-logo.png" alt="Home Page" style="width: 80px;display:inline" />
-                                        <p style="display:inline">Hoa yêu thương</p>
+                                        <h6 style="display:inline">Hoa yêu thương</h6>
                                     </a>
 
                                 </div>
@@ -68,10 +67,10 @@
 
                                     <div id="navbar" class="navbar-collapse collapse no-padding">
                                         <ul class="navbar-nav dropdown">
-                                            <li><a onclick="">Quản lý sản phẩm</a></li>
-                                            <li><a onclick="">Theo dõi giá bán</a></li>
-                                            <li><a onclick="">Quản lý tồn kho</a></li>
-                                            <li><a onclick="">Lịch sử nhập</a></li>
+                                            <li><a onclick="section_show('manager-products-section')">Quản lý sản phẩm</a></li>
+                                            <li><a onclick="section_show('manager-products-price-section')">Theo dõi giá bán</a></li>
+                                            <li><a onclick="section_show('manager-warehouse-section')">Quản lý tồn kho</a></li>
+                                            <li><a onclick="section_show('manager-import-history-section')">Lịch sử nhập</a></li>
                                             <li><a href="/log-out">Đăng xuất</a></li>
                                             <li>
                                                 <a href="javascript:viod(0)" class="dropdown-toggle" data-toggle="dropdown" title="Show contact">
@@ -108,25 +107,182 @@
 
         <!-- Header Section End -->
 
-        <!-- Add employee section Start -->
-        <section class="register-area section-padding white-bg" id="add-employee-section">
+
+
+
+        <!-- manager import-history-detail section Start -->
+        <section class="register-area section-padding white-bg" id="manager-import-history-detail-section">
+            <div class="container">
+                <div class="row">
+                    <div class="" style="margin: 0 auto; width: auto;">
+                        <div class="enter-box" style="padding: 87px;width: 1200px; margin: 0 auto;">
+                            <h3 class="mb-35">Chi tiết nhập hàng</h3>
+                            <form class="custom-input">
+                                <br>
+
+                                <table class="table " id="manager-import-history-detail-table">
+
+                                    <thead>
+
+                                        <tr>
+                                            <th scope="col" style="width: 150px;">
+                                                <h6 style="margin:5px 0 0 0;">Mã Đơn nhập</h6>
+                                            </th>
+                                            <th scope="col" style="width: 100px;">
+                                                <h6 style="margin:5px 0 0 0;">Số thứ tự</h6>
+                                            </th>
+                                            <th scope="col" style="width: 250px;">
+                                                <h6 style="margin:5px 0 0 0;">Sản phẩm</h6>
+                                            </th>
+                                            <th scope="col" style="width: 150px;">
+                                                <h6 style="margin:5px 0 0 0;">Số lượng nhập</h6>
+                                            </th>
+                                            <th scope="col" style="width: 150px;">
+                                                <h6 style="margin:5px 0 0 0;">Thành tiền</h6>
+                                            </th>
+
+                                        </tr>
+
+                                    </thead>
+
+                                    <tbody>
+
+                                        <tr>
+                                            <td>
+                                                <h6 style="margin:5px 0 0 0;">SP3456789</h6>
+                                            </td>
+                                            <td>
+                                                <h6 style="margin:5px 0 0 0;">#1</h>
+                                            </td>
+                                            <td>
+                                                <h6 style="margin:5px 0 0 0;">Hoa thanh tâm</h>
+                                            </td>
+                                            <td>
+                                                <h6 style="margin:5px 0 0 0;">50</h>
+                                            </td>
+                                            <td>
+                                                <h6 style="margin:5px 0 0 0;">500,000 vnd</h>
+                                            </td>
+
+                                        </tr>
+
+                                    </tbody>
+
+                                </table>
+
+                            </form>
+
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- manager import-history-detail section END -->
+
+
+        <!-- manager import-history section Start -->
+        <section class="register-area section-padding white-bg" id="manager-import-history-section">
+            <div class="container">
+                <div class="row">
+                    <div class="" style="margin: 0 auto; width: auto;">
+                        <div class="enter-box" style="padding: 87px;width: 1100px; margin: 0 auto;">
+                            <h3 class="mb-35">Lịch sử nhập hàng</h3>
+                            <form class="custom-input">
+                                <br>
+
+                                <table class="table " id="manager-import-history-table">
+
+                                    <thead>
+
+                                        <tr>
+                                            <th scope="col" style="width: 200px;">
+                                                <h6 style="margin:5px 0 0 0;">Mã Đơn nhập</h6>
+                                            </th>
+                                            <th scope="col" style="width: 200px;">
+                                                <h6 style="margin:5px 0 0 0;">Nhân viên nhập</h6>
+                                            </th>
+                                            <th scope="col" style="width: 200px;">
+                                                <h6 style="margin:5px 0 0 0;">Ngày nhập</h6>
+                                            </th>
+                                            <th scope="col" style="width: 200px;">
+                                                <h6 style="margin:5px 0 0 0;">Chi tiết</h6>
+                                            </th>
+
+                                        </tr>
+
+                                    </thead>
+
+                                    <tbody>
+
+                                        <tr>
+                                            <td>
+                                                <h6 style="margin:5px 0 0 0;">SP3456789</h6>
+                                            </td>
+                                            <td>
+                                                <h6 style="margin:5px 0 0 0;">Ganyu</h>
+                                            </td>
+                                            <td>
+                                                <h6 style="margin:5px 0 0 0;">2021-12-01</h>
+                                            </td>
+                                            <td>
+                                                <button type="button" class="btn-primary" onclick="get_product();">
+                                                    <h6 style="margin:5px 0 0 0;color: cornsilk;">Chi tiết</h6>
+                                                </button>
+                                            </td>
+                                        </tr>
+
+                                    </tbody>
+
+                                </table>
+
+                            </form>
+
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- manager import-history section END -->
+
+
+        <!-- import-goods section Start -->
+        <section class="register-area section-padding white-bg" id="new-import-goods-section">
             <div class="container">
                 <div class="row">
                     <div class="col-xs-12 col-sm-8 col-md-7 col-text-center">
                         <div class="enter-box">
-                            <h3 class="mb-35">Thêm nhân viên</h3>
+                            <h3 class="mb-35">Tạo đơn nhập hàng</h3>
 
-                            <form class="custom-input" id="add-employee-form">
+                            <form class="custom-input" id="import-goods-form" onsubmit="return insert_order();">
+                                <div id="order_detail-container">
 
-                                <h6 style="margin:5px 0 0 0;">Tên nhân viên:</h6>
-                                <input type="text" id="empName" placeholder="Nhập tên nhân viên" />
-                                <h6 style="margin:5px 0 0 0;">Tên tài khoản đăng nhập:</h6>
-                                <input type="text" id="empUsername" placeholder="Nhập tài khoản" />
-                                <h6 style="margin:5px 0 0 0;">Mật khẩu:</h6>
-                                <input type="password" id="empPassword" placeholder="Nhập mật khẩu" />
-                                <br>
-                                <br>
-                                <button class="btn" type="button" onclick="add_emp()">Thêm nhân viên</button>
+                                    <div class="CT_donhang enter-box" id="CTDH0">
+                                        <h4 style="margin:5px 0 0 0; display: inline-block;">Sản phẩm 1:</h4>
+                                        <br><br>
+                                        <h6 style="margin:5px 0 0 0;">Sản phẩm:</h6>
+                                        <select name="product" id="select-product" class="select-product" required>
+                                            <option selected>Chọn sản phẩm</option>
+                                            <option value="Mã sp">Mã SP-Tên sản phẩm</option>
+                                        </select>
+                                        <h6 style="margin:5px 0 0 0;">Số lượng:</h6>
+                                        <input type="number" name="quantity" placeholder="Số lượng" required/>
+
+                                    </div>
+
+                                </div>
+                                <button class="btn-primary" type="button" onclick="add_order_detail()">
+                                    <h6 style=" margin:5px 0 0 0; color: aliceblue; ">Thêm sản phẩm</h6>
+                                </button>
+                                <br><br>
+
+                                <h6 style="margin:5px 0 0 0;">Ngày nhập:</h6>
+                                <input type="date" id="NgayNhap" />
+
+                                <button class="btn" type="submit">Nhập hàng</button>
                             </form>
 
 
@@ -135,7 +291,152 @@
                 </div>
             </div>
         </section>
-        <!-- Add employee section End -->
+        <!-- import-goods section End -->
+
+
+        <!-- manager warehouse section Start -->
+        <section class="register-area section-padding white-bg" id="manager-warehouse-section">
+            <div class="container">
+                <div class="row">
+                    <div class="" style="margin: 0 auto; width: auto;">
+                        <div class="enter-box" style="padding: 87px;width: 1100px; margin: 0 auto;">
+                            <h3 class="mb-35">Quản lý kho hàng</h3>
+                            <form class="custom-input">
+                                <!-- lọc theo tên sản phẩm, ko biết tên sản phẩm thì khỏi coi -->
+                                <h6 style="margin:5px 0 0 0;">Tìm kiếm sản phẩm:</h6>
+                                <input type="text" id="product_name-for-seach-warehouse" placeholder="Nhập tên sản phẩm" style="max-width:30%;" />
+                                <button type="button" class="btn-primary" onclick="get_product();">Tìm kiếm</button>
+                                <br><br>
+
+                                <table class="table " id="manager-warehouse-table">
+
+                                    <thead>
+
+                                        <tr>
+                                            <th scope="col" style="width: 200px;">
+                                                <h6 style="margin:5px 0 0 0;">Mã sản phẩm</h6>
+                                            </th>
+                                            <th scope="col" style="width: 200px;">
+                                                <h6 style="margin:5px 0 0 0;">Tên sản phẩm</h6>
+                                            </th>
+                                            <th scope="col" style="width: 200px;">
+                                                <h6 style="margin:5px 0 0 0;">Số lượng tồn</h6>
+                                            </th>
+                                            <th scope="col" style="width: 200px;">
+                                                <h6 style="margin:5px 0 0 0;">Nhu cầu hiện tại</h6>
+                                            </th>
+                                            <th scope="col" style="width: 200px;">
+                                                <h6 style="margin:5px 0 0 0;">Nhập hàng</h6>
+                                            </th>
+                                        </tr>
+
+                                    </thead>
+
+                                    <tbody>
+
+                                        <tr>
+                                            <td>
+                                                <h6 style="margin:5px 0 0 0;">SP3456789</h6>
+                                            </td>
+                                            <td>
+                                                <h6 style="margin:5px 0 0 0;">Hoa thanh tâm</h>
+                                            </td>
+                                            <td>
+                                                <h6 style="margin:5px 0 0 0;color: rgb(0, 161, 27)">100</h>
+                                            </td>
+                                            <td>
+                                                <h6 style="margin:5px 0 0 0;color: rgb(255, 0, 119);">100</h>
+                                            </td>
+                                            <td>
+                                                <button type="button" class="btn-primary" onclick="get_product();">Nhập hàng</button>
+                                            </td>
+                                        </tr>
+
+                                    </tbody>
+
+                                </table>
+
+                            </form>
+
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- manager warehouse section END -->
+
+
+        <!-- manager products-price section Start -->
+        <section class="register-area section-padding white-bg" id="manager-products-price-section">
+            <div class="container">
+                <div class="row">
+                    <div class="" style="margin: 0 auto; width: auto;">
+                        <div class="enter-box" style="padding: 87px;width: 1100px; margin: 0 auto;">
+                            <h3 class="mb-35">Theo dõi giá sản phẩm</h3>
+                            <form class="custom-input">
+                                <!-- lọc theo tên sản phẩm, ko biết tên sản phẩm thì khỏi coi -->
+                                <h6 style="margin:5px 0 0 0;">Tìm kiếm sản phẩm:</h6>
+                                <input type="text" id="product_name-for-seach-manager-products" placeholder="Nhập mã sản phẩm" style="max-width:30%;" />
+                                <button type="button" class="btn-primary" onclick="get_product();">Tìm kiếm</button>
+                                <br><br>
+
+                                <table class="table " id="manager-products-price-table">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col" style="width: 200px;">
+                                                <h6 style="margin:5px 0 0 0;">Mã sản phẩm</h6>
+                                            </th>
+                                            <th scope="col" style="width: 200px;">
+                                                <h6 style="margin:5px 0 0 0;">Tên sản phẩm</h6>
+                                            </th>
+                                            <th scope="col" style="width: 200px;">
+                                                <h6 style="margin:5px 0 0 0;">Giá nhập (vnd)</h6>
+                                            </th>
+                                            <th scope="col" style="width: 200px;">
+                                                <h6 style="margin:5px 0 0 0;">Giá bán (vnd)</h6>
+                                            </th>
+                                            <th scope="col" style="width: 200px;">
+                                                <h6 style="margin:5px 0 0 0;">Ngày áp dụng</h6>
+                                            </th>
+                                        </tr>
+                                    </thead>
+
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                <h6 style="margin:5px 0 0 0;">SP3456789</h6>
+                                            </td>
+                                            <td>
+                                                <h6 style="margin:5px 0 0 0;">Hoa thanh tâm</h>
+                                            </td>
+                                            <td>
+                                                <h6 style="margin:5px 0 0 0;">100,000 vnd</h>
+                                            </td>
+                                            <td>
+                                                <h6 style="margin:5px 0 0 0;">160,000 vnd</h>
+                                            </td>
+                                            <td>
+                                                <h6 style="margin:5px 0 0 0;">2021-12-01</h>
+                                            </td>
+
+                                        </tr>
+
+
+                                    </tbody>
+                                </table>
+
+                            </form>
+
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- manager products-price section END -->
 
 
         <!-- manager products section Start -->
@@ -143,12 +444,12 @@
             <div class="container">
                 <div class="row">
                     <div class="" style="margin: 0 auto; width: auto;">
-                        <div class="enter-box" style="padding: 87px;width: 1100px; margin: 0 auto;">
-                            <h3 class="mb-35">Quản lí tài khoản</h3>
+                        <div class="enter-box" style="padding: 87px;width: 1200px; margin: 0 auto;">
+                            <h3 class="mb-35">Quản lí sản phẩm</h3>
                             <form class="custom-input">
                                 <!-- lọc theo tên sản phẩm, ko biết tên sản phẩm thì khỏi coi -->
                                 <h6 style="margin:5px 0 0 0;">Tìm kiếm sản phẩm:</h6>
-                                <input type="text" id="product_name-for-seach" placeholder="Nhập teensanr phẩm" style="max-width:30%;" />
+                                <input type="text" id="product_name-for-seach" placeholder="Nhập tên sản phẩm" style="max-width:30%;" />
                                 <button type="button" class="btn-primary" onclick="get_product();">Tìm kiếm</button>
                                 <br><br>
 
@@ -164,8 +465,11 @@
                                             <th scope="col" style="width: 300px;">
                                                 <h6 style="margin:5px 0 0 0;">Mô tả</h6>
                                             </th>
-                                            <th scope="col" style="width: 150px;">
-                                                <h6 style="margin:5px 0 0 0;">Giá bán</h6>
+                                            <th scope="col" style="width: 100px;">
+                                                <h6 style="margin:5px 0 0 0;">Giá bán (vnd)</h6>
+                                            </th>
+                                            <th scope="col" style="width: 100px;">
+                                                <h6 style="margin:5px 0 0 0;">Số lượng tồn</h6>
                                             </th>
                                             <th scope="col" style="width: 200px;">
                                                 <h6 style="margin:5px 0 0 0;">Thao tác</h6>
@@ -174,29 +478,59 @@
                                     </thead>
 
                                     <tbody>
-                                        <tr id="SP3456789">
+                                        <tr id="SP345689">
                                             <td>
-                                                <input type="text" value="SP3456789">
-                                                <h6 style="margin:5px 0 0 0;">SƠ3456789</h6>
+                                                <h6 style="margin:15px 0 0 0;">SP3456789</h6>
                                             </td>
                                             <td>
-                                                <input type="text" value="Hoa thanh tâm">
+                                                <input class="TenSP-for-edit" type="text" value="Hoa thanh tâm">
                                             </td>
                                             <td>
-                                                <textarea name="" id="" cols="30" rows="4">Hoa màu trắng tinh khiết, có tác dụng an thần giải tỏa căng thẳng. Thích hợp tặng cho dê dừa trong đợt rerun sắp tới.</textarea>
+                                                <textarea class="MoTa-for-edit" cols="30" rows="4">Hoa màu trắng tinh khiết, có tác dụng an thần giải tỏa căng thẳng. Thích hợp tặng cho dê dừa trong đợt rerun sắp tới.</textarea>
                                             </td>
                                             <td>
-                                                <h6 style="margin:5px 0 0 0;">160,000 vnd</h6>
+                                                <input class="GiaBan-for-edit" type="number" value="160000">
                                             </td>
                                             <td>
-                                                <button type="button" class="btn-primary" onclick="">edit</button>
+                                                <input class="SLTon-for-edit" type="number" value="100">
+                                            </td>
+                                            <td style="padding-top:15px;">
+                                                <button type="button" class="btn-primary" onclick="">Save</button>
+                                                <button type="button" class="btn-secondary" onclick="">Edit</button>
+                                                <button type="button" class="btn-danger" onclick="">Delete</button>
                                             </td>
 
                                         </tr>
+
+
                                     </tbody>
                                 </table>
 
+                                <button type="button" class="btn " id="add-product-btn" onclick="show_form('add-product-container')">Thêm sản phẩm</button>
+                                <br><br>
                             </form>
+
+
+                            <div id="add-product-container" class="enter-box" style="display: none; width: 70%; margin: 0 auto;">
+
+                                <form class="custom-input" id="add-new-product-form" onsubmit="return false;">
+                                    <h4>Thêm sản phẩm mới</h4>
+
+                                    <h6 style="margin:5px 0 0 0;">Tên sản phẩm:</h6>
+                                    <input type="text" name="productName" placeholder="Tên sản phẩm" />
+
+                                    <h6 style="margin:5px 0 0 0;">Mô tả:</h6>
+                                    <textarea class="MoTa-for-edit" cols="30" rows="4" placeholder="Nhập mô tả sản phẩm"></textarea>
+
+                                    <h6 style="margin:5px 0 0 0;">Giá bán:</h6>
+                                    <input type="number" name="productPrice" placeholder="Giá bán" />
+
+                                    <h6 style="margin:5px 0 0 0;">Số lượng tồn:</h6>
+                                    <input type="number" name="productRemaining" placeholder="Số lượng tồn" />
+                                    <br>
+                                    <button class="btn " name="submit" type="button" onclick="add_new_product_tobranch()">Lưu</button>
+                                </form>
+                            </div>
                         </div>
                     </div>
                 </div>
