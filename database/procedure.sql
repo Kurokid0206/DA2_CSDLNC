@@ -88,4 +88,137 @@ if @@trancount > 0
     commit tran;
 go
 
-create proc
+create proc sp_NV_NhanDon
+	@MaNV char(10),
+	@MaHD char(10)
+as	
+begin tran
+	begin try
+		if (select TrangThai from HoaDon where MaHD = @MaHD) = N'Chưa Giao'
+			update HoaDon
+			set NVGiaoHang = @MaNV, TrangThai = 'Đang Giao' where MaHD = @MaNV
+	end try
+	begin catch
+		select  error_message() as errormessage; 
+		if @@trancount > 0  
+			rollback tran
+	end catch
+if @@trancount > 0  
+    commit tran;
+go
+
+create proc sp_NV_XacNhanHD
+	@MaNV char(10),
+	@MaHD char(10)
+as	
+begin tran
+	begin try
+		update HoaDon
+		set TrangThai = 'Đã Giao' where MaHD = @MaNV
+		update NgayLamViec
+		set SoDonGiao = SoDonGiao + 1 where MaNV = @MaNV and NgayLamViec = GETDATE()
+	end try
+	begin catch
+		select  error_message() as errormessage; 
+		if @@trancount > 0  
+			rollback tran
+	end catch
+if @@trancount > 0  
+    commit tran;
+go
+
+create proc sp_PhatLuong
+	@MaNV char(10),
+	@Luong int
+as	
+begin tran
+	begin try
+		if exists (select * from BangLuong BL where datediff(month,getdate(),BL.NgayPhatLuong) = 0)
+			raiserror(N'Đã phát lương tháng này cho Nhân viên',16,1)
+		declare @HeSo as float = 0
+		declare @HieuSuat as float = (select HieuSuat from NhanVien where MaNV = @MaNV)
+		if @HieuSuat > 1
+			set @HeSo = @HieuSuat - 1
+		insert into BangLuong values(@MaNV, GETDATE(), @Luong, @HeSo*@Luong)
+	end try
+	begin catch
+		select  error_message() as errormessage; 
+		if @@trancount > 0  
+			rollback tran
+	end catch
+if @@trancount > 0  
+    commit tran;
+go
+
+create proc sp_XemBL
+as	
+begin tran
+	begin try
+		select NV.MaNV, TenNV, Luong, Thuong, NgayPhatLuong 
+		from BangLuong BL, NhanVien NV
+		where BL.MaNV = NV.MaNV 
+		and NgayPhatLuong = (select max(BL1.NgayPhatLuong) from BangLuong BL1 where BL.MaNV = BL1.MaNV)
+	end try
+	begin catch
+		select  error_message() as errormessage; 
+		if @@trancount > 0  
+			rollback tran
+	end catch
+if @@trancount > 0  
+    commit tran;
+go
+
+create proc sp_XemCTBL
+	@MaNV char(10)
+as	
+begin tran
+	begin try
+		select NgayPhatLuong, Luong, Thuong from BangLuong BL 
+		where MaNV = @MaNV
+	end try
+	begin catch
+		select  error_message() as errormessage; 
+		if @@trancount > 0  
+			rollback tran
+	end catch
+if @@trancount > 0  
+    commit tran;
+go
+
+
+create proc sp_XemDoanhThu
+	@Thang int
+as
+begin tran
+	begin try
+		select MaNV, TenNV, SUM(TongTien) DoanThu
+		from HoaDon right join NhanVien on MaNV = NVGiaoHang
+		group by MaNV, TenNV, NgayLap
+		having month(NgayLap) = @Thang
+	end try
+	begin catch
+		select  error_message() as errormessage; 
+		if @@trancount > 0  
+			rollback tran
+	end catch
+if @@trancount > 0  
+    commit tran;
+go
+
+create proc sp_Xem_CTDoanhThu
+	@MaNV char(10),
+	@Thang int
+as
+begin tran
+	begin try
+		select MaHD, NgayLap, TongTien from HoaDon 
+		where NVGiaoHang = @MaNV and month(NgayLap) = @Thang
+	end try
+	begin catch
+		select  error_message() as errormessage; 
+		if @@trancount > 0  
+			rollback tran
+	end catch
+if @@trancount > 0  
+    commit tran;
+go
