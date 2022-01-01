@@ -105,6 +105,7 @@ function get_emp_salary(){
 }
 
 function render_salary(data){
+    console.log(data.length)
     if(data.length<1){
         return `<tr><td>No result</td></tr>`
     }
@@ -163,7 +164,7 @@ function render_salary_detail(data){
         tr+=`
         <tr>
         <td scope="col" style="width: 200px;">
-        <h6 style="margin:5px 0 0 0;">${element.NgayNhanLuong}</h6>
+        <h6 style="margin:5px 0 0 0;">${element.NgayPhatLuong}</h6>
         </td>
         <td scope="col" style="width: 100px;">
         <h6 style="margin:5px 0 0 0;">${element.Luong}</h6>
