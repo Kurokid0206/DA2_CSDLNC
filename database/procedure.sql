@@ -192,7 +192,7 @@ create proc sp_XemDoanhThu_NV
 as
 begin tran
 	begin try
-		select MaNV, TenNV, SUM(TongTien) DoanThu
+		select MaNV, TenNV, SUM(TongTien) DoanhThu
 		from HoaDon right join NhanVien on MaNV = NVGiaoHang
 		group by MaNV, TenNV, NgayLap
 		having month(NgayLap) = @Thang
