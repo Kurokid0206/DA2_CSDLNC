@@ -362,19 +362,67 @@ function render_import_history(data) {
     data.forEach(element => {
         tr = tr + `<tr>
         <td>
-            <h6 style="margin:5px 0 0 0;">$${element.MaDN}</h6>
+            <h6 style="margin:5px 0 0 0;">${element.MaDonNhap}</h6>
         </td>
         <td>
-            <h6 style="margin:5px 0 0 0;">$${element.NgayNhap}</h>
+            <h6 style="margin:5px 0 0 0;">${new Date(element.NgayNhap).toISOString().slice(0, 10)}</h>
         </td>
         <td>
-            <h6 style="margin:5px 0 0 0;">$${element.TongTien}</h>
+            <h6 style="margin:5px 0 0 0;">${element.TongTien}</h>
         </td>
         <td>
-            <button type="button" class="btn-primary" onclick="get_product();">
+            <button type="button" class="btn-primary" onclick="get_import_history_detail('${element.MaDonNhap}');">
                 <h6 style="margin:5px 0 0 0;color: cornsilk;">Chi tiết</h6>
             </button>
         </td>
+    </tr>`
+    });
+    table.innerHTML = tr
+}
+
+function get_import_history_detail(MaDonNhap) {
+    var xhtml = new XMLHttpRequest();
+    xhtml.onload = function() {
+
+        render_import_history_detail(JSON.parse(this.responseText))
+        section_show('manager-import-history-detail-section')
+
+    }
+
+
+    xhtml.open("POST", "/manage_product/view-import-history-detail-data");
+    xhtml.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xhtml.send("MaDonNhap=" + MaDonNhap);
+}
+
+function render_import_history_detail(data) {
+    var table = document.querySelector("#manager-import-history-detail-table tbody");
+    if (data.length <= 0) {
+        table.innerHTML = "No result."
+        return
+    }
+    var tr = ``
+    data.forEach(element => {
+        tr = tr + `<tr>
+        <td>
+            <h6 style="margin:5px 0 0 0;">${element.MaDonNhap}</h6>
+        </td>
+        <td>
+            <h6 style="margin:5px 0 0 0;">${element.STT}</h>
+        </td>
+        <td>
+            <h6 style="margin:5px 0 0 0;">${element.MaSP}</h>
+        </td>
+        <td>
+            <h6 style="margin:5px 0 0 0;">${element.TenSP}</h>
+        </td>
+        <td>
+            <h6 style="margin:5px 0 0 0;">${element.SoLuong}</h>
+        </td>
+        <td>
+            <h6 style="margin:5px 0 0 0;">${element.TongTien}</h>
+        </td>
+
     </tr>`
     });
     table.innerHTML = tr
