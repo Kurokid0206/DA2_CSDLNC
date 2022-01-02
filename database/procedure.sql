@@ -136,10 +136,11 @@ begin tran
 		if exists (select * from BangLuong BL where datediff(month,getdate(),BL.NgayPhatLuong) = 0)
 			raiserror(N'Đã phát lương tháng này cho Nhân viên',16,1)
 		declare @HeSo as float = 0
-		declare @HieuSuat as float = (select HieuSuat from NhanVien where MaNV = @MaNV)
+		declare @HieuSuat as float = (select HieuSuat from BangLuong 
+									where MaNV = @MaNV and month(NgayPhatLuong) = month(getdate()))
 		if @HieuSuat > 1
 			set @HeSo = @HieuSuat - 1
-		insert into BangLuong values(@MaNV, GETDATE(), @Luong, @HeSo*@Luong)
+		insert into BangLuong(MaNV, NgayPhatLuong, Luong, Thuong) values(@MaNV, GETDATE(), @Luong, @HeSo*@Luong)
 	end try
 	begin catch
 		select  error_message() as errormessage; 
@@ -245,6 +246,23 @@ begin tran
 		if @@trancount > 0  
 			rollback tran
 	end catch
+if @@trancount > 0  
+    commit tran;
+go
+
+create procedure sp_Get_HieuSuat @thang int
+as    
+begin tran
+    begin try
+        select bl.MaNV,TenNV,MucTieu,HieuSuat
+		from BangLuong bl join NhanVien nv on bl.MaNV=nv.MaNV 
+		where month(NgayPhatLuong) = @thang
+    end try
+    begin catch
+        select  error_message() as errormessage; 
+        if @@trancount > 0  
+            rollback tran
+    end catch
 if @@trancount > 0  
     commit tran;
 go
