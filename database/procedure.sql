@@ -378,27 +378,28 @@ if @@trancount > 0
 go
 
 create proc sp_Insert_HD
-	@MaKH char(10),
-	@NguoiNhan nvarchar(50),
-	@DiaChi nvarchar(100),
-	@LoiNhan nvarchar(500),
-	@MaGiamGia varchar(10)
-as	
+    @MaKH char(10),
+    @NguoiNhan nvarchar(50),
+    @DiaChi nvarchar(100),
+    @LoiNhan nvarchar(500),
+    @MaGiamGia varchar(10),
+    @MaHD char(10) output
+as    
 begin tran
-	begin try
-		declare @MaHD as char(10) = dbo.f_Auto_MaHD()
-		insert into HoaDon(MaHD, NgayLap, TenNguoiNhan, DiaChiGiaoHang, LoiNhan, TrangThai, MaKH)
-		values(@MaHD, getdate(), @NguoiNhan, @DiaChi, @LoiNhan, N'Chưa Giao', @MaKH)
-		if exists (select MaGiamGia from GiamGia where MaGiamGia = @MaGiamGia)
-			if GETDATE() < (select NgayHetHan from GiamGia where MaGiamGia = @MaGiamGia)
-				update HoaDon
-				set MaGiamGia = @MaGiamGia where MaHD = @MaHD
-	end try
-	begin catch
-		select  error_message() as errormessage; 
-		if @@trancount > 0  
-			rollback tran
-	end catch
+    begin try
+        set @MaHD  = dbo.f_Auto_MaHD()
+        insert into HoaDon(MaHD, NgayLap, TenNguoiNhan, DiaChiGiaoHang, LoiNhan, TrangThai, MaKH)
+        values(@MaHD, getdate(), @NguoiNhan, @DiaChi, @LoiNhan, N'Chưa Giao', @MaKH)
+        if exists (select MaGiamGia from GiamGia where MaGiamGia = @MaGiamGia)
+            if GETDATE() < (select NgayHetHan from GiamGia where MaGiamGia = @MaGiamGia)
+                update HoaDon
+                set MaGiamGia = @MaGiamGia where MaHD = @MaHD
+    end try
+    begin catch
+        select  error_message() as errormessage; 
+        if @@trancount > 0  
+            rollback tran
+    end catch
 if @@trancount > 0  
     commit tran;
 go
