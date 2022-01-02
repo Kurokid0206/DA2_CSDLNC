@@ -14,45 +14,7 @@ SET ARITHABORT, ANSI_PADDING, ANSI_WARNINGS, CONCAT_NULL_YIELDS_NULL, QUOTED_IDE
 SET NUMERIC_ROUNDABORT, IMPLICIT_TRANSACTIONS, XACT_ABORT OFF
 GO
 
---
--- Backing up database QLBanHoa
---
---
--- Create backup folder
---
-IF OBJECT_ID('xp_create_subdir') IS NOT NULL
-  EXEC xp_create_subdir N'C:\Program Files\Microsoft SQL Server\MSSQL15.MSSQLSERVER\MSSQL\Backup'
---
--- Backup database to the file with the name: <database_name>_<yyyy>_<mm>_<dd>_<hh>_<mi>.bak
---
-DECLARE @db_name SYSNAME
-SET @db_name = N'QLBanHoa'
-
-DECLARE @filepath NVARCHAR(4000)
-SET @filepath =
-/*define base part*/ N'C:\Program Files\Microsoft SQL Server\MSSQL15.MSSQLSERVER\MSSQL\Backup\' + @db_name + '_' +
-/*append date*/ REPLACE(CONVERT(NVARCHAR(10), GETDATE(), 102), '.', '_') + '_' +
-/*append time*/ REPLACE(CONVERT(NVARCHAR(5), GETDATE(), 108), ':', '_') + '.bak'
-
-DECLARE @SQL NVARCHAR(MAX)
-SET @SQL = 
-    N'BACKUP DATABASE ' + QUOTENAME(@db_name) + ' TO DISK = @filepath WITH INIT' + 
-      CASE WHEN EXISTS(
-                SELECT value
-                FROM sys.configurations
-                WHERE name = 'backup compression default'
-          )
-        THEN ', COMPRESSION'
-        ELSE ''
-      END
-
-EXEC sys.sp_executesql @SQL, N'@filepath NVARCHAR(4000)', @filepath = @filepath
-GO
-
 USE QLBanHoa
-GO
-
-IF DB_NAME() <> N'QLBanHoa' SET NOEXEC ON
 GO
 
 --
@@ -134,26 +96,26 @@ GO
 --
 -- Inserting data into table dbo.GiamGia
 --
-INSERT dbo.GiamGia(MaGiamGia, LoaiGiamGia, SoTienGiam, PhanTramGiam, NgayHetHan) VALUES (N'QE3T8', 1, 4500, 60, '2021-01-02')
-INSERT dbo.GiamGia(MaGiamGia, LoaiGiamGia, SoTienGiam, PhanTramGiam, NgayHetHan) VALUES (N'39T9U', 1, 8000, 30, '2021-12-27')
-INSERT dbo.GiamGia(MaGiamGia, LoaiGiamGia, SoTienGiam, PhanTramGiam, NgayHetHan) VALUES (N'Z99T9', 1, 2500, 65, '2021-07-24')
-INSERT dbo.GiamGia(MaGiamGia, LoaiGiamGia, SoTienGiam, PhanTramGiam, NgayHetHan) VALUES (N'MF460', 0, 1000, 15, '2021-03-16')
-INSERT dbo.GiamGia(MaGiamGia, LoaiGiamGia, SoTienGiam, PhanTramGiam, NgayHetHan) VALUES (N'Y2816', 1, 5000, 65, '2021-02-18')
-INSERT dbo.GiamGia(MaGiamGia, LoaiGiamGia, SoTienGiam, PhanTramGiam, NgayHetHan) VALUES (N'I80K6', 1, 4500, 25, '2021-05-20')
-INSERT dbo.GiamGia(MaGiamGia, LoaiGiamGia, SoTienGiam, PhanTramGiam, NgayHetHan) VALUES (N'DR1SG', 0, 8500, 10, '2021-03-28')
-INSERT dbo.GiamGia(MaGiamGia, LoaiGiamGia, SoTienGiam, PhanTramGiam, NgayHetHan) VALUES (N'7D9M2', 0, 5000, 35, '2021-03-18')
-INSERT dbo.GiamGia(MaGiamGia, LoaiGiamGia, SoTienGiam, PhanTramGiam, NgayHetHan) VALUES (N'9VLXN', 1, 3500, 0, '2021-11-23')
-INSERT dbo.GiamGia(MaGiamGia, LoaiGiamGia, SoTienGiam, PhanTramGiam, NgayHetHan) VALUES (N'LKT7T', 1, 9000, 65, '2021-02-24')
-INSERT dbo.GiamGia(MaGiamGia, LoaiGiamGia, SoTienGiam, PhanTramGiam, NgayHetHan) VALUES (N'H1Z3M', 1, 1500, 50, '2021-05-27')
-INSERT dbo.GiamGia(MaGiamGia, LoaiGiamGia, SoTienGiam, PhanTramGiam, NgayHetHan) VALUES (N'15Z1K', 1, 7500, 40, '2021-02-17')
-INSERT dbo.GiamGia(MaGiamGia, LoaiGiamGia, SoTienGiam, PhanTramGiam, NgayHetHan) VALUES (N'6U142', 1, 8500, 50, '2021-05-03')
-INSERT dbo.GiamGia(MaGiamGia, LoaiGiamGia, SoTienGiam, PhanTramGiam, NgayHetHan) VALUES (N'64H33', 1, 7500, 0, '2021-08-15')
-INSERT dbo.GiamGia(MaGiamGia, LoaiGiamGia, SoTienGiam, PhanTramGiam, NgayHetHan) VALUES (N'VOA86', 0, 7500, 30, '2021-01-03')
-INSERT dbo.GiamGia(MaGiamGia, LoaiGiamGia, SoTienGiam, PhanTramGiam, NgayHetHan) VALUES (N'3E29F', 0, 9000, 5, '2021-11-28')
-INSERT dbo.GiamGia(MaGiamGia, LoaiGiamGia, SoTienGiam, PhanTramGiam, NgayHetHan) VALUES (N'FX360', 1, 5500, 70, '2021-05-06')
-INSERT dbo.GiamGia(MaGiamGia, LoaiGiamGia, SoTienGiam, PhanTramGiam, NgayHetHan) VALUES (N'A3F2D', 0, 6000, 40, '2021-06-09')
-INSERT dbo.GiamGia(MaGiamGia, LoaiGiamGia, SoTienGiam, PhanTramGiam, NgayHetHan) VALUES (N'X3360', 0, 9500, 45, '2021-06-07')
-INSERT dbo.GiamGia(MaGiamGia, LoaiGiamGia, SoTienGiam, PhanTramGiam, NgayHetHan) VALUES (N'70089', 0, 7000, 50, '2021-08-09')
+INSERT dbo.GiamGia(MaGiamGia, LoaiGiamGia, SoTienGiam, PhanTramGiam, NgayHetHan) VALUES (N'QE3T8', 1, 0, 60, '2021-01-02')
+INSERT dbo.GiamGia(MaGiamGia, LoaiGiamGia, SoTienGiam, PhanTramGiam, NgayHetHan) VALUES (N'39T9U', 1, 0, 30, '2021-12-27')
+INSERT dbo.GiamGia(MaGiamGia, LoaiGiamGia, SoTienGiam, PhanTramGiam, NgayHetHan) VALUES (N'Z99T9', 1, 0, 65, '2021-07-24')
+INSERT dbo.GiamGia(MaGiamGia, LoaiGiamGia, SoTienGiam, PhanTramGiam, NgayHetHan) VALUES (N'MF460', 0, 1000, 0, '2021-03-16')
+INSERT dbo.GiamGia(MaGiamGia, LoaiGiamGia, SoTienGiam, PhanTramGiam, NgayHetHan) VALUES (N'Y2816', 1, 0, 65, '2021-02-18')
+INSERT dbo.GiamGia(MaGiamGia, LoaiGiamGia, SoTienGiam, PhanTramGiam, NgayHetHan) VALUES (N'I80K6', 1, 0, 25, '2021-05-20')
+INSERT dbo.GiamGia(MaGiamGia, LoaiGiamGia, SoTienGiam, PhanTramGiam, NgayHetHan) VALUES (N'DR1SG', 0, 8500, 0, '2021-03-28')
+INSERT dbo.GiamGia(MaGiamGia, LoaiGiamGia, SoTienGiam, PhanTramGiam, NgayHetHan) VALUES (N'7D9M2', 0, 5000, 0, '2021-03-18')
+INSERT dbo.GiamGia(MaGiamGia, LoaiGiamGia, SoTienGiam, PhanTramGiam, NgayHetHan) VALUES (N'9VLXN', 1, 0, 35, '2021-11-23')
+INSERT dbo.GiamGia(MaGiamGia, LoaiGiamGia, SoTienGiam, PhanTramGiam, NgayHetHan) VALUES (N'LKT7T', 1, 0, 65, '2021-02-24')
+INSERT dbo.GiamGia(MaGiamGia, LoaiGiamGia, SoTienGiam, PhanTramGiam, NgayHetHan) VALUES (N'H1Z3M', 1, 0, 50, '2021-05-27')
+INSERT dbo.GiamGia(MaGiamGia, LoaiGiamGia, SoTienGiam, PhanTramGiam, NgayHetHan) VALUES (N'15Z1K', 1, 0, 40, '2021-02-17')
+INSERT dbo.GiamGia(MaGiamGia, LoaiGiamGia, SoTienGiam, PhanTramGiam, NgayHetHan) VALUES (N'6U142', 1, 0, 50, '2021-05-03')
+INSERT dbo.GiamGia(MaGiamGia, LoaiGiamGia, SoTienGiam, PhanTramGiam, NgayHetHan) VALUES (N'64H33', 1, 0, 70, '2021-08-15')
+INSERT dbo.GiamGia(MaGiamGia, LoaiGiamGia, SoTienGiam, PhanTramGiam, NgayHetHan) VALUES (N'VOA86', 0, 7500, 0, '2021-01-03')
+INSERT dbo.GiamGia(MaGiamGia, LoaiGiamGia, SoTienGiam, PhanTramGiam, NgayHetHan) VALUES (N'3E29F', 0, 9000, 0, '2021-11-28')
+INSERT dbo.GiamGia(MaGiamGia, LoaiGiamGia, SoTienGiam, PhanTramGiam, NgayHetHan) VALUES (N'FX360', 1, 0, 70, '2021-05-06')
+INSERT dbo.GiamGia(MaGiamGia, LoaiGiamGia, SoTienGiam, PhanTramGiam, NgayHetHan) VALUES (N'A3F2D', 0, 6000, 0, '2021-06-09')
+INSERT dbo.GiamGia(MaGiamGia, LoaiGiamGia, SoTienGiam, PhanTramGiam, NgayHetHan) VALUES (N'X3360', 0, 9500, 0, '2021-06-07')
+INSERT dbo.GiamGia(MaGiamGia, LoaiGiamGia, SoTienGiam, PhanTramGiam, NgayHetHan) VALUES (N'70089', 0, 7000, 0, '2021-08-09')
 GO
 
 --
@@ -298,6 +260,31 @@ INSERT dbo.BangLuong(MaNV, NgayPhatLuong, Luong, Thuong) VALUES ('NV00000002', '
 INSERT dbo.BangLuong(MaNV, NgayPhatLuong, Luong, Thuong) VALUES ('NV00000004', '2021-07-27', 47000000, 1000000)
 INSERT dbo.BangLuong(MaNV, NgayPhatLuong, Luong, Thuong) VALUES ('NV00000000', '2021-01-27', 6000000, 1000000)
 INSERT dbo.BangLuong(MaNV, NgayPhatLuong, Luong, Thuong) VALUES ('NV00000003', '2021-06-27', 49000000, 1000000)
+GO
+
+--
+-- Inserting data into table dbo.CT_HoaDon
+--
+INSERT dbo.CT_HoaDon(MaHD, STT, MaSP, SoLuong) VALUES (N'HD00000008', 1, 'SP00000002', 113)
+INSERT dbo.CT_HoaDon(MaHD, STT, MaSP, SoLuong) VALUES (N'HD00000002', 1, 'SP00000005', 113)
+INSERT dbo.CT_HoaDon(MaHD, STT, MaSP, SoLuong) VALUES (N'HD00000004', 1, 'SP00000003', 113)
+INSERT dbo.CT_HoaDon(MaHD, STT, MaSP, SoLuong) VALUES (N'HD00000005', 1, 'SP00000002', 113)
+INSERT dbo.CT_HoaDon(MaHD, STT, MaSP, SoLuong) VALUES (N'HD00000008', 2, 'SP00000004', 113)
+INSERT dbo.CT_HoaDon(MaHD, STT, MaSP, SoLuong) VALUES (N'HD00000008', 3, 'SP00000003', 113)
+INSERT dbo.CT_HoaDon(MaHD, STT, MaSP, SoLuong) VALUES (N'HD00000003', 1, 'SP00000000', 113)
+INSERT dbo.CT_HoaDon(MaHD, STT, MaSP, SoLuong) VALUES (N'HD00000007', 1, 'SP00000003', 113)
+INSERT dbo.CT_HoaDon(MaHD, STT, MaSP, SoLuong) VALUES (N'HD00000001', 1, 'SP00000009', 113)
+INSERT dbo.CT_HoaDon(MaHD, STT, MaSP, SoLuong) VALUES (N'HD00000003', 2, 'QT00000002', 113)
+INSERT dbo.CT_HoaDon(MaHD, STT, MaSP, SoLuong) VALUES (N'HD00000008', 4, 'QT00000002', 113)
+INSERT dbo.CT_HoaDon(MaHD, STT, MaSP, SoLuong) VALUES (N'HD00000005', 2, 'SP00000000', 113)
+INSERT dbo.CT_HoaDon(MaHD, STT, MaSP, SoLuong) VALUES (N'HD00000001', 2, 'SP00000001', 113)
+INSERT dbo.CT_HoaDon(MaHD, STT, MaSP, SoLuong) VALUES (N'HD00000006', 1, 'SP00000004', 113)
+INSERT dbo.CT_HoaDon(MaHD, STT, MaSP, SoLuong) VALUES (N'HD00000006', 2, 'QT00000000', 113)
+INSERT dbo.CT_HoaDon(MaHD, STT, MaSP, SoLuong) VALUES (N'HD00000004', 2, 'SP00000007', 113)
+INSERT dbo.CT_HoaDon(MaHD, STT, MaSP, SoLuong) VALUES (N'HD00000009', 1, 'SP00000004', 113)
+INSERT dbo.CT_HoaDon(MaHD, STT, MaSP, SoLuong) VALUES (N'HD00000006', 3, 'SP00000002', 113)
+INSERT dbo.CT_HoaDon(MaHD, STT, MaSP, SoLuong) VALUES (N'HD00000009', 2, 'SP00000000', 113)
+INSERT dbo.CT_HoaDon(MaHD, STT, MaSP, SoLuong) VALUES (N'HD00000001', 3, 'QT00000002', 113)
 GO
 
 --
