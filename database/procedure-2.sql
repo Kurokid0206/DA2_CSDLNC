@@ -178,3 +178,20 @@ BEGIN TRAN
 IF @@trancount > 0  
     COMMIT TRAN;
 GO
+
+CREATE PROCEDURE sp_Xem_CTDN
+@MaDN char(10)
+AS
+BEGIN TRAN
+	BEGIN TRY
+		SELECT * from CT_NhapHang where MaDonNhap=@MaDN
+		
+	END TRY
+	BEGIN CATCH
+		SELECT error_message() AS errormessage; 
+		IF @@trancount > 0  
+			ROLLBACK TRAN
+	END CATCH
+IF @@trancount > 0  
+    COMMIT TRAN;
+GO
