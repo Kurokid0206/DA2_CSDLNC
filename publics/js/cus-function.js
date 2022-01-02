@@ -1,4 +1,8 @@
-var ids = ["new-order-section", "view-order-section", "view-order-detail-section"]
+var ids = ['new-order-section',
+    'Search-product-section',
+    'view-order-section',
+    'view-order-detail-section'
+]
 
 function cus_show(id) {
 
@@ -11,14 +15,54 @@ function cus_show(id) {
 }
 
 function customer_view_products() {
-    var TenSP = document.getElementById("name-for-search")
-    var MauSac = document.getElementById("color-for-search")
-    var ChuDe = document.getElementById("title-for-search")
+    var TenSP = document.getElementById("name-for-search").value
+    var MauSac = document.getElementById("color-for-search").value
+    var ChuDe = document.getElementById("title-for-search").value
 
+
+    var xhtml = new XMLHttpRequest();
+    xhtml.onload = function() {
+
+        render_product_for_customer(JSON.parse(this.responseText))
+
+    }
+
+    xhtml.open("POST", "/customer/search-products");
+    xhtml.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xhtml.send("TenSP=" + TenSP + "&MauSac=" + MauSac + "&ChuDe=" + ChuDe);
     return false;
 }
 
+function render_product_for_customer(data) {
+    var table = document.querySelector("#Search-products-container")
+    var tr = ``
+    data.forEach(element => {
+        tr = tr + `<!-- product card start -->
+        <div class="col-xs-12 mb-30">
+            <div class="course-box list-view clearfix">
+                <div class="thumb text-center pull-left">
+                    <img src="/images/Hoa_1.png" alt="Hoa thanh tâm" />
+                </div>
+                <div class="course-content">
 
+                    <h3 class="text-capitalize">${element.TenSP}</h3>
+
+                    <div class="product-price clearfix">
+                        <div class="pull-left">
+                            <h6><span>Giá: </span>${(element.GiaBan).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')} vnd</h6>
+                        </div>
+                    </div>
+                    <h6 style="margin:5px 0 10px 0;">Màu: ${element.MauSac}</h6>
+                    <h6 style="margin:5px 0 5px 0; height: 120px;">Chủ đề: ${element.ChuDe}</h6>
+                    <a class="btn btn-1" href="course-details.html" onclick="return Add_product_to_shopping('${element.MaSP}','${element.TenSP}');">Thêm vào giỏ hàng</a>
+
+                </div>
+            </div>
+        </div>
+        <!-- product card end -->`
+    });
+    table.innerHTML = tr
+}
 
 function customer_view_order() {
     cus_show('view-order-section');
@@ -170,24 +214,9 @@ function render_view_order_detail(data) {
 }
 
 
-function get_supplier() {
-    var xhtml = new XMLHttpRequest();
-    xhtml.onload = function() {
-        render_supplier(JSON.parse(this.responseText))
-    }
 
-    xhtml.open("GET", "supplier-data");
-    xhtml.send();
-}
 
-function render_supplier(data) {
-    var supplier = document.querySelector(`#select-partner`)
-    var opt = `<option selected>Chọn đối tác</option>`
-    data.forEach(element => {
-        opt = opt + `<option value='${element.MaDT}'>${element.TenDT}</option>`
-    });
-    supplier.innerHTML = opt
-}
+
 
 function get_product_forAll() {
     let MaDT = document.querySelector(`#select-partner`).value

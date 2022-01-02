@@ -80,8 +80,8 @@ router.post("/view-products-price", function(req, res) {
             //console.log(req.body.MaSP)
             let pool = await sql.connect(config);
             let result = await pool.request()
-                .query(`select gia.*,sp.TenSP from BangGiaSP gia join SanPham sp on gia.MaSP = sp.MaSP where gia.MaSP = '${req.body.MaSP}'`)
-
+                .input('MaSP', sql.Char(10), req.body.MaSP)
+                .execute('sp_TruyVet_GiaSP')
 
             pool.close()
                 //console.log(result)

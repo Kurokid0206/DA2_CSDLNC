@@ -23,7 +23,7 @@
     <script src="/js/cus-function.js"></script>
 </head>
 
-<body onload="">
+<body onload="cus_show('Search-product-section');customer_view_products();">
     <!--[if lt IE 8]>
             <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
@@ -166,7 +166,7 @@
         <!-- Order section End -->
 
         <!-- Search product section Start -->
-        <section class="register-area section-padding white-bg" id="Search product-section">
+        <section class="register-area section-padding white-bg" id="Search-product-section">
             <div class="container">
                 <div class="row">
                     <div class="" style="margin: 0 auto; width: 100%;">
@@ -204,7 +204,7 @@
                                     <div class="tab-content">
                                         <!-- /.Grid View End -->
                                         <div class="tab-pane fade in active" id="list-view">
-                                            <div class="row" id="products-container">
+                                            <div class="row" id="Search-products-container">
 
 
                                                 <!-- product card start -->
@@ -246,6 +246,44 @@
             </div>
         </section>
         <!-- View bill section END -->
+
+
+        <!-- View order section Start -->
+        <section class="register-area section-padding white-bg" id="view-order-section">
+            <div class="container">
+                <div class="row">
+                    <div class="" style="margin: 0 auto; width: auto;">
+                        <div class="enter-box" style="padding: 87px;width: 900px; margin: 0 auto;">
+                            <h3 class="mb-35">Quản lý đơn hàng</h3>
+                            <table class="table " id="bill-detail">
+                                <thead>
+                                    <tr>
+                                        <th scope="col" style="width: 120px;">
+                                            <h6 style="margin:5px 0 0 0;">Mã Sản Phẩm</h6>
+                                        </th>
+                                        <th scope="col" style="width: 200px;">
+                                            <h6 style="margin:5px 0 0 0;">Sản Phẩm</h6>
+                                        </th>
+                                        <th scope="col" style="width: 100px;">
+                                            <h6 style="margin:5px 0 0 0;">Đơn Giá</h6>
+                                        </th>
+                                        <th scope="col" style="width: 100px;">
+                                            <h6 style="margin:5px 0 0 0;">Số Lương</h6>
+                                        </th>
+                                        <th scope="col" style="width: 10px;">
+                                            <h6 style="margin:5px 0 0 0;">Thành Tiền</h6>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- View order section END -->
 
 
         <!-- View bill-detail section Start -->
