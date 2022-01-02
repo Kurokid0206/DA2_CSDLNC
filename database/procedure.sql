@@ -222,3 +222,29 @@ begin tran
 if @@trancount > 0  
     commit tran;
 go
+
+create
+proc sp_Inser_GiamGia
+	@MaGiamGia char(10),
+	@LoaiGiamGia nvarchar(50),
+	@GiamGia int,
+	@HanSD date
+as 
+begin tran
+	begin try
+		if @GiamGia <= 0 raiserror(N'Giá Giảm không hợp lệ',16,1)
+		if @LoaiGiamGia = N'Phần Trăm'
+		begin
+			if @GiamGia > 90 raiserror(N'Giá Giảm không hợp lệ',16,1)
+			insert into GiamGia(MaGiamGia, LoaiGiamGia, PhanTramGiam, NgayHetHan) values(@MaGiamGia,@LoaiGiamGia,@GiamGia,@HanSD)
+		end
+		else insert into GiamGia(MaGiamGia, LoaiGiamGia, SoTienGiam, NgayHetHan) values(@MaGiamGia,@LoaiGiamGia,@GiamGia,@HanSD)
+	end try
+	begin catch
+		select  error_message() as errormessage; 
+		if @@trancount > 0  
+			rollback tran
+	end catch
+if @@trancount > 0  
+    commit tran;
+go
