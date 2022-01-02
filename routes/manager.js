@@ -19,30 +19,22 @@ router.get('/', function (req, res) {
   res.render('manager')
 })
 
-data = [
-  { MaSP: 'SP001', TenSP: 'Name001', DoanhThu: 10000, DoanhThu2: 15000 },
-  { MaSP: 'SP002', TenSP: 'Name002', DoanhThu: 20000, DoanhThu2: 25000 },
-  { MaSP: 'SP003', TenSP: 'Name003', DoanhThu: 30000, DoanhThu2: 35000 },
-  { MaSP: 'SP004', TenSP: 'Name004', DoanhThu: 40000, DoanhThu2: 45000 },
-]
-
-router.get('/get-revenue', (req, res) => {
-  res.send(data)
-  // (async () => {
-  //   try {
-  //     let pool = await sql.connect(config)
-  //     let result = await pool.request()
-
-  //         .execute('sp_ThemMaGiam')
-  //     pool.close()
-  //     res.send(result.recordset)
-  //     //console.log(result)
-  //   } catch (error) {
-  //     //console.log(error.message);
-  //     res.send(error.message)
-  //     return error
-  //   }
-  // })()
+router.post('/get-revenue', (req, res) => {
+ // res.send(data)
+  (async () => {
+    try {
+      let pool = await sql.connect(config)
+      let result = await pool.request()
+          .input('Thang',sql.Int,parseInt(req.body.month))
+          .execute('sp_XemDoanhThu_SP')
+      pool.close()
+      res.send(result.recordset)
+    } catch (error) {
+      //console.log(error.message);
+      res.send(error.message)
+      return error
+    }
+  })()
 })
 
 router.post('/get-eff', (req, res) => {

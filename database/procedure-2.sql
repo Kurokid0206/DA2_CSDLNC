@@ -138,6 +138,9 @@ BEGIN TRAN
 	BEGIN TRY
 		INSERT INTO CT_NhapHang
         VALUES(@STT, @MaDonNhap, @MaSP, @SoLuong)
+		update SanPham
+		set SoLuongTon=SoLuongTon+@SoLuong
+		where MaSP=@MaSP
 	END TRY
 	BEGIN CATCH
 		SELECT  error_number() AS errornumber,

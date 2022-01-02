@@ -1,12 +1,12 @@
 var ids = [
   'Revenue-section',
-  'dddd-section',
+  'number-section',
   'emp-eff-section',
   'discount-section',
   'Revenue-compare-section',
 ]
 var glb_data = []
-const page_max = 10
+const page_max = 5
 var called=false
 
 function show(id) {
@@ -29,7 +29,7 @@ function get_revenue() {
     if(!called){get_total_rev() }
   }
 
-  xhtml.open('get', 'manager/get-revenue')
+  xhtml.open('post', 'manager/get-revenue')
   xhtml.setRequestHeader('Content-type', 'application/x-www-form-urlencoded')
   xhtml.send(`month=${month}`)
 }
@@ -50,7 +50,11 @@ function render_revenue() {
           <h6 style="margin:5px 0 0 0;">${element.TenSP}</h6>
       </td>
       <td scope="col" style="width: 200px;">
-          <h6 style="margin:5px 0 0 0;">${element.DoanhThu}</h6>
+          <h6 style="margin:5px 0 0 0;">`
+            
+      if(element.DoanhThu == null){tr+='0'}
+      else{tr+=element.DoanhThu}
+            tr+=`</h6>
       </td>
   </tr>`
     } catch (err) {
