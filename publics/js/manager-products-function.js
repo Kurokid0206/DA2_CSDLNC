@@ -85,7 +85,8 @@ function save_manage_edit_product(MaSP) {
 
     var xhtml = new XMLHttpRequest();
     xhtml.onload = function() {
-        console.log(this.responseText)
+        section_show('manager-products-section');
+        get_product_for_manage();
 
     }
 
@@ -329,7 +330,8 @@ function import_goods() {
     let date = document.getElementById("NgayNhap").value
     var xhtml = new XMLHttpRequest();
     xhtml.onload = function() {
-        customer_view_order();
+        //section_show('manager-import-history-section');get_import_history();
+        console.log(this.responseText)
     }
 
     xhtml.open("POST", "/manage_product/import-goods");
