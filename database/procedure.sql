@@ -336,3 +336,38 @@ begin tran
 	end catch
 if @@trancount > 0  
     commit tran;
+go
+
+--drop proc sp_XemDoanhThu_2SP
+create proc sp_XemDoanhThu_2SP
+@Thang1 int,
+@Thang2 int
+as
+begin tran
+	begin try
+		select SP.MaSP, TenSP, SUM(CT1.ThanhTien) DoanhThu1,SUM(CT2.ThanhTien) DoanhThu2 from 
+		(select CTHD.MaSP, ThanhTien
+		from CT_HoaDon CTHD join HoaDon HD on CTHD.MaHD = HD.MaHD 
+		where month(NgayLap) = @Thang1) CT1 
+
+		right join SanPham SP on SP.MaSP = CT1.MaSP
+
+		left join 
+		(select CTHD.MaSP, ThanhTien
+		from CT_HoaDon CTHD join HoaDon HD on CTHD.MaHD = HD.MaHD 
+		where month(NgayLap) = @Thang2) CT2 on SP.MaSP = CT2.MaSP
+
+		group by SP.MaSP, TenSP
+		order by SP.MaSP
+	end try
+	begin catch
+		select  error_message() as errormessage; 
+		if @@trancount > 0  
+			rollback tran
+	end catch
+if @@trancount > 0  
+    commit tran;
+go
+
+
+

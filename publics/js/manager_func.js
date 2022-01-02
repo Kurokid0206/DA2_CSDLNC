@@ -7,10 +7,11 @@ var ids = [
 ]
 var glb_data = []
 const page_max = 5
-var called=false
+var called = false
 
 function show(id) {
   glb_data = []
+  called = false
   ids.forEach((id) => {
     var div = document.querySelector('#' + id)
     div.style.display = 'none'
@@ -26,7 +27,9 @@ function get_revenue() {
     glb_data = JSON.parse(this.responseText)
     document.querySelector('#Revenue-section .page-number').value = 1
     render_revenue()
-    if(!called){get_total_rev() }
+    if (!called) {
+      get_total_rev()
+    }
   }
 
   xhtml.open('post', 'manager/get-revenue')
@@ -51,10 +54,13 @@ function render_revenue() {
       </td>
       <td scope="col" style="width: 200px;">
           <h6 style="margin:5px 0 0 0;">`
-            
-      if(element.DoanhThu == null){tr+='0'}
-      else{tr+=element.DoanhThu}
-            tr+=`</h6>
+
+      if (element.DoanhThu == null) {
+        tr += '0'
+      } else {
+        tr += element.DoanhThu
+      }
+      tr += `</h6>
       </td>
   </tr>`
     } catch (err) {
@@ -63,14 +69,73 @@ function render_revenue() {
   }
   document.querySelector('#Revenue-section tbody').innerHTML = tr
 }
-function get_total_rev(){
-  let data=glb_data
-  sum=0
-  data.forEach(element=>{
-    sum+=element.DoanhThu
+
+function get_total_rev() {
+  let data = glb_data
+  sum = 0
+  data.forEach((element) => {
+    sum += element.DoanhThu
   })
-  document.getElementById("Sum_Revenue").innerHTML=sum
+  document.getElementById('Sum_Revenue').innerHTML = sum
 }
+
+function get_number() {
+  let month = document.querySelector('#number-section select').value
+  var xhtml = new XMLHttpRequest()
+  xhtml.onload = function () {
+    glb_data = JSON.parse(this.responseText)
+    document.querySelector('#number-section .page-number').value = 1
+    render_number()
+    if (!called) {
+      render_in_out()
+    }
+  }
+
+  xhtml.open('post', 'manager/get-number')
+  xhtml.setRequestHeader('Content-type', 'application/x-www-form-urlencoded')
+  xhtml.send(`month=${month}`)
+}
+
+function render_number() {
+  let data = glb_data
+  let page = document.querySelector('#number-section .page-number').value
+
+  tr = ``
+  for (var i = (page - 1) * page_max; i < page * page_max; i++) {
+    try {
+      let element = data[i]
+      tr += `
+    <tr>
+      <td scope="col">
+          <h6 style="margin:5px 0 0 0;">${element.MaSP}</h6>
+      </td>
+      <td scope="col">
+          <h6 style="margin:5px 0 0 0;">${element.TenSP}</h6>
+      </td>
+      <td scope="col">
+          <h6 style="margin:5px 0 0 0;">${element.TongNhap}</h6>
+      </td>
+      <td scope="col">
+          <h6 style="margin:5px 0 0 0;">${element.TongXuat}</h6>
+      </td>
+  </tr>`
+    } catch (err) {
+      break
+    }
+  }
+  document.querySelector('#number-section tbody').innerHTML = tr
+}
+
+function render_in_out() {
+  s_in = 0
+  s_out = 0
+  glb_data.forEach((element) => {
+    s_in += element.TongNhap
+    s_out += element.TongXuat
+  })
+  document.getElementById('Sum_in_out').innerText = `${s_in}/${s_out}`
+}
+
 function next(name) {
   let page = document.querySelector(`#${name} .page-number`)
   if (page.value < glb_data.length / page_max) {
@@ -89,10 +154,9 @@ function get_eff() {
   let month = document.querySelector('#emp-eff-section select').value
   var xhtml = new XMLHttpRequest()
   xhtml.onload = function () {
-    document.querySelector('#emp-eff-section .page-number').value=1
+    document.querySelector('#emp-eff-section .page-number').value = 1
     glb_data = JSON.parse(this.responseText)
     render_eff()
-
   }
 
   xhtml.open('post', 'manager/get-eff')
@@ -101,10 +165,10 @@ function get_eff() {
 }
 
 function render_eff() {
-   let data = glb_data
+  let data = glb_data
 
-  if(data.length<1){
-    document.querySelector('#emp-eff-section tbody').innerHTML =`
+  if (data.length < 1) {
+    document.querySelector('#emp-eff-section tbody').innerHTML = `
     <tr><td scope="col" >
     <h6 style="margin:5px 0 0 0;">No result</h6></td>`
     return
@@ -227,18 +291,73 @@ function cancel_add_discount() {
   list.removeChild(list.lastChild)
 }
 
-function show_compare(section) {
-  document.querySelector(`#${section} .btn`).style.display = 'none'
+function compare() {
+  let month1 = document.querySelectorAll('#Revenue-compare-section select')[0]
+    .value
+  let month2 = document.querySelectorAll('#Revenue-compare-section select')[1]
+    .value
+  var xhtml = new XMLHttpRequest()
+  xhtml.onload = function () {
+    document.querySelector('#Revenue-compare-section .page-number').value = 1
+    glb_data = JSON.parse(this.responseText)
+    render_compare()
+  }
 
-  document.querySelectorAll(`#${section} .compare`).forEach((element) => {
-    element.style.display = 'table-cell'
-  })
+  xhtml.open('post', 'manager/get-revenue-2')
+  xhtml.setRequestHeader('Content-type', 'application/x-www-form-urlencoded')
+  xhtml.send(`month1=${month1}&month2=${month2}`)
 }
 
-function compare() {
-  data1 = []
-  data2 = []
-  for (var i = 0; i < 100; i++) {
-    //do sth
+function render_compare(){
+  let data = glb_data
+
+  if (data.length < 1) {
+    document.querySelector('#Revenue-compare-section tbody').innerHTML = `
+    <tr><td scope="col" >
+    <h6 style="margin:5px 0 0 0;">No result</h6></td>`
+    return
   }
+  let page = document.querySelector('#Revenue-compare-section .page-number').value
+  tr = ``
+  for (var i = (page - 1) * page_max; i < page * page_max; i++) {
+    try {
+      let element = data[i]
+      tr += 
+      `<tr>
+      <td scope="col" style="width: 100px;">
+          <h6 style="margin:5px 0 0 0;">${element.MaSP}</h6>
+      </td>
+      <td scope="col" style="width: 300px;">
+          <h6 style="margin:5px 0 0 0;">${element.TenSP}</h6>
+      </td>
+      <td scope="col" style="width: 200px;">
+          <h6 style="margin:5px 0 0 0;">`
+          
+          if(element.DoanhThu1 ==null){
+            tr+=0
+          }else{
+            tr+=element.DoanhThu1
+          }
+          
+          tr+=`</h6>
+      </td>
+      <td scope="col" style="width: 200px;" class="compare">
+          <h6 style="margin:5px 0 0 0;">
+          `
+          if(element.DoanhThu2 ==null){
+            tr+=0
+          }else{
+            tr+=element.DoanhThu2
+          }
+         tr+= `
+          </h6>
+      </td>
+    </tr>
+    `
+    } catch (err) {
+      break
+    }
+  }
+  document.querySelector('#Revenue-compare-section tbody').innerHTML = tr
+  
 }

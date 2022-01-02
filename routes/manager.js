@@ -20,13 +20,53 @@ router.get('/', function (req, res) {
 })
 
 router.post('/get-revenue', (req, res) => {
- // res.send(data)
-  (async () => {
+  // res.send(data)
+  ;(async () => {
     try {
       let pool = await sql.connect(config)
-      let result = await pool.request()
-          .input('Thang',sql.Int,parseInt(req.body.month))
-          .execute('sp_XemDoanhThu_SP')
+      let result = await pool
+        .request()
+        .input('Thang', sql.Int, parseInt(req.body.month))
+        .execute('sp_XemDoanhThu_SP')
+      pool.close()
+      res.send(result.recordset)
+    } catch (error) {
+      //console.log(error.message);
+      res.send(error.message)
+      return error
+    }
+  })()
+})
+
+router.post('/get-number', (req, res) => {
+  // res.send(data)
+  ;(async () => {
+    try {
+      let pool = await sql.connect(config)
+      let result = await pool
+        .request()
+        .input('Thang', sql.Int, parseInt(req.body.month))
+        .execute('sp_XemSL')
+      pool.close()
+      res.send(result.recordset)
+    } catch (error) {
+      //console.log(error.message);
+      res.send(error.message)
+      return error
+    }
+  })()
+})
+
+router.post('/get-revenue-2', (req, res) => {
+  // res.send(data)
+  ;(async () => {
+    try {
+      let pool = await sql.connect(config)
+      let result = await pool
+        .request()
+        .input('Thang1', sql.Int, parseInt(req.body.month1))
+        .input('Thang2', sql.Int, parseInt(req.body.month2))
+        .execute('sp_XemDoanhThu_2SP')
       pool.close()
       res.send(result.recordset)
     } catch (error) {
@@ -41,8 +81,9 @@ router.post('/get-eff', (req, res) => {
   ;(async () => {
     try {
       let pool = await sql.connect(config)
-      let result = await pool.request()
-        .input('thang',sql.Int,req.body.month)
+      let result = await pool
+        .request()
+        .input('thang', sql.Int, req.body.month)
         .execute('sp_Get_HieuSuat')
       pool.close()
       res.send(result.recordset)
@@ -79,7 +120,6 @@ router.post('/add-discount', (req, res) => {
     type = true
   } else {
     number = parseInt(data.discount)
-    
   }
 
   ;(async () => {
