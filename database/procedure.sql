@@ -2,30 +2,20 @@ use QLBanHoa
 go
 
 drop proc sp_Insert_KhackHang 
-go
 drop procedure sp_Insert_SanPham
-go
 drop procedure sp_Insert_NV
-go
 drop procedure sp_NV_DiemDanh
-go
 drop proc sp_NV_NhanDon
-go
 drop proc sp_NV_XacNhanHD
-go
 drop proc sp_PhatLuong
-go 
 drop proc sp_XemBL
-go
 drop proc sp_Insert_GiamGia
-go
 drop proc sp_XemCTBL
-go
 drop proc sp_XemDoanhThu_NV
-go
 drop proc sp_Xem_CTDoanhThu_NV
-go
 drop procedure sp_Get_HieuSuat
+drop proc sp_XemDoanhThu_SP
+drop proc sp_XemSL
 go
 
 create procedure sp_Insert_KhackHang 

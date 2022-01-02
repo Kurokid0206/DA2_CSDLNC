@@ -140,7 +140,8 @@ CREATE TABLE [CT_NhapHang]
 	[STT] int NOT NULL,
 	[MaDonNhap] char(10) NOT NULL,
 	[MaSP] char(10) NULL,
-	[SoLuong] int NULL
+	[SoLuong] int NULL,
+	[ThanhTien] int NULL
 )
 GO
 
@@ -148,6 +149,7 @@ CREATE TABLE [DonNhapHang]
 (
 	[MaDonNhap] char(10) NOT NULL,
 	[NgayNhap] date NULL,
+	[TongTien] int NULL
 )
 GO
 
