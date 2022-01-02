@@ -102,3 +102,12 @@ begin
 	return @MaDN
 end
 go
+
+create function f_Auto_STT_NhapHang(@MaHD char(10)) 
+returns char(10)
+AS
+begin
+	declare @STT as int = (select max(STT) from CT_HoaDon where MaHD = @MaHD)
+	return @STT
+end
+go

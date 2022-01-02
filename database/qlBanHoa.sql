@@ -153,7 +153,7 @@ GO
 CREATE TABLE [GiamGia]
 (
 	[MaGiamGia] varchar(10) NOT NULL,
-	[LoaiGiamGia] nvarchar(50) NULL,
+	[LoaiGiamGia] bit NULL,
 	[SoTienGiam] int NULL,
 	[PhanTramGiam] int NULL,
 	[NgayHetHan] date NOT NULL
