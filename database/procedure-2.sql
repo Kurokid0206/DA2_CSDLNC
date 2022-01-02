@@ -94,3 +94,30 @@ BEGIN TRAN
 IF @@trancount > 0  
     COMMIT TRAN;
 GO
+
+--DROP PROCEDURE sp_Insert_NhapHang
+CREATE PROCEDURE sp_Insert_NhapHang
+	@STT int,
+	@MaDonNhap char(10),
+	@MaSP char(10),
+	@SoLuong int
+AS
+
+BEGIN TRAN
+	BEGIN TRY
+		INSERT INTO CT_NhapHang
+        VALUES(@STT, @MaDonNhap, @MaSP, @SoLuong)
+	END TRY
+	BEGIN CATCH
+		SELECT  error_number() AS errornumber,
+				error_severity() AS errorseverity, 
+				error_state() AS errorstate,  
+				error_procedure() AS errorprocedure,  
+				error_line() AS errorline,  
+				error_message() AS errormessage; 
+		IF @@trancount > 0  
+			ROLLBACK TRAN
+	END CATCH
+IF @@trancount > 0  
+    COMMIT TRAN;
+GO
