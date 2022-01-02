@@ -1,6 +1,33 @@
 use QLBanHoa
 go
 
+drop proc sp_Insert_KhackHang 
+go
+drop procedure sp_Insert_SanPham
+go
+drop procedure sp_Insert_NV
+go
+drop procedure sp_NV_DiemDanh
+go
+drop proc sp_NV_NhanDon
+go
+drop proc sp_NV_XacNhanHD
+go
+drop proc sp_PhatLuong
+go 
+drop proc sp_XemBL
+go
+drop proc sp_Insert_GiamGia
+go
+drop proc sp_XemCTBL
+go
+drop proc sp_XemDoanhThu_NV
+go
+drop proc sp_Xem_CTDoanhThu_NV
+go
+drop procedure sp_Get_HieuSuat
+go
+
 create procedure sp_Insert_KhackHang 
 	@MaKH char(10) output,
 	@HoTen nvarchar(50), 
@@ -224,10 +251,9 @@ if @@trancount > 0
     commit tran;
 go
 
-create
-proc sp_Inser_GiamGia
+create proc sp_Insert_GiamGia
 	@MaGiamGia char(10),
-	@LoaiGiamGia nvarchar(50),
+	@LoaiGiamGia bit,
 	@GiamGia int,
 	@NgayHetHan date
 as 
