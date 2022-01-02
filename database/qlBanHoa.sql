@@ -120,6 +120,7 @@ CREATE TABLE [BangLuong]
 	[MaNV] char(10) NOT NULL,
 	[NgayPhatLuong] date NOT NULL,
 	[Luong] int NULL,
+	[HieuSuat] float NULL,
 	[Thuong] int DEFAULT 0
 )
 GO
@@ -199,7 +200,6 @@ CREATE TABLE [NhanVien]
 	[MaNV] char(10) NOT NULL,
 	[TenNV] nvarchar(50) NULL,
 	[MucTieu] int NULL,
-	[HieuSuat] float NULL,
 	[TaiKhoan] varchar(50) NOT NULL
 )
 GO
