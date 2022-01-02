@@ -175,96 +175,55 @@
                     <div class="" style="margin: 0 auto; width: 100%;">
                         <div class="enter-box" style="padding: 87px;width: 100%; margin: 0 auto;">
                             <h3 class="mb-35">Tìm kiếm sản phẩm</h3>
+                            <div class="search-form-for-customer">
+                                <form class="custom-input" id="order-form" onsubmit="return insert_order();">
+
+
+                                    <h6 style="margin:5px 0 0 0;">Tên hoa:</h6>
+                                    <input type="text" id="address" placeholder="Tìm theo tên" />
+
+                                    <h6 style="margin:5px 0 0 0;">Màu sắc:</h6>
+                                    <select name="type-payment" id="type-payment" placeholder="Chọn đối tác">
+                                        <option value="Chuyển khoản" selected >Tìm theo màu sắc</option>
+                                        <option value="Tiền mặt">Tiền mặt</option>
+                                    </select>
+
+                                    <h6 style="margin:5px 0 0 0;">Chủ đề:</h6>
+                                    <select name="type-payment" id="type-payment" placeholder="Chọn đối tác">
+                                        <option value="Chuyển khoản" selected >Tìm theo chủ đề</option>
+                                        <option value="Tiền mặt">Tiền mặt</option>
+                                    </select>
+
+
+                                    <button class="btn" type="submit">Tìm kiếm</button>
+                                </form>
+                            </div>
+
                             <!-- /.row -->
                             <div class="row">
                                 <div class="col-xs-12">
                                     <div class="tab-content">
-                                        <div class="tab-pane fade" id="grid-view">
-                                            <div class="row">
-                                                <!-- product card start -->
-                                                <div class="col-xs-12 col-sm-6 col-md-4 mb-50">
-                                                    <div class="course-box">
-                                                        <div class="course-content plr-25">
-                                                            <div class="thumb text-center">
-                                                                <a href="courses.html"><img src="assets/img/course/1.jpg" alt="Thumbnail Image" /></a>
-                                                                <div class="price">
-                                                                    <h3 class="no-margin"><span>$</span>25</h3>
-                                                                </div>
-                                                            </div>
-                                                            <a href="courses.html">
-                                                                <h3 class="text-capitalize">Learn Photoshop 2017</h3>
-                                                            </a>
-                                                            <div class="date-comment clearfix">
-                                                                <div class="pull-left">
-                                                                    <h6><span>Date: </span>15.6.17</h6>
-                                                                </div>
-                                                                <div class="pull-right">
-                                                                    <h6><i class="zmdi zmdi-comments"></i> 20</h6>
-                                                                </div>
-                                                            </div>
-                                                            <p class="mb-20">There are many variations of ages om Ipsum available, but the mrity ave suffered aleration in some orm altime to share.</p>
-                                                            <a class="btn btn-1" href="courses.html">Learn Now</a>
-                                                        </div>
-                                                        <div class="footer clearfix plr-25">
-                                                            <div class="pull-left">
-                                                                <img class="pull-left" src="assets/img/course/t1.png" alt="Teacher Image" />
-                                                                <h5 class="no-margin">Steven Keller</h5>
-                                                            </div>
-                                                            <div class="pull-right rating">
-                                                                <i class="zmdi zmdi-star"></i>
-                                                                <i class="zmdi zmdi-star"></i>
-                                                                <i class="zmdi zmdi-star"></i>
-                                                                <i class="zmdi zmdi-star"></i>
-                                                                <i class="zmdi zmdi-star-half"></i>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <!-- product card end -->
-
-                                            </div>
-                                            <!-- /.row -->
-                                        </div>
                                         <!-- /.Grid View End -->
                                         <div class="tab-pane fade in active" id="list-view">
-                                            <div class="row">
+                                            <div class="row" id="products-container">
                                                 <!-- product card start -->
                                                 <div class="col-xs-12 mb-30">
                                                     <div class="course-box list-view clearfix">
                                                         <div class="thumb text-center pull-left">
-                                                            <a href="course-details.html"><img src="assets/img/course/list/1.jpg" alt="Thumbnail Image" /></a>
-                                                            <div class="price">
-                                                                <h3 class="no-margin"><span>$</span>30</h3>
-                                                            </div>
+                                                            <img src="/images/Hoa_1.png" alt="Hoa thanh tâm" />
                                                         </div>
                                                         <div class="course-content">
-                                                            <a href="course-details.html">
-                                                                <h3 class="text-capitalize">Learn Photoshop 2017</h3>
-                                                            </a>
-                                                            <div class="date-comment clearfix">
+
+                                                            <h3 class="text-capitalize">Hoa Thanh Tâm</h3>
+
+                                                            <div class="product-price clearfix">
                                                                 <div class="pull-left">
-                                                                    <h6><span>Date: </span>15.6.17</h6>
-                                                                </div>
-                                                                <div class="pull-right">
-                                                                    <h6><i class="zmdi zmdi-comments"></i> 20</h6>
+                                                                    <h6><span>Giá: </span>150,000 vnd</h6>
                                                                 </div>
                                                             </div>
-                                                            <p class="mb-20">There are many variations of passages of Lorem Ipsum available, but the majorit sufalteration in some form, by injected humour, or randomised words which don't look slightly believable. If you
-                                                                are going to use a passage of Lorem Ipsum, you need to be sure there isn't embarrassing hidden in the middle of text.</p>
-                                                            <a class="btn btn-1" href="course-details.html">Learn Now</a>
-                                                            <div class="footer clearfix plr-25">
-                                                                <div class="pull-left">
-                                                                    <img class="pull-left" src="assets/img/course/t1.png" alt="Teacher Image" />
-                                                                    <h5 class="no-margin">Mark Thomas</h5>
-                                                                </div>
-                                                                <div class="pull-right rating">
-                                                                    <i class="zmdi zmdi-star"></i>
-                                                                    <i class="zmdi zmdi-star"></i>
-                                                                    <i class="zmdi zmdi-star"></i>
-                                                                    <i class="zmdi zmdi-star"></i>
-                                                                    <i class="zmdi zmdi-star-half"></i>
-                                                                </div>
-                                                            </div>
+                                                            <h6 style="margin:5px 0 5px 0; height: 120px;">Chủ đề: ẩm thực, lễ hội</h6>
+                                                            <a class="btn btn-1" href="course-details.html" onclick="return somethinglikeoang();">Thêm vào giỏ hàng</a>
+
                                                         </div>
                                                     </div>
                                                 </div>
