@@ -140,7 +140,8 @@ CREATE TABLE [CT_NhapHang]
 	[STT] int NOT NULL,
 	[MaDonNhap] char(10) NOT NULL,
 	[MaSP] char(10) NULL,
-	[SoLuong] int NULL
+	[SoLuong] int NULL,
+	[ThanhTien] int NULL
 )
 GO
 
@@ -148,6 +149,7 @@ CREATE TABLE [DonNhapHang]
 (
 	[MaDonNhap] char(10) NOT NULL,
 	[NgayNhap] date NULL,
+	[TongTien] int NULL
 )
 GO
 
@@ -229,7 +231,7 @@ GO
 
 ALTER TABLE [BangGiaSP] 
  ADD CONSTRAINT [PK_BangGiaSP]
-	PRIMARY KEY CLUSTERED ([NgayApDung] ASC,[MaSP] ASC)
+	PRIMARY KEY CLUSTERED ([MaSP] ASC, [NgayApDung] ASC)
 GO
 
 ALTER TABLE [BangLuong] 
@@ -239,12 +241,12 @@ GO
 
 ALTER TABLE [CT_HoaDon] 
  ADD CONSTRAINT [PK_CT_HoaDon]
-	PRIMARY KEY CLUSTERED ([STT] ASC,[MaHD] ASC)
+	PRIMARY KEY CLUSTERED ([MaHD] ASC,[STT] ASC)
 GO
 
 ALTER TABLE [CT_NhapHang] 
  ADD CONSTRAINT [PK_ChiTietNhapHang]
-	PRIMARY KEY CLUSTERED ([STT] ASC,[MaDonNhap] ASC)
+	PRIMARY KEY CLUSTERED ([MaDonNhap] ASC,[STT] ASC)
 GO
 
 ALTER TABLE [DonNhapHang] 

@@ -18,7 +18,7 @@ begin
 end
 go
 
-create trigger trg_ThanhTien
+create trigger trg_ThanhTien_HD
 on CT_HoaDon
 for insert, update
 as
@@ -37,7 +37,7 @@ begin
 end
 go
 
-create trigger trg_TongTien
+create trigger trg_TongTien_HD
 on CT_HoaDon
 after insert, update, delete
 as
@@ -57,6 +57,41 @@ begin
 end
 go
 
+create trigger trg_ThanhTien_NH
+on CT_NhapHang
+for insert, update
+as
+begin
+	if UPDATE(SoLuong)
+	begin
+		declare @MaSP as char(10) = (select MaSP from inserted)
+		declare @MaDN as char(10) = (select MaDonNhap from inserted)
+		declare @GiaNhap as int = (select GiaNhap from BangGiaSP 
+								where MaSP = @MaSP and NgayApDung = (select max(NgayApDung) from BangGiaSP 
+																	where MaSP = @MaSP))
+		update CT_NhapHang
+		set ThanhTien = SoLuong * @GiaNhap
+		where MaSP = @MaSP and MaDonNhap = @MaDN
+	end
+end
+go
+
+create trigger trg_TongTien_NH
+on CT_NhapHang
+after insert, update, delete
+as
+begin
+	declare @MaDN as char(10) = NULL
+	if UPDATE(ThanhTien) or UPDATE(MaDonNhap)
+		set @MaDN = (select MaDonNhap from inserted)
+	else 
+		set @MaDN = (select MaDonNhap from deleted)
+	update DonNhapHang
+	set TongTien = (select SUM(ThanhTien) from CT_NhapHang where MaDonNhap = @MaDN) 
+	where MaDonNhap = @MaDN
+end
+go
+
 create trigger trg_TenND
 on TaiKhoan
 after insert, update
@@ -73,3 +108,4 @@ begin
 		update NhanVien
 		set TenNV = @Ten
 end
+go

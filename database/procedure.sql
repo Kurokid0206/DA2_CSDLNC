@@ -2,30 +2,24 @@ use QLBanHoa
 go
 
 drop proc sp_Insert_KhackHang 
-go
 drop procedure sp_Insert_SanPham
-go
 drop procedure sp_Insert_NV
-go
 drop procedure sp_NV_DiemDanh
-go
 drop proc sp_NV_NhanDon
-go
 drop proc sp_NV_XacNhanHD
-go
 drop proc sp_PhatLuong
-go 
 drop proc sp_XemBL
-go
 drop proc sp_Insert_GiamGia
-go
 drop proc sp_XemCTBL
-go
 drop proc sp_XemDoanhThu_NV
-go
 drop proc sp_Xem_CTDoanhThu_NV
-go
 drop procedure sp_Get_HieuSuat
+drop proc sp_XemDoanhThu_SP
+drop proc sp_XemSL
+drop proc sp_Login
+drop proc sp_Disable_Enable_Login
+drop proc sp_Insert_HD
+drop proc sp_Insert_CTHD
 go
 
 create procedure sp_Insert_KhackHang 
@@ -338,6 +332,98 @@ if @@trancount > 0
     commit tran;
 go
 
+create procedure sp_Login @TK varchar(50), @MK varchar(20), @Ma char(10) output
+as
+begin tran
+	begin try
+		if exists(select * from TaiKhoan where @TK = TenTK and @MK = MatKhau and TrangThai = 'Enabled')
+			begin
+			select * from TaiKhoan where @TK = TenTK and @MK = MatKhau
+			declare @VaiTro as nvarchar(50)= (select VaiTro from TaiKhoan where TenTK = @TK)
+			if @VaiTro = N'Khách Hàng' set @Ma = (select MaKH from KhachHang where TaiKhoan = @TK)
+			else if @VaiTro = N'Nhân Viên' set @Ma = (select MaNV from NhanVien where TaiKhoan = @TK)
+			else set @Ma = 'QTV0000000' 
+			end
+		else
+		raiserror('Wrong Login',16,1)
+	end try
+	begin catch
+		select  error_message() as errormessage; 
+		if @@trancount > 0  
+			rollback tran
+	end catch
+if @@trancount > 0  
+    commit tran;
+
+go
+
+create procedure sp_Disable_Enable_Login @TK varchar(50)
+as
+begin tran
+	begin try
+		declare @TinhTrang varchar(10) = (select TrangThai from taikhoan where @TK = TenTK)
+		if @TinhTrang = 'Enabled' set @TinhTrang = 'Disabled'
+		else set @TinhTrang = 'Enabled'
+		update TaiKhoan
+		set TrangThai = @TinhTrang
+		where TenTK = @TK
+	end try
+	begin catch
+		select  error_message() as errormessage; 
+		if @@trancount > 0  
+			rollback tran
+	end catch
+if @@trancount > 0  
+    commit tran;
+go
+
+create proc sp_Insert_HD
+    @MaKH char(10),
+    @NguoiNhan nvarchar(50),
+    @DiaChi nvarchar(100),
+    @LoiNhan nvarchar(500),
+    @MaGiamGia varchar(10),
+    @MaHD char(10) output
+as    
+begin tran
+    begin try
+        set @MaHD  = dbo.f_Auto_MaHD()
+        insert into HoaDon(MaHD, NgayLap, TenNguoiNhan, DiaChiGiaoHang, LoiNhan, TrangThai, MaKH)
+        values(@MaHD, getdate(), @NguoiNhan, @DiaChi, @LoiNhan, N'Chưa Giao', @MaKH)
+        if exists (select MaGiamGia from GiamGia where MaGiamGia = @MaGiamGia)
+            if GETDATE() < (select NgayHetHan from GiamGia where MaGiamGia = @MaGiamGia)
+                update HoaDon
+                set MaGiamGia = @MaGiamGia where MaHD = @MaHD
+    end try
+    begin catch
+        select  error_message() as errormessage; 
+        if @@trancount > 0  
+            rollback tran
+    end catch
+if @@trancount > 0  
+    commit tran;
+go
+
+create proc sp_Insert_CTHD
+	@MaHD char(10),
+	@SoLuong int,
+	@MaSP char(10)
+as	
+begin tran
+	begin try
+		declare @STT as int = dbo.f_Auto_STT_NhapHang(@MaHD) 
+		insert into CT_HoaDon(MaHD, STT, MaSP, SoLuong)
+		values(@MaHD, @STT, @MaSP, @SoLuong)
+	end try
+	begin catch
+		select  error_message() as errormessage; 
+		if @@trancount > 0  
+			rollback tran
+	end catch
+if @@trancount > 0  
+    commit tran;
+go
+
 --drop proc sp_XemDoanhThu_2SP
 create proc sp_XemDoanhThu_2SP
 @Thang1 int,
@@ -365,9 +451,6 @@ begin tran
 		if @@trancount > 0  
 			rollback tran
 	end catch
-if @@trancount > 0  
-    commit tran;
-go
-
-
-
+	if @@trancount > 0  
+		commit tran;
+	go
