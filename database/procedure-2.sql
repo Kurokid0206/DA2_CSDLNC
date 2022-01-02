@@ -59,3 +59,38 @@ BEGIN TRAN
 IF @@trancount > 0  
     COMMIT TRAN;
 GO
+
+--DROP PROCEDURE sp_Update_SanPham
+CREATE PROCEDURE sp_Update_SanPham
+	@MaSP char(10),
+	@TenSP nvarchar(50),
+	@MauSac nvarchar(50),
+	@ChuDe nvarchar(50),
+	@GiaBan int
+AS
+
+BEGIN TRAN
+	BEGIN TRY
+		UPDATE SanPham
+		SET TenSP = @TenSP, MauSac = @MauSac, ChuDe = @ChuDe
+		WHERE MaSP = @MaSP
+
+		DECLARE @NgayApDung AS DATE
+        SET @NgayApDung = GETDATE()
+
+		INSERT INTO BangGiaSP
+        VALUES(@MaSP, @NgayApDung, NULL, @GiaBan)
+	END TRY
+	BEGIN CATCH
+		SELECT  error_number() AS errornumber,
+				error_severity() AS errorseverity, 
+				error_state() AS errorstate,  
+				error_procedure() AS errorprocedure,  
+				error_line() AS errorline,  
+				error_message() AS errormessage; 
+		IF @@trancount > 0  
+			ROLLBACK TRAN
+	END CATCH
+IF @@trancount > 0  
+    COMMIT TRAN;
+GO
