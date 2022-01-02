@@ -10,20 +10,12 @@ function cus_show(id) {
     div.style.display = "block";
 }
 
-function sign_up() {
+function customer_view_products() {
+    var TenSP = document.getElementById("name-for-search")
+    var MauSac = document.getElementById("color-for-search")
+    var ChuDe = document.getElementById("title-for-search")
 
-}
-
-function insert_product() {
-
-}
-
-function delete_product() {
-
-}
-
-function update_product() {
-
+    return false;
 }
 
 
@@ -244,9 +236,7 @@ function add_order_detail() {
     temp.classList.add('enter-box')
     temp.innerHTML = `
     <h4 style="margin:5px 0 0 0; display: inline-block;">Sản phẩm ${CTDHs.length+1}:</h4>
-    <button class="btn-danger" type="button" onclick="delete_componentbyID('CTDH${CTDHs.length}')" style="display: inline-block; margin-left: 50%;">
-        <h6 style=" margin:5px 0 0 0; color: aliceblue; ">Xóa</h6>
-    </button>
+
     <br><br>
 
     <h6 style="margin:5px 0 0 0;">Sản phẩm:</h6>
@@ -258,7 +248,7 @@ function add_order_detail() {
     <input type="number" name="quantity" placeholder="Số lượng" required/>
     <br><br>`
     container.appendChild(temp);
-    get_product(`CTDH${CTDHs.length}`)
+
 
 }
 

@@ -1,14 +1,9 @@
 ﻿use QLBanHoa
 go
 
-<<<<<<< HEAD
 --Thêm sản phẩm
 --DROP PROCEDURE sp_Insert_SanPham
 CREATE PROCEDURE sp_Insert_SanPham
-=======
---DROP PROCEDURE sp_QL_Insert_SanPham
-CREATE PROCEDURE sp_QL_Insert_SanPham
->>>>>>> 3987d343c70cdab193cd182e7e62dc2ed8466c44
     @MaSP char(10) output,
     @TenSP nvarchar(50),
     @SoLuongTon int,

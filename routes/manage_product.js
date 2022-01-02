@@ -29,14 +29,12 @@ router.post("/view-products", function(req, res) {
         try {
             let pool = await sql.connect(config);
             let result = await pool.request()
-                .query("select * from SanPham")
-                // .input('tk', sql.VARCHAR(50), `${req.body.username}`)
-                // .input('mk', sql.VarChar(20), `${req.body.password}`)
-                // .output('ma', sql.Char(10))
-                // .execute('sp_TK_Login')
+                .input('TenSP', sql.VARCHAR(50), req.body.nameSearch)
+                .execute('sp_QL_xem_SP')
+
 
             pool.close()
-                //console.log(result)
+            console.log(result)
             res.send(result.recordset)
         } catch (err) {
             console.log(err.message)
@@ -82,11 +80,8 @@ router.post("/view-products-price", function(req, res) {
             //console.log(req.body.MaSP)
             let pool = await sql.connect(config);
             let result = await pool.request()
-                .query(`select * from BangGiaSP where MaSP = '${req.body.MaSP}'`)
-                // .input('tk', sql.VARCHAR(50), `${req.body.username}`)
-                // .input('mk', sql.VarChar(20), `${req.body.password}`)
-                // .output('ma', sql.Char(10))
-                // .execute('sp_TK_Login')
+                .query(`select gia.*,sp.TenSP from BangGiaSP gia join SanPham sp on gia.MaSP = sp.MaSP where gia.MaSP = '${req.body.MaSP}'`)
+
 
             pool.close()
                 //console.log(result)

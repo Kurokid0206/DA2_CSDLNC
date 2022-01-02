@@ -119,42 +119,39 @@
                 <div class="row">
                     <div class="col-xs-12 col-sm-8 col-md-7 col-text-center">
                         <div class="enter-box">
-                            <h3 class="mb-35">Tạo đơn hàng</h3>
+                            <h3 class="mb-35">Thanh toán đơn hàng</h3>
 
                             <form class="custom-input" id="order-form" onsubmit="return insert_order();">
                                 <div id="order_detail-container">
 
-                                    <h6 style="margin:5px 0 0 0;">Đối tác:</h6>
-                                    <select name="partner" id="select-partner" placeholder="Chọn đối tác" onchange="get_product_forAll()" required>
-                                            <option selected>Chọn đối tác</option>
-                                        </select>
+                                    <h6 style="margin:5px 0 0 0;">Chi tiết:</h6>
+                                    <br>
 
-                                    <div class="CT_donhang enter-box" id="CTDH0">
-                                        <h4 style="margin:5px 0 0 0; display: inline-block;">Sản phẩm 1:</h4>
-                                        <br><br>
-                                        <h6 style="margin:5px 0 0 0;">Sản phẩm:</h6>
-                                        <select name="product" id="select-product" class="select-product" placeholder="Chọn đối tác" required>
-                                            <option selected>Chọn sản phẩm</option>
-                                            <option value="Mã sp">Tên sản phẩm</option>
-                                        </select>
-                                        <h6 style="margin:5px 0 0 0;">Số lượng:</h6>
-                                        <input type="number" name="quantity" placeholder="Số lượng" required/>
 
-                                    </div>
 
                                 </div>
-                                <button class="btn-primary" type="button" onclick="add_order_detail()">
-                                    <h6 style=" margin:5px 0 0 0; color: aliceblue; ">Thêm sản phẩm</h6>
-                                </button>
+
                                 <br><br>
 
+                                <h6 style="margin:5px 0 0 0;">Tên người nhận:</h6>
+                                <input type="text" id="NguoiNhan" placeholder="Nhập tên người nhận" />
+                                <h6 style="margin:5px 0 0 0;">Lời nhắn:</h6>
+                                <input type="text" id="LoiNhan" placeholder="Nhập lời nhắn" />
                                 <h6 style="margin:5px 0 0 0;">Địa chỉ nhận hàng:</h6>
-                                <input type="text" id="address" placeholder="Địa chỉ nhận hàng" />
-                                <h6 style="margin:5px 0 0 0;">Hình thức thanh toán:</h6>
-                                <select name="type-payment" id="type-payment" placeholder="Chọn đối tác">
-                                    <option value="Chuyển khoản" selected >Chuyển khoản</option>
-                                    <option value="Tiền mặt">Tiền mặt</option>
-                                </select>
+                                <input type="text" id="address" placeholder="Nhập địa chỉ nhận hàng" />
+                                <div style="display: flex;">
+                                    <div>
+
+                                        <h6 style="margin:5px 0 0 0;">Mã giảm giá:</h6>
+                                        <input type="text" id="MaGiamGia" placeholder="Nhập mã giảm giá" />
+                                    </div>
+                                    <div>
+                                        <button class="btn-primary" type="button" onclick="Check_voucher()" style="margin: 28px 0 0 20px;">
+                                            <h6 style=" margin:5px 0 0 0; color: aliceblue; ">Kiểm tra</h6>
+                                        </button>
+                                    </div>
+                                </div>
+
 
 
                                 <button class="btn" type="submit">Đặt hàng</button>
@@ -176,26 +173,28 @@
                         <div class="enter-box" style="padding: 87px;width: 100%; margin: 0 auto;">
                             <h3 class="mb-35">Tìm kiếm sản phẩm</h3>
                             <div class="search-form-for-customer">
-                                <form class="custom-input" id="order-form" onsubmit="return insert_order();">
+                                <form class="custom-input" id="order-form" onsubmit="return customer_view_products();" style="display:flex; justify-content: center;">
 
+                                    <div style="margin-right: 15px;">
+                                        <h6 style="margin:5px 0 0 0;">Tên hoa:</h6>
+                                        <input type="text" id="name-for-search" placeholder="Tìm theo tên" />
+                                    </div>
 
-                                    <h6 style="margin:5px 0 0 0;">Tên hoa:</h6>
-                                    <input type="text" id="address" placeholder="Tìm theo tên" />
+                                    <div style="margin-right: 15px;">
 
-                                    <h6 style="margin:5px 0 0 0;">Màu sắc:</h6>
-                                    <select name="type-payment" id="type-payment" placeholder="Chọn đối tác">
-                                        <option value="Chuyển khoản" selected >Tìm theo màu sắc</option>
-                                        <option value="Tiền mặt">Tiền mặt</option>
-                                    </select>
+                                        <h6 style="margin:5px 0 0 0;">Màu sắc:</h6>
+                                        <input type="text" id="color-for-search" placeholder="Tìm màu sắc" />
+                                    </div>
 
-                                    <h6 style="margin:5px 0 0 0;">Chủ đề:</h6>
-                                    <select name="type-payment" id="type-payment" placeholder="Chọn đối tác">
-                                        <option value="Chuyển khoản" selected >Tìm theo chủ đề</option>
-                                        <option value="Tiền mặt">Tiền mặt</option>
-                                    </select>
+                                    <div style="margin-right: 15px;">
 
+                                        <h6 style="margin:5px 0 0 0;">Chủ đề:</h6>
+                                        <input type="text" id="title-for-search" placeholder="Tìm theo chủ đề" />
+                                    </div>
 
-                                    <button class="btn" type="submit">Tìm kiếm</button>
+                                    <div style="margin-right: 15px;">
+                                        <button class="btn" type="submit" style="margin-top: 15px;">Tìm kiếm</button>
+                                    </div>
                                 </form>
                             </div>
 
@@ -206,6 +205,8 @@
                                         <!-- /.Grid View End -->
                                         <div class="tab-pane fade in active" id="list-view">
                                             <div class="row" id="products-container">
+
+
                                                 <!-- product card start -->
                                                 <div class="col-xs-12 mb-30">
                                                     <div class="course-box list-view clearfix">
@@ -227,7 +228,9 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <!-- = product card end -->
+                                                <!-- product card end -->
+
+
                                             </div>
                                             <!-- /.row -->
                                         </div>
