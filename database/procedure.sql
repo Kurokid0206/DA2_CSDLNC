@@ -292,3 +292,47 @@ begin tran
 if @@trancount > 0  
     commit tran;
 go
+
+create proc sp_XemDoanhThu_SP
+	@Thang int
+as
+begin tran
+	begin try
+		select SP.MaSP, TenSP, SUM(ThanhTien) DoanhThu from 
+		(select CTHD.MaSP, ThanhTien
+		from CT_HoaDon CTHD join HoaDon HD on CTHD.MaHD = HD.MaHD 
+		where month(NgayLap) = @Thang) CT right join SanPham SP on SP.MaSP = CT.MaSP
+		group by SP.MaSP, TenSP
+		order by SP.MaSP
+	end try
+	begin catch
+		select  error_message() as errormessage; 
+		if @@trancount > 0  
+			rollback tran
+	end catch
+if @@trancount > 0  
+    commit tran;
+go
+
+create proc sp_XemSL
+	@Thang int
+as
+begin tran
+	begin try
+		select SP.MaSP, TenSP, COUNT(Xuat.MaSP) as TongXuat, COUNT(Nhap.MaSP) as TongNhap
+		from SanPham SP left join 
+		(select MaSP, NgayLap from CT_HoaDon CTHD  join HoaDon HD on CTHD.MaHD = HD.MaHD where month(NgayLap) = @Thang) Xuat
+		on SP.MaSP = Xuat.MaSP
+		left join 
+		(select MaSP, NgayNhap from CT_NhapHang CTNH join DonNhapHang DN on CTNH.MaDonNhap = DN.MaDonNhap where month(NgayNhap) = @Thang) Nhap
+		on SP.MaSP = Nhap.MaSP
+		group by SP.MaSP, TenSP
+		order by SP.MaSP
+	end try
+	begin catch
+		select  error_message() as errormessage; 
+		if @@trancount > 0  
+			rollback tran
+	end catch
+if @@trancount > 0  
+    commit tran;
