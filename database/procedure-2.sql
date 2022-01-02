@@ -95,8 +95,8 @@ IF @@trancount > 0
     COMMIT TRAN;
 GO
 
---DROP PROCEDURE sp_Insert_NhapHang
-CREATE PROCEDURE sp_Insert_NhapHang
+--DROP PROCEDURE sp_Insert_CT_NhapHang
+CREATE PROCEDURE sp_Insert_CT_NhapHang
 	@STT int,
 	@MaDonNhap char(10),
 	@MaSP char(10),
