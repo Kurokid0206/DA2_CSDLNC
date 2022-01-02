@@ -1,6 +1,33 @@
 use QLBanHoa
 go
 
+drop proc sp_Insert_KhackHang 
+go
+drop procedure sp_Insert_SanPham
+go
+drop procedure sp_Insert_NV
+go
+drop procedure sp_NV_DiemDanh
+go
+drop proc sp_NV_NhanDon
+go
+drop proc sp_NV_XacNhanHD
+go
+drop proc sp_PhatLuong
+go 
+drop proc sp_XemBL
+go
+drop proc sp_Insert_GiamGia
+go
+drop proc sp_XemCTBL
+go
+drop proc sp_XemDoanhThu_NV
+go
+drop proc sp_Xem_CTDoanhThu_NV
+go
+drop procedure sp_Get_HieuSuat
+go
+
 create procedure sp_Insert_KhackHang 
 	@MaKH char(10) output,
 	@HoTen nvarchar(50), 
@@ -224,10 +251,9 @@ if @@trancount > 0
     commit tran;
 go
 
-create
-proc sp_Inser_GiamGia
+create proc sp_Insert_GiamGia
 	@MaGiamGia char(10),
-	@LoaiGiamGia nvarchar(50),
+	@LoaiGiamGia bit,
 	@GiamGia int,
 	@NgayHetHan date
 as 
@@ -266,3 +292,47 @@ begin tran
 if @@trancount > 0  
     commit tran;
 go
+
+create proc sp_XemDoanhThu_SP
+	@Thang int
+as
+begin tran
+	begin try
+		select SP.MaSP, TenSP, SUM(ThanhTien) DoanhThu from 
+		(select CTHD.MaSP, ThanhTien
+		from CT_HoaDon CTHD join HoaDon HD on CTHD.MaHD = HD.MaHD 
+		where month(NgayLap) = @Thang) CT right join SanPham SP on SP.MaSP = CT.MaSP
+		group by SP.MaSP, TenSP
+		order by SP.MaSP
+	end try
+	begin catch
+		select  error_message() as errormessage; 
+		if @@trancount > 0  
+			rollback tran
+	end catch
+if @@trancount > 0  
+    commit tran;
+go
+
+create proc sp_XemSL
+	@Thang int
+as
+begin tran
+	begin try
+		select SP.MaSP, TenSP, COUNT(Xuat.MaSP) as TongXuat, COUNT(Nhap.MaSP) as TongNhap
+		from SanPham SP left join 
+		(select MaSP, NgayLap from CT_HoaDon CTHD  join HoaDon HD on CTHD.MaHD = HD.MaHD where month(NgayLap) = @Thang) Xuat
+		on SP.MaSP = Xuat.MaSP
+		left join 
+		(select MaSP, NgayNhap from CT_NhapHang CTNH join DonNhapHang DN on CTNH.MaDonNhap = DN.MaDonNhap where month(NgayNhap) = @Thang) Nhap
+		on SP.MaSP = Nhap.MaSP
+		group by SP.MaSP, TenSP
+		order by SP.MaSP
+	end try
+	begin catch
+		select  error_message() as errormessage; 
+		if @@trancount > 0  
+			rollback tran
+	end catch
+if @@trancount > 0  
+    commit tran;

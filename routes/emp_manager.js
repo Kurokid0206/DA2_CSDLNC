@@ -26,7 +26,7 @@ router.post("/revenue",(req,res)=>{
             let pool = await sql.connect(config);
             let result = await pool.request()
                 .input('Thang',sql.Int,req.body.month)
-                .execute('sp_XemDoanhThu')
+                .execute('sp_XemDoanhThu_NV')
             pool.close()
             res.send(result.recordset)
             // console.log(result)
@@ -43,9 +43,9 @@ router.post("/revenue-detail",(req,res)=>{
         try{
             let pool = await sql.connect(config);
             let result = await pool.request()
-                .input('MaNV',sql.Int,req.body.MaNV)
+                .input('MaNV',sql.Char(10),req.body.MaNV)
                 .input('Thang',sql.Int,req.body.month)
-                .execute('sp_XemCTDoanhThu')
+                .execute('sp_Xem_CTDoanhThu_NV')
             pool.close()
             res.send(result.recordset)
             // console.log(result)

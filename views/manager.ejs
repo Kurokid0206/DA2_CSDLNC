@@ -73,7 +73,7 @@
                                     <div id="navbar" class="navbar-collapse collapse no-padding">
                                         <ul class="navbar-nav dropdown">
 
-                                            <li><a onclick="show('Revenue-section');">Doanh thu</a></li>
+                                            <li><a onclick="show('Revenue-section')">Doanh thu</a></li>
                                             <li><a onclick="show('Revenue-compare-section')">So sánh doanh thu</a></li>
                                             <li><a onclick="show('dddd-section')">Số lượng hàng</a></li>
                                             <li><a onclick="show('emp-eff-section')">Hiệu suất nhân viên</a></li>
@@ -112,7 +112,6 @@
                 <!-- /.container -->
             </div>
         </header>
-
         <!-- Header Section End -->
 
 
@@ -125,7 +124,7 @@
                             <h3 class="mb-35">Doanh thu</h3>
                             <form class="custom-input">
                                 <h4>Theo tháng:</h4>
-                                <select name="" id="" style="width: 50%;" onchange="get_revenue()">
+                                <select name="" id="" style="width: 50%;" onchange="get_revenue();">
                                     <option value="0" selected>Chọn tháng</option>
                                     <% for(var i=0;i<12;i++){%>
                                         <option value=<%=i+1%>>Tháng <%=i+1%>
@@ -152,17 +151,17 @@
                                             <td scope="col" style="width: 100px;">
                                                 <h6 style="margin:5px 0 0 0;">No result</h6>
                                             </td>
-                                            
+
                                         </tr>
                                     </tbody>
                                 </table>
                                 <div style="display: flex; justify-content: center;">
                                     <button type="button" style="height: 35px; width: 75px;"
-                                        onclick="prev('Revenue-section');">prev</button>
+                                        onclick="prev('Revenue-section');render_revenue();">prev</button>
                                     <input type="number" style="height: 35px;width: 100px;" class="page-number"
                                         value="1">
                                     <button type="button" style="height: 35px; width: 75px;"
-                                        onclick="next('Revenue-section');">next</button>
+                                        onclick="next('Revenue-section');render_revenue();">next</button>
                                 </div>
                                 <table class="table">
                                     <thead>
@@ -174,7 +173,7 @@
                                                     Tổng doanh thu</h4>
                                             </th>
                                             <th scope="col" style="width: 200px;">
-                                                <h6 style="margin:5px 0 0 0; font-weight: bold;" id="total-salary"
+                                                <h6 style="margin:5px 0 0 0; font-weight: bold;"
                                                     id="Sum_Revenue">123456789 vnd</h6>
                                             </th>
                                         </tr>
@@ -294,7 +293,8 @@
                             <h3 class="mb-35">Số lượng hàng</h3>
                             <form class="custom-input">
                                 <h4>Theo tháng:</h4>
-                                <select name="" id="">
+                                <select name="" id="" style="width: 50%;" onchange="">
+                                    <option value="0">Chọn tháng</option>
                                     <% for(var i=0;i<12;i++){%>
                                         <option value=<%=i+1%>>Tháng <%=i+1%>
                                         </option>
@@ -323,10 +323,11 @@
                                 </table>
                                 <div style="display: flex; justify-content: center;">
                                     <button type="button" style="height: 35px; width: 75px;"
-                                        onclick="prev();">prev</button>
-                                    <input type="number" style="height: 35px;width: 100px;" class="page-number">
+                                        onclick="prev('dddd-section');">prev</button>
+                                    <input type="number" style="height: 35px;width: 100px;" class="page-number"
+                                        value="1">
                                     <button type="button" style="height: 35px; width: 75px;"
-                                        onclick="next();">next</button>
+                                        onclick="next('dddd-section');">next</button>
                                 </div>
                                 <table class="table">
                                     <thead>
@@ -362,7 +363,8 @@
                             <h3 class="mb-35">Hiệu suất của nhân viên</h3>
                             <form class="custom-input">
                                 <h4>Theo tháng:</h4>
-                                <select name="" id="">
+                                <select name="" id="" style="width: 50%;" onchange="get_eff()">
+                                    <option value="0">Chọn tháng</option>
                                     <% for(var i=0;i<12;i++){%>
                                         <option value=<%=i+1%>>Tháng <%=i+1%>
                                         </option>
@@ -391,10 +393,11 @@
                                 </table>
                                 <div style="display: flex; justify-content: center;">
                                     <button type="button" style="height: 35px; width: 75px;"
-                                        onclick="prev();">prev</button>
-                                    <input type="number" style="height: 35px;width: 100px;" class="page-number">
+                                        onclick="prev('emp-eff-section');render_eff();">prev</button>
+                                    <input type="number" style="height: 35px;width: 100px;" class="page-number"
+                                        value="1">
                                     <button type="button" style="height: 35px; width: 75px;"
-                                        onclick="next();">next</button>
+                                        onclick="next('emp-eff-section');render_eff();">next</button>
                                 </div>
                                 <table class="table">
                                     <thead>
@@ -456,11 +459,19 @@
                                             </td>
                                         </tr>
                                     </tbody>
+
                                     <tr id="btn-add-discount">
                                         <td><button type="button" onclick="show_add_discount()">add</button></td>
                                     </tr>
                                 </table>
                             </form>
+                            <div style="display: flex; justify-content: center;">
+                                <button type="button" style="height: 35px; width: 75px;"
+                                    onclick="prev('discount-section'); render_discount();">prev</button>
+                                <input type="number" style="height: 35px;width: 100px;" class="page-number" value="1">
+                                <button type="button" style="height: 35px; width: 75px;"
+                                    onclick="next('discount-section'); render_discount();">next</button>
+                            </div>
                             <div class="error-message" style="display: none;">
                                 <h6 class="mb-35" style="color: red;"> Lỗi</h6>
                             </div>

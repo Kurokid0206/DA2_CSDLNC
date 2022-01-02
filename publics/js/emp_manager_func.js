@@ -1,4 +1,5 @@
-var ids=["Revenue-section","salary-section","salary-detail-section","Revenue-detail-section"]
+var ids=["Revenue-section","salary-section"
+,"salary-detail-section","Revenue-detail-section"]
 
 function show(id){
     ids.forEach(id=>{
@@ -10,6 +11,7 @@ function show(id){
 }
 
 function get_revenue(){
+    show('Revenue-section')
     let month= document.querySelector("#Revenue-section #month").value
     var xhtml = new XMLHttpRequest();
     xhtml.onload = function() {
@@ -79,7 +81,7 @@ function render_revenue_detail(data){
         <h6 style="margin:5px 0 0 0;">${emp.MaHD}</h6>
         </td>
         <td scope="col" style="width: 200px;">
-        <h6 style="margin:5px 0 0 0;">${emp.NgayLap}</h6>
+        <h6 style="margin:5px 0 0 0;">${new Date(emp.NgayLap).toISOString().slice(0, 10)}</h6>
         </td>
         <td scope="col" style="width: 100px;">
         <h6 style="margin:5px 0 0 0;">${emp.TongTien}</h6>
@@ -164,7 +166,7 @@ function render_salary_detail(data){
         tr+=`
         <tr>
         <td scope="col" style="width: 200px;">
-        <h6 style="margin:5px 0 0 0;">${element.NgayPhatLuong}</h6>
+        <h6 style="margin:5px 0 0 0;">${new Date(element.NgayPhatLuong).toISOString().slice(0, 10)}</h6>
         </td>
         <td scope="col" style="width: 100px;">
         <h6 style="margin:5px 0 0 0;">${element.Luong}</h6>
