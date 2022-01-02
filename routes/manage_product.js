@@ -185,7 +185,8 @@ router.post("/import-goods", function(req, res) {
         try {
             let pool = await sql.connect(config);
             let result = await pool.request()
-                .input('SoLuongTon', sql.Int, req.body.SLTon)
+                .input('SL', sql.Int, req.body.SLTon)
+                .input('LoaiSP', sql.NVarChar(50), 'Hoa Tươi')
                 .input('TenSP', sql.NVarChar(50), req.body.TenSP)
                 .input('MauSac', sql.NVarChar(50), req.body.MauSac)
                 .input('ChuDe', sql.NVarChar(50), req.body.ChuDe)
@@ -206,7 +207,7 @@ router.post("/import-goods", function(req, res) {
 })
 
 
-//manager /import-history-data
+//manager view import-history-data
 router.get("/import-history-data", function(req, res) {
 
     (async() => {
@@ -214,6 +215,35 @@ router.get("/import-history-data", function(req, res) {
             let pool = await sql.connect(config);
             let result = await pool.request()
                 .query("select * from DonNhapHang")
+                // .input('SoLuongTon', sql.Int, req.body.SLTon)
+                // .input('TenSP', sql.NVarChar(50), req.body.TenSP)
+                // .input('MauSac', sql.NVarChar(50), req.body.MauSac)
+                // .input('ChuDe', sql.NVarChar(50), req.body.ChuDe)
+                // .input('GiaBan', sql.Int, req.body.GiaBan)
+                // .output('MaSP', sql.Char(10))
+                // .execute('sp_Insert_SanPham')
+
+            pool.close()
+            console.log(result)
+            res.send(result.recordset)
+        } catch (err) {
+            console.log(err.message)
+            res.send(err.message)
+        }
+
+    })()
+
+})
+
+
+//manager view import-history-detail-data
+router.post("/view-import-history-detail-data", function(req, res) {
+
+    (async() => {
+        try {
+            let pool = await sql.connect(config);
+            let result = await pool.request()
+                .query(`select * from CT_NhapHang where MaDonNhap = '${req.body.MaDonNhap}'`)
                 // .input('SoLuongTon', sql.Int, req.body.SLTon)
                 // .input('TenSP', sql.NVarChar(50), req.body.TenSP)
                 // .input('MauSac', sql.NVarChar(50), req.body.MauSac)
