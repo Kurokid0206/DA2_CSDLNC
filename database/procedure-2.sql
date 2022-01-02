@@ -1,8 +1,14 @@
 ﻿use QLBanHoa
 go
 
+<<<<<<< HEAD
+--Thêm sản phẩm
 --DROP PROCEDURE sp_Insert_SanPham
 CREATE PROCEDURE sp_Insert_SanPham
+=======
+--DROP PROCEDURE sp_QL_Insert_SanPham
+CREATE PROCEDURE sp_QL_Insert_SanPham
+>>>>>>> 3987d343c70cdab193cd182e7e62dc2ed8466c44
     @MaSP char(10) output,
     @TenSP nvarchar(50),
     @SoLuongTon int,
@@ -11,7 +17,6 @@ CREATE PROCEDURE sp_Insert_SanPham
     @ChuDe nvarchar(50)
 
 AS
-
 BEGIN TRAN
     BEGIN TRY
         SET @MaSP = dbo.f_Auto_MaSP()
@@ -36,6 +41,7 @@ if @@trancount > 0
     commit tran;
 GO
 
+--Xem đơn nhập hàng
 --DROP PROCEDURE sp_View_DonNhapHang
 CREATE PROCEDURE sp_View_DonNhapHang
 	@MaDonNhap char(10)
@@ -60,6 +66,7 @@ IF @@trancount > 0
     COMMIT TRAN;
 GO
 
+--Cập nhật sản phẩm
 --DROP PROCEDURE sp_Update_SanPham
 CREATE PROCEDURE sp_Update_SanPham
 	@MaSP char(10),
@@ -95,7 +102,36 @@ IF @@trancount > 0
     COMMIT TRAN;
 GO
 
---DROP PROCEDURE sp_Insert_CT_NhapHang
+
+--Thêm đơn nhập hàng
+--DROP PROCEDURE sp_Insert_DonNhapHang
+CREATE PROCEDURE sp_Insert_DonNhapHang
+	@MaDonNhap char(10) output,
+	@NgayNhap date
+AS
+
+BEGIN TRAN
+	BEGIN TRY
+		SET @MaDonNhap = dbo.f_Auto_MaDN()
+		INSERT INTO DonNhapHang
+        VALUES(@MaDonNhap, @NgayNhap)
+	END TRY
+	BEGIN CATCH
+		SELECT  error_number() AS errornumber,
+				error_severity() AS errorseverity, 
+				error_state() AS errorstate,  
+				error_procedure() AS errorprocedure,  
+				error_line() AS errorline,  
+				error_message() AS errormessage; 
+		IF @@trancount > 0  
+			ROLLBACK TRAN
+	END CATCH
+IF @@trancount > 0  
+    COMMIT TRAN;
+GO
+
+--Thêm chi tiết đơn nhập hàng
+--DROP PROCEDURE sp_Insert_CT_NhapHang -- chua co f_Auto_STT()
 CREATE PROCEDURE sp_Insert_CT_NhapHang
 	@STT int,
 	@MaDonNhap char(10),
@@ -107,6 +143,29 @@ BEGIN TRAN
 	BEGIN TRY
 		INSERT INTO CT_NhapHang
         VALUES(@STT, @MaDonNhap, @MaSP, @SoLuong)
+	END TRY
+	BEGIN CATCH
+		SELECT  error_number() AS errornumber,
+				error_severity() AS errorseverity, 
+				error_state() AS errorstate,  
+				error_procedure() AS errorprocedure,  
+				error_line() AS errorline,  
+				error_message() AS errormessage; 
+		IF @@trancount > 0  
+			ROLLBACK TRAN
+	END CATCH
+IF @@trancount > 0  
+    COMMIT TRAN;
+GO
+
+--Xem lịch sử nhập --Chưa xuất được giá nhập của từng sản phẩm
+--DROP PROCEDURE sp_View_LichSuNhap
+CREATE PROCEDURE sp_View_LichSuNhap
+AS
+BEGIN TRAN
+	BEGIN TRY
+		--SELECT DonNhapHang.MaDonNhap, DonNhapHang.NgayNhap,  
+		--FROM DonNhapHang, CT_NhapHang
 	END TRY
 	BEGIN CATCH
 		SELECT  error_number() AS errornumber,

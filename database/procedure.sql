@@ -186,7 +186,7 @@ if @@trancount > 0
 go
 
 
-create proc sp_XemDoanhThu
+create proc sp_XemDoanhThu_NV
 	@Thang int
 as
 begin tran
@@ -205,7 +205,7 @@ if @@trancount > 0
     commit tran;
 go
 
-create proc sp_Xem_CTDoanhThu
+create proc sp_Xem_CTDoanhThu_NV
 	@MaNV char(10),
 	@Thang int
 as
@@ -228,17 +228,17 @@ proc sp_Inser_GiamGia
 	@MaGiamGia char(10),
 	@LoaiGiamGia nvarchar(50),
 	@GiamGia int,
-	@HanSD date
+	@NgayHetHan date
 as 
 begin tran
 	begin try
 		if @GiamGia <= 0 raiserror(N'Giá Giảm không hợp lệ',16,1)
-		if @LoaiGiamGia = N'Phần Trăm'
+		if @LoaiGiamGia = 1
 		begin
 			if @GiamGia > 90 raiserror(N'Giá Giảm không hợp lệ',16,1)
-			insert into GiamGia(MaGiamGia, LoaiGiamGia, PhanTramGiam, NgayHetHan) values(@MaGiamGia,@LoaiGiamGia,@GiamGia,@HanSD)
+			insert into GiamGia(MaGiamGia, LoaiGiamGia, PhanTramGiam, NgayHetHan) values(@MaGiamGia,@LoaiGiamGia,@GiamGia,@NgayHetHan)
 		end
-		else insert into GiamGia(MaGiamGia, LoaiGiamGia, SoTienGiam, NgayHetHan) values(@MaGiamGia,@LoaiGiamGia,@GiamGia,@HanSD)
+		else insert into GiamGia(MaGiamGia, LoaiGiamGia, SoTienGiam, NgayHetHan) values(@MaGiamGia,@LoaiGiamGia,@GiamGia,@NgayHetHan)
 	end try
 	begin catch
 		select  error_message() as errormessage; 
