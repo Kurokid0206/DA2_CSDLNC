@@ -14,13 +14,14 @@
     <link rel="shortcut icon" type="image/x-icon" href="/assets/img/favicon.ico">
     <!-- style css -->
     <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="css/style.css">
     <!-- modernizr js -->
     <script src="/assets/js/vendor/modernizr-2.8.3.min.js"></script>
     <!-- client interact script -->
     <script src="/js/manager_func.js"></script>
 </head>
 
-<body onload="">
+<body onload="show('Revenue-section')">
     <!--[if lt IE 8]>
             <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
@@ -72,11 +73,11 @@
                                     <div id="navbar" class="navbar-collapse collapse no-padding">
                                         <ul class="navbar-nav dropdown">
 
-                                            <li><a onclick="">Doanh thu</a></li>
-                                            <li><a onclick="">Số lượng hàng</a></li>
-                                            <li><a onclick="">Số lượng hàng</a></li>
-                                            <li><a onclick="">Hiệu suất nhân viên</a></li>
-                                            <li><a onclick="">Giảm giá</a></li>
+                                            <li><a onclick="show('Revenue-section');">Doanh thu</a></li>
+                                            <li><a onclick="show('Revenue-compare-section')">So sánh doanh thu</a></li>
+                                            <li><a onclick="show('dddd-section')">Số lượng hàng</a></li>
+                                            <li><a onclick="show('emp-eff-section')">Hiệu suất nhân viên</a></li>
+                                            <li><a onclick="get_discount();">Giảm giá</a></li>
                                             <li><a href="/log-out">Đăng xuất</a></li>
                                             <li>
                                                 <a href="javascript:void(0)" class="dropdown-toggle"
@@ -124,7 +125,8 @@
                             <h3 class="mb-35">Doanh thu</h3>
                             <form class="custom-input">
                                 <h4>Theo tháng:</h4>
-                                <select name="" id="">
+                                <select name="" id="" style="width: 50%;" onchange="get_revenue()">
+                                    <option value="0" selected>Chọn tháng</option>
                                     <% for(var i=0;i<12;i++){%>
                                         <option value=<%=i+1%>>Tháng <%=i+1%>
                                         </option>
@@ -146,8 +148,22 @@
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        <tr>
+                                            <td scope="col" style="width: 100px;">
+                                                <h6 style="margin:5px 0 0 0;">No result</h6>
+                                            </td>
+                                            
+                                        </tr>
                                     </tbody>
                                 </table>
+                                <div style="display: flex; justify-content: center;">
+                                    <button type="button" style="height: 35px; width: 75px;"
+                                        onclick="prev('Revenue-section');">prev</button>
+                                    <input type="number" style="height: 35px;width: 100px;" class="page-number"
+                                        value="1">
+                                    <button type="button" style="height: 35px; width: 75px;"
+                                        onclick="next('Revenue-section');">next</button>
+                                </div>
                                 <table class="table">
                                     <thead>
                                     </thead>
@@ -166,11 +182,108 @@
                                 </table>
                             </form>
                         </div>
+
                     </div>
                 </div>
             </div>
         </section>
         <!-- Revenue section END -->
+
+        <!-- Revenue compare section Start -->
+        <section class="register-area section-padding white-bg" id="Revenue-compare-section">
+            <div class="container">
+                <div class="row">
+                    <div class="" style="margin: 0 auto; width: auto;">
+                        <div class="enter-box" style="padding: 87px;width: 1000px; margin: 0 auto;">
+                            <h3 class="mb-35">Doanh thu</h3>
+                            <form class="custom-input">
+                                <h4>Theo tháng:</h4>
+                                <div style="display: flex; flex-direction: row;">
+                                    <select name="" id="" style="width: 45%;">
+                                        <option value="0" selected>Chọn tháng</option>
+                                        <% for(var i=0;i<12;i++){%>
+                                            <option value=<%=i+1%>>Tháng <%=i+1%>
+                                            </option>
+                                            <%}%>
+                                    </select>
+
+                                    <select name="" id="" style="width: 45%;">
+                                        <option value="0" selected>Chọn tháng</option>
+                                        <% for(var i=0;i<12;i++){%>
+                                            <option value=<%=i+1%>>Tháng <%=i+1%>
+                                            </option>
+                                            <%}%>
+                                    </select>
+                                </div>
+                                <br>
+                                <table class="table" id="Revenue-table">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col" style="width: 200px;">
+                                                <h6 style="margin:5px 0 0 0;">Mã sản phẩm</h6>
+                                            </th>
+                                            <th scope="col" style="width: 300px;">
+                                                <h6 style="margin:5px 0 0 0;">Tên sản phẩm</h6>
+                                            </th>
+                                            <th scope="col" style="width: 200px;">
+                                                <h6 style="margin:5px 0 0 0;">Doanh thu</h6>
+                                            </th>
+                                            <th scope="col" style="width: 200px;" class="compare">
+                                                <h6 style="margin:5px 0 0 0;">Doanh thu 2</h6>
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td scope="col" style="width: 100px;">
+                                                <h6 style="margin:5px 0 0 0;">sp1</h6>
+                                            </td>
+                                            <td scope="col" style="width: 300px;">
+                                                <h6 style="margin:5px 0 0 0;">no name</h6>
+                                            </td>
+                                            <td scope="col" style="width: 200px;">
+                                                <h6 style="margin:5px 0 0 0;">10000</h6>
+                                            </td>
+                                            <td scope="col" style="width: 200px;" class="compare">
+                                                <h6 style="margin:5px 0 0 0;">20000</h6>
+                                            </td>
+                                        </tr>
+
+                                    </tbody>
+
+                                </table>
+                                <div style="display: flex; justify-content: center;">
+                                    <button type="button" style="height: 35px; width: 75px;"
+                                        onclick="prev('Revenue-compare-section');">prev</button>
+                                    <input type="number" style="height: 35px;width: 100px;" class="page-number"
+                                        value="1">
+                                    <button type="button" style="height: 35px; width: 75px;"
+                                        onclick="next('Revenue-compare-section');">next</button>
+                                </div>
+                                <table class="table">
+                                    <thead>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <th scope="col" style="width: 400px;">
+                                                <h4 style="margin:5px 0 0 0; margin-left: 138px; font-weight: bold;">
+                                                    Tổng doanh thu</h4>
+                                            </th>
+                                            <th scope="col" style="width: 200px;">
+                                                <h6 style="margin:5px 0 0 0; font-weight: bold;" id="total-salary"
+                                                    id="Sum_Revenue">123456789 vnd</h6>
+                                            </th>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </form>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Revenue compare section END -->
 
         <!-- So luong, ban chay, ban cham section Start -->
         <section class="register-area section-padding white-bg" id="dddd-section">
@@ -208,7 +321,14 @@
                                     <tbody>
                                     </tbody>
                                 </table>
-                                <table class="table">  
+                                <div style="display: flex; justify-content: center;">
+                                    <button type="button" style="height: 35px; width: 75px;"
+                                        onclick="prev();">prev</button>
+                                    <input type="number" style="height: 35px;width: 100px;" class="page-number">
+                                    <button type="button" style="height: 35px; width: 75px;"
+                                        onclick="next();">next</button>
+                                </div>
+                                <table class="table">
                                     <thead>
                                     </thead>
                                     <tbody>
@@ -234,7 +354,7 @@
 
 
         <!-- Employee effective section Start -->
-        <section class="register-area section-padding white-bg" id="dddd-section">
+        <section class="register-area section-padding white-bg" id="emp-eff-section">
             <div class="container">
                 <div class="row">
                     <div class="" style="margin: 0 auto; width: auto;">
@@ -269,6 +389,13 @@
                                     <tbody>
                                     </tbody>
                                 </table>
+                                <div style="display: flex; justify-content: center;">
+                                    <button type="button" style="height: 35px; width: 75px;"
+                                        onclick="prev();">prev</button>
+                                    <input type="number" style="height: 35px;width: 100px;" class="page-number">
+                                    <button type="button" style="height: 35px; width: 75px;"
+                                        onclick="next();">next</button>
+                                </div>
                                 <table class="table">
                                     <thead>
                                     </thead>
@@ -294,58 +421,49 @@
         <!--  Employee effective section END -->
 
         <!-- Discount section Start -->
-        <section class="register-area section-padding white-bg" id="dddd-section">
+        <section class="register-area section-padding white-bg" id="discount-section">
             <div class="container">
                 <div class="row">
                     <div class="" style="margin: 0 auto; width: auto;">
-                        <div class="enter-box" style="padding: 87px;width: 1000px; margin: 0 auto;">
+                        <div class="enter-box" style="padding: 87px;width: 1200px; margin: 0 auto;">
                             <h3 class="mb-35">Thêm giảm giá</h3>
                             <form class="custom-input">
-                                <h4>Theo tháng:</h4>
-                                <select name="" id="">
-                                    <% for(var i=0;i<12;i++){%>
-                                        <option value=<%=i+1%>>Tháng <%=i+1%>
-                                        </option>
-                                        <%}%>
-                                </select>
                                 <br>
-                                <table class="table" id="Discount-table">
+                                <table class="table" id="discount-table">
                                     <thead>
                                         <tr>
-                                            <th scope="col" style="width: 100px;">
-                                                <h6 style="margin:5px 0 0 0;">Mã nhân viên</h6>
-                                            </th>
                                             <th scope="col" style="width: 200px;">
-                                                <h6 style="margin:5px 0 0 0;">Tên nhân viên</h6>
+                                                <h6 style="margin:5px 0 0 0;">Mã Giảm giá</h6>
                                             </th>
-                                            <th scope="col" style="width: 100px;">
-                                                <h6 style="margin:5px 0 0 0;">Chỉ tiêu</h6>
+                                            <th scope="col" style="width: 300px;">
+                                                <h6 style="margin:5px 0 0 0;">Loại giảm giá</h6>
                                             </th>
-                                            <th scope="col" style="width: 100px;">
-                                                <h6 style="margin:5px 0 0 0;">Hiểu suất</h6>
+                                            <th scope="col" style="width: 500px;">
+                                                <h6 style="margin:5px 0 0 0;">Ngày hết hạn</h6>
                                             </th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                    </tbody>
-                                </table>
-                                <table class="table">
-                                    <thead>
-                                    </thead>
-                                    <tbody>
                                         <tr>
-                                            <th scope="col" style="width: 400px;">
-                                                <h4 style="margin:5px 0 0 0; margin-left: 138px; font-weight: bold;">
-                                                    Tổng doanh thu</h4>
-                                            </th>
-                                            <th scope="col" style="width: 200px;">
-                                                <h6 style="margin:5px 0 0 0; font-weight: bold;" id="total-salary"
-                                                    id="Sum_Revenue">123456789 vnd</h6>
-                                            </th>
+                                            <td scope="col">
+                                                <h6 style="margin:5px 0 0 0;">777</h6>
+                                            </td>
+                                            <td scope="col">
+                                                <h6 style="margin:5px 0 0 0;">100000%</h6>
+                                            </td>
+                                            <td scope="col">
+                                                <h6 style="margin:5px 0 0 0;">Ngày mai</h6>
+                                            </td>
                                         </tr>
                                     </tbody>
+                                    <tr id="btn-add-discount">
+                                        <td><button type="button" onclick="show_add_discount()">add</button></td>
+                                    </tr>
                                 </table>
                             </form>
+                            <div class="error-message" style="display: none;">
+                                <h6 class="mb-35" style="color: red;"> Lỗi</h6>
+                            </div>
                         </div>
                     </div>
                 </div>
