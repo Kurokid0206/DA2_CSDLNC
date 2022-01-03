@@ -129,7 +129,7 @@ router.post("/insert-order", function(req, res) {
                 // ... error checks
 
                 const request = new sql.Request(transaction)
-                request.input('MaKH', sql.Char(10), 'KH00000002') //thay bằng section
+                request.input('MaKH', sql.Char(10), req.session.user) 
                     .input('NguoiNhan', sql.NVarChar(50), req.body.NguoiNhan)
                     .input('DiaChi', sql.NVarChar(50), req.body.DiaChi)
                     .input('LoiNhan', sql.NVarChar(50), req.body.LoiNhan)
