@@ -88,7 +88,7 @@ app.post("/log-in", function(req, res) {
                     .output('ma', sql.Char(10))
                     .execute('sp_Login')
                 pool.close()
-                    console.log(result)
+                    //console.log(result)
                 req.session.user = result.output.ma
                     //console.log(result.output.ma)
                     //console.log(req.session.user)
