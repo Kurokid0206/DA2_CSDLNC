@@ -85,18 +85,18 @@ function recv_order(MaHD){
 
 
 function my_order(){
-    show('driver-confirm-section')
+    show('received-order-section')
     var xhtml = new XMLHttpRequest();
     xhtml.onload = function() {
 
         let orders = JSON.parse(this.responseText)
-        document.querySelector("#driver-confirm-section tbody").innerHTML
+        document.querySelector("#received-order-section tbody").innerHTML
         =render_my_order(orders)
 
     }
 
-    xhtml.open("get", "dri-my-order");
-    //xhtml.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xhtml.open("post", "emp/get-received-order");
+    xhtml.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xhtml.send();
 }
 
@@ -109,24 +109,24 @@ function render_my_order(orders){
     orders.forEach(order=>{
         tr+=
         `<tr><td scope="col"><h6 style="margin:5px 0 0 0;">${order.MaHD}</h6></td>
-        <td scope="col"><h6 style="margin:5px 0 0 0;">${order.HoTen}</h6></td>
+        <td scope="col"><h6 style="margin:5px 0 0 0;">${order.TenNguoiNhan}</h6></td>
         <td scope="col"><h6 style="margin:5px 0 0 0;">${order.TongTien}</h6></td>
         <td scope="col"><h6 style="margin:5px 0 0 0;">${order.DiaChiGiaoHang}</h6></td>
         <td scope="col">
-        <button class="btn-primary" onclick="confirm('${order.MaHD}',0)">
+        <button type="button" class="btn-primary" onclick="confirm('${order.MaHD}')">
         <h6 style=" margin:5px 0 0 0; color: aliceblue; ">Đã giao</h6></button></td></tr>`
     })
     return tr
 }
 
-function confirm(MaHD,opt){
+function confirm(MaHD){
     //show('driver-confirm-section')
     var xhtml = new XMLHttpRequest();
     xhtml.onload = function() {
-
+        show('delivered-order-section')
     }
 
-    xhtml.open("post", "dri-update-order-stat");
+    xhtml.open("post", "emp/confirm-order");
     xhtml.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xhtml.send(`MaHD=${MaHD}`);
 
@@ -167,3 +167,35 @@ function render_income(orders){
 }
 
 
+
+function delivered_order(){
+    show('delivered-order-section')
+    var xhtml = new XMLHttpRequest();
+    xhtml.onload = function() {
+
+        let orders = JSON.parse(this.responseText)
+        document.querySelector("#delivered-order-section tbody").innerHTML
+        =render_delivered_order(orders)
+
+    }
+
+    xhtml.open("post", "emp/delivered-order");
+    xhtml.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xhtml.send();
+}
+
+function render_delivered_order(orders){
+    if(orders.length<1){
+        return  'No result'
+     }
+    tr=``
+    orders.forEach(order=>{
+        tr+=
+        `<tr><td scope="col"><h6 style="margin:5px 0 0 0;">${order.MaHD}</h6></td>
+        <td scope="col"><h6 style="margin:5px 0 0 0;">${order.TenNguoiNhan}</h6></td>
+        <td scope="col"><h6 style="margin:5px 0 0 0;">${order.TongTien}</h6></td>
+        <td scope="col"><h6 style="margin:5px 0 0 0;">${order.DiaChiGiaoHang}</h6></td>
+        </tr>`
+    })
+    return tr
+}

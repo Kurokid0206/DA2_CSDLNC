@@ -69,9 +69,9 @@
 
                                     <div id="navbar" class="navbar-collapse collapse no-padding">
                                         <ul class="navbar-nav dropdown">
-                                            <li><a onclick="show('receive-order-section')">Nhận đơn hàng</a></li>
-                                            <li><a onclick="show('received-order-section')">Đơn đã nhận</a></li>
-                                            <li><a onclick="show('delivered-order-section')">Đơn đã giao</a></li>
+                                            <li><a onclick="view_order()">Nhận đơn hàng</a></li>
+                                            <li><a onclick="my_order()">Đơn đã nhận</a></li>
+                                            <li><a onclick="delivered_order()">Đơn đã giao</a></li>
                                             <li><a onclick="income()">Xem lương</a></li>
                                             <li><a href="/log-out">Đăng xuất</a></li>
                                             <li>
@@ -219,9 +219,7 @@
                                             <th scope="col" style="width: 300px;">
                                                 <h6 style="margin:5px 0 0 0;">Địa chỉ</h6>
                                             </th>
-                                            <th scope="col" style="width: 100px;">
-                                                <h6 style="margin:5px 0 0 0;">Nhận đơn</h6>
-                                            </th>
+                                            
                                         </tr>
                                     </thead>
                                     <tbody>

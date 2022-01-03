@@ -118,7 +118,7 @@ begin tran
 	begin try
 		if (select TrangThai from HoaDon where MaHD = @MaHD) = N'Chưa Giao'
 			update HoaDon
-			set NVGiaoHang = @MaNV, TrangThai = 'Đang Giao' where MaHD = @MaNV
+			set NVGiaoHang = @MaNV, TrangThai = N'Đang Giao' where MaHD = @MaHD
 	end try
 	begin catch
 		select  error_message() as errormessage; 
@@ -136,7 +136,7 @@ as
 begin tran
 	begin try
 		update HoaDon
-		set TrangThai = 'Đã Giao' where MaHD = @MaNV
+		set TrangThai = N'Đã Giao' where MaHD = @MaHD
 		update NgayLamViec
 		set SoDonGiao = SoDonGiao + 1 where MaNV = @MaNV and NgayLamViec = GETDATE()
 	end try
