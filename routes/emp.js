@@ -130,5 +130,28 @@ router.get("/get-salary", function(req, res) {
 })
 
 
+//driver confirm order
+router.post("/confirm-order", function(req, res) {
+    (async() => {
+        try {
+            let pool = await sql.connect(config);
+            let result = await pool.request()
+                .input('MaNV', sql.Char(10), 'NV00000002') //Thay bằng session
+                .input('MaHD', sql.Char(10), req.body.MaHD)
+                .execute('sp_NV_XacNhanHD')
+
+
+
+            pool.close()
+                //console.log(result)
+            res.send(result.recordset)
+        } catch (err) {
+            console.log(err.message)
+            res.send(err.message)
+        }
+
+    })()
+})
+
 
 module.exports = router
