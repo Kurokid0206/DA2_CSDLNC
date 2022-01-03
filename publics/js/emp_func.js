@@ -14,33 +14,19 @@ function show(id){
 }
 
 
-function driver_view_order(){
+function view_order(){
     let tbl = document.querySelector("#driver-order-table tbody")
     var xhtml = new XMLHttpRequest();
     xhtml.onload = function() {
         // input.value="";
         // var data=JSON.parse(this.responseText)
         // console.log(data)
-        dri_show('driver-order-section')
+        show('receive-order-section')
         tbl.innerHTML=render_order(JSON.parse(this.responseText))
     }
 
     xhtml.open("GET", "emp/get-order");
     //xhtml.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    xhtml.send();
-
-    return false;
-}
-
-function dri_update_order(){
-
-    var xhtml = new XMLHttpRequest();
-    xhtml.onload = function() {
-
-    }
-
-    xhtml.open("POST", "dri-update-order-stat");
-    xhtml.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xhtml.send();
 
     return false;
@@ -56,7 +42,7 @@ function render_order(orders){
         tr=tr+`
         <tr>
         <td scope="col" style="width: 100px;">
-        <h6 style="margin:5px 0 0 0;">${order.MaDH}</h6>
+        <h6 style="margin:5px 0 0 0;">${order.MaHD}</h6>
         </td>
         <td scope="col" style="width: 300px;">
         <h6 style="margin:5px 0 0 0;">${order.TenNguoiNhan}</h6>
@@ -68,7 +54,7 @@ function render_order(orders){
         <h6 style="margin:5px 0 0 0;">${order.DiaChiGiaoHang}</h6>
         </td>
         <td scope="col">
-        <button type="button" class="btn-primary" onclick="dri_recv_order('${order.MaDH}')" id="take-order-btn">
+        <button type="button" class="btn-primary" onclick="recv_order('${order.MaHD}')" id="take-order-btn">
         <h6 style=" margin:5px 0 0 0; color: aliceblue; ">Nhận đơn</h6>
         </button>
         </td>
@@ -78,8 +64,7 @@ function render_order(orders){
     return tr
 }
 
-function dri_recv_order(MaDH){
-    dri_confirm(MaDH,2);
+function recv_order(MaHD){
     
     var xhtml = new XMLHttpRequest();
     xhtml.onload = function() {
@@ -87,20 +72,20 @@ function dri_recv_order(MaDH){
         // input.value="";
         // var data=JSON.parse(this.responseText)
         // console.log(data)
-        dri_show('driver-confirm-section')
+        show('received-order-section')
 
     }
 
-    xhtml.open("POST", "dri-recv-order");
+    xhtml.open("POST", "emp/recv-order");
     xhtml.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    xhtml.send('MaDH='+MaDH);
+    xhtml.send('MaHD='+MaHD);
 
     return false;
 }
 
 
-function dri_my_order(){
-    dri_show('driver-confirm-section')
+function my_order(){
+    show('driver-confirm-section')
     var xhtml = new XMLHttpRequest();
     xhtml.onload = function() {
 
@@ -123,19 +108,19 @@ function render_my_order(orders){
     tr=``
     orders.forEach(order=>{
         tr+=
-        `<tr><td scope="col"><h6 style="margin:5px 0 0 0;">${order.MaDH}</h6></td>
+        `<tr><td scope="col"><h6 style="margin:5px 0 0 0;">${order.MaHD}</h6></td>
         <td scope="col"><h6 style="margin:5px 0 0 0;">${order.HoTen}</h6></td>
         <td scope="col"><h6 style="margin:5px 0 0 0;">${order.TongTien}</h6></td>
         <td scope="col"><h6 style="margin:5px 0 0 0;">${order.DiaChiGiaoHang}</h6></td>
         <td scope="col">
-        <button class="btn-primary" onclick="dri_confirm('${order.MaDH}',0)">
+        <button class="btn-primary" onclick="confirm('${order.MaHD}',0)">
         <h6 style=" margin:5px 0 0 0; color: aliceblue; ">Đã giao</h6></button></td></tr>`
     })
     return tr
 }
 
-function dri_confirm(MaDH,opt){
-    //dri_show('driver-confirm-section')
+function confirm(MaHD,opt){
+    //show('driver-confirm-section')
     var xhtml = new XMLHttpRequest();
     xhtml.onload = function() {
 
@@ -143,46 +128,42 @@ function dri_confirm(MaDH,opt){
 
     xhtml.open("post", "dri-update-order-stat");
     xhtml.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    xhtml.send(`MaDH=${MaDH}`);
+    xhtml.send(`MaHD=${MaHD}`);
 
 }
 
-function dri_income(){
-    dri_show('driver-salary-section')
+function income(){
+    show('salary-section')
     var xhtml = new XMLHttpRequest();
     xhtml.onload = function() {
         let data = JSON.parse(this.responseText)
         render_income(data)
     }
 
-    xhtml.open("get", "dri_income");
+    xhtml.open("get", "emp/get-salary");
     //xhtml.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xhtml.send();
 
 }
 
+
 function render_income(orders){
     var tr=``
-    var tt=0
+
     orders.forEach(order=>{
         tr+=`<tr><td scope="col">
-        <h6 style="margin:5px 0 0 0;">${order.MaDH}</h6></td>
-        <td scope="col"><h6 style="margin:5px 0 0 0;">${order.DiaChiGiaoHang}</h6>
+        <h6 style="margin:5px 0 0 0;">${new Date(order.NgayPhatLuong).toISOString().slice(0, 10)}</h6></td>
+        <td scope="col"><h6 style="margin:5px 0 0 0;">${order.Luong}</h6>
         </td>
-        <td scope="col">
-        <h6 style="margin:5px 0 0 0;">${(order.TongTien*0.05).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')} VND</h6>
+        <td scope="col"><h6 style="margin:5px 0 0 0;">${order.Thuong}</h6>
+        </td>
+        <td scope="col"><h6 style="margin:5px 0 0 0;">${order.Luong+order.Thuong}</h6>
         </td>
         </tr>`
-        tt+=order.TongTien*0.05
     })
 
-    document.querySelector("#driver-salary-section tbody").innerHTML=tr
-    document.getElementById("driver-salary-table").innerHTML= 
-    `<tr><th scope="col" style="width: 400px;">
-    <h4 style="margin:5px 0 0 0; margin-left: 138px; font-weight: bold;">Tổng tiền</h4>
-    </th><th scope="col" style="width: 200px;">
-    <h6 style="margin:5px 0 0 0; font-weight: bold;" id="total-salary">${(tt).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')} VND</h6>
-    </th></tr>`
+    document.querySelector("#salary-section tbody").innerHTML=tr
+
 }
 
 

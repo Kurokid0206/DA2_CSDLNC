@@ -28,7 +28,27 @@ router.get("/get-order", function(req, res) {
         try {
             let pool = await sql.connect(config);
             let result = await pool.request()
-                .query(`Select * from HoaDon where MaNV = Null and TinhTrang = N'Chưa Giao'`)
+                .query(`Select * from HoaDon where NVGiaoHang is null and TrangThai = N'Chưa Giao'`)
+
+
+            pool.close()
+                //console.log(result.recordset[0])
+            res.send(result.recordset)
+        } catch (err) {
+            console.log(err.message)
+            res.send(err.message)
+        }
+
+    })()
+})
+
+router.get("/get-salary", function(req, res) {
+    (async() => {
+        try {
+            req.session.user='NV00000001'
+            let pool = await sql.connect(config);
+            let result = await pool.request()
+                .query(`select * from BangLuong where MaNV='${req.session.user}'`)
 
 
             pool.close()
@@ -41,7 +61,6 @@ router.get("/get-order", function(req, res) {
 
     })()
 })
-
 
 //driver receive order
 router.post("/recv-order", function(req, res) {
