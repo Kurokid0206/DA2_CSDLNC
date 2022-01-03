@@ -1,0 +1,7 @@
+USE [QLBanHoa]
+GO
+
+CREATE NONCLUSTERED INDEX TimKiemSP ON SanPham
+(	MauSac ASC,
+	ChuDe ASC,
+	TenSP ASC)

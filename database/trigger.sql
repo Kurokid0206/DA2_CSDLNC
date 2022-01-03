@@ -1,6 +1,14 @@
 use QLBanHoa
 go
 
+drop trigger trg_HieuSuat
+drop trigger trg_ThanhTien_HD
+drop trigger trg_TongTien_HD
+drop trigger trg_ThanhTien_NH
+drop trigger trg_TongTien_NH
+drop trigger trg_TenND
+go
+
 create trigger trg_HieuSuat
 on NgayLamViec for insert, update
 as
@@ -11,7 +19,8 @@ begin
 		declare @Thang as int = month((select NgayLamViec from inserted))
 		declare @TongSoHD as int = (select sum(SoDonGiao) from NgayLamViec
 									where MaNV = @MaNV and datepart(month, NgayLamViec) = @Thang)
-		declare @HieuSuat as float = @TongSoHD/(select MucTieu from NhanVien where MaNV = @MaNV)
+		declare @HieuSuat as float = cast(@TongSoHD as float)/cast((select MucTieu from NhanVien where MaNV = @MaNV) as float)
+		set @HieuSuat = round(@HieuSuat, 2)
 		update BangLuong
 		set HieuSuat = @HieuSuat where  MaNV = @MaNV and month(NgayPhatLuong) = @Thang
 	end
@@ -39,21 +48,46 @@ go
 
 create trigger trg_TongTien_HD
 on CT_HoaDon
-after insert, update, delete
+for insert, update, delete
 as
 begin
-	declare @MaHD as char(10) = NULL
+	declare @MaHD as char(10) 
+	declare @MaGiamGia as varchar(10)
+	declare @LoaiGiamGia as bit
+	declare @GiaGiam as int = 0
+	declare @TongTien as int
 	if UPDATE(ThanhTien) or UPDATE(MaHD)
-		set @MaHD = (select MaHD from inserted)
-	else 
-		set @MaHD = (select MaHD from deleted)
-
-	declare @MaGiamGia as varchar(10) = (select MaGiamGia from HoaDon where MaHD = @MaHD)
-	declare @GiaGiam as int = (select SoTienGiam from GiamGia where MaGiamGia = @MaGiamGia)
-							+ (select PhanTramGiam from GiamGia where MaGiamGia = @MaGiamGia)/100
-	update HoaDon
-	set TongTien = (select (SUM(ThanhTien) - @GiaGiam) from CT_HoaDon where MaHD = @MaHD) 
-	where MaHD = @MaHD
+	begin
+		set @MaHD = (select MaHD from HoaDon where exists (select * from inserted i where i.MaHD = HoaDon.MaHD))
+		set @TongTien = (select SUM(ThanhTien) from CT_HoaDon where MaHD = @MaHD)
+		if (select MaGiamGia from HoaDon where MaHD = @MaHD) is not null
+		begin
+			set @MaGiamGia = (select MaGiamGia from HoaDon where MaHD = @MaHD)
+			set @LoaiGiamGia = (select LoaiGiamGia from GiamGia where MaGiamGia = @MaGiamGia)
+			if @LoaiGiamGia = 0 set @GiaGiam = (select SoTienGiam from GiamGia where MaGiamGia = @MaGiamGia)
+			else set @GiaGiam = @TongTien *
+			(select PhanTramGiam from GiamGia where MaGiamGia = @MaGiamGia)/100
+		end
+		update HoaDon
+		set TongTien = @TongTien - @GiaGiam
+		where exists (select * from inserted i where i.MaHD = HoaDon.MaHD)
+	end
+	else
+	begin
+		set @MaHD = (select MaHD from HoaDon where exists (select * from deleted d where d.MaHD = HoaDon.MaHD))
+		set @TongTien = (select SUM(ThanhTien) from CT_HoaDon where MaHD = @MaHD)
+		if (select MaGiamGia from HoaDon where MaHD = @MaHD) is not null
+		begin
+			set @MaGiamGia = (select MaGiamGia from HoaDon where MaHD = @MaHD)
+			set @LoaiGiamGia = (select LoaiGiamGia from GiamGia where MaGiamGia = @MaGiamGia)
+			if @LoaiGiamGia = 0 set @GiaGiam = (select SoTienGiam from GiamGia where MaGiamGia = @MaGiamGia)
+			else set @GiaGiam = @TongTien *
+			(select PhanTramGiam from GiamGia where MaGiamGia = @MaGiamGia)/100
+		end
+		update HoaDon
+		set TongTien = @TongTien - @GiaGiam
+		where exists (select * from deleted d where d.MaHD = HoaDon.MaHD)
+	end
 end
 go
 
@@ -78,7 +112,7 @@ go
 
 create trigger trg_TongTien_NH
 on CT_NhapHang
-after insert, update, delete
+for insert, update, delete
 as
 begin
 	declare @MaDN as char(10) = NULL
@@ -94,7 +128,7 @@ go
 
 create trigger trg_TenND
 on TaiKhoan
-after insert, update
+for insert, update
 as
 begin
 	if UPDATE(NguoiDung)

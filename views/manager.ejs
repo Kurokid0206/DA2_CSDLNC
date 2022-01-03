@@ -198,21 +198,22 @@
                             <form class="custom-input">
                                 <h4>Theo tháng:</h4>
                                 <div style="display: flex; flex-direction: row;">
-                                    <select name="" id="" style="width: 45%;">
-                                        <option value="0" selected>Chọn tháng</option>
+                                    <select name="" id="" style="width: 40%;" >
+                                        <option value="0" selected>Chọn tháng thứ nhất</option>
                                         <% for(var i=0;i<12;i++){%>
                                             <option value=<%=i+1%>>Tháng <%=i+1%>
                                             </option>
                                             <%}%>
                                     </select>
 
-                                    <select name="" id="" style="width: 45%;">
-                                        <option value="0" selected>Chọn tháng</option>
+                                    <select name="" id="" style="width: 40%;">
+                                        <option value="0" selected>Chọn tháng thứ hai</option>
                                         <% for(var i=0;i<12;i++){%>
                                             <option value=<%=i+1%>>Tháng <%=i+1%>
                                             </option>
                                             <%}%>
                                     </select>
+                                    <button type="button" onclick=" compare()" style="height: 37px;">So sánh</button>
                                 </div>
                                 <br>
                                 <table class="table" id="Revenue-table">
@@ -253,11 +254,11 @@
                                 </table>
                                 <div style="display: flex; justify-content: center;">
                                     <button type="button" style="height: 35px; width: 75px;"
-                                        onclick="prev('Revenue-compare-section');">prev</button>
+                                        onclick="prev('Revenue-compare-section');render_compare();">prev</button>
                                     <input type="number" style="height: 35px;width: 100px;" class="page-number"
                                         value="1">
                                     <button type="button" style="height: 35px; width: 75px;"
-                                        onclick="next('Revenue-compare-section');">next</button>
+                                        onclick="next('Revenue-compare-section');render_compare();">next</button>
                                 </div>
                                 <table class="table">
                                     <thead>
@@ -293,7 +294,7 @@
                             <h3 class="mb-35">Số lượng hàng</h3>
                             <form class="custom-input">
                                 <h4>Theo tháng:</h4>
-                                <select name="" id="" style="width: 50%;" onchange="">
+                                <select name="" id="" style="width: 50%;" onchange="get_number()">
                                     <option value="0">Chọn tháng</option>
                                     <% for(var i=0;i<12;i++){%>
                                         <option value=<%=i+1%>>Tháng <%=i+1%>
@@ -323,11 +324,11 @@
                                 </table>
                                 <div style="display: flex; justify-content: center;">
                                     <button type="button" style="height: 35px; width: 75px;"
-                                        onclick="prev('number-section');">prev</button>
+                                        onclick="prev('number-section');render_number();">prev</button>
                                     <input type="number" style="height: 35px;width: 100px;" class="page-number"
                                         value="1">
                                     <button type="button" style="height: 35px; width: 75px;"
-                                        onclick="next('number-section');">next</button>
+                                        onclick="next('number-section');render_number();">next</button>
                                 </div>
                                 <table class="table">
                                     <thead>
@@ -336,11 +337,11 @@
                                         <tr>
                                             <th scope="col" style="width: 400px;">
                                                 <h4 style="margin:5px 0 0 0; margin-left: 138px; font-weight: bold;">
-                                                    Tổng doanh thu</h4>
+                                                    Tổng lượng nhập/xuất</h4>
                                             </th>
                                             <th scope="col" style="width: 200px;">
-                                                <h6 style="margin:5px 0 0 0; font-weight: bold;" id="total-salary"
-                                                    id="Sum_Revenue">123456789 vnd</h6>
+                                                <h6 style="margin:5px 0 0 0; font-weight: bold;" 
+                                                    id="Sum_in_out">0/0</h6>
                                             </th>
                                         </tr>
                                     </tbody>

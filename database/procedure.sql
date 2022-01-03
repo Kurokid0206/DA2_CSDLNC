@@ -378,27 +378,28 @@ if @@trancount > 0
 go
 
 create proc sp_Insert_HD
-	@MaKH char(10),
-	@NguoiNhan nvarchar(50),
-	@DiaChi nvarchar(100),
-	@LoiNhan nvarchar(500),
-	@MaGiamGia varchar(10)
-as	
+    @MaKH char(10),
+    @NguoiNhan nvarchar(50),
+    @DiaChi nvarchar(100),
+    @LoiNhan nvarchar(500),
+    @MaGiamGia varchar(10),
+    @MaHD char(10) output
+as    
 begin tran
-	begin try
-		declare @MaHD as char(10) = dbo.f_Auto_MaHD()
-		insert into HoaDon(MaHD, NgayLap, TenNguoiNhan, DiaChiGiaoHang, LoiNhan, TrangThai, MaKH)
-		values(@MaHD, getdate(), @NguoiNhan, @DiaChi, @LoiNhan, N'Chưa Giao', @MaKH)
-		if exists (select MaGiamGia from GiamGia where MaGiamGia = @MaGiamGia)
-			if GETDATE() < (select NgayHetHan from GiamGia where MaGiamGia = @MaGiamGia)
-				update HoaDon
-				set MaGiamGia = @MaGiamGia where MaHD = @MaHD
-	end try
-	begin catch
-		select  error_message() as errormessage; 
-		if @@trancount > 0  
-			rollback tran
-	end catch
+    begin try
+        set @MaHD  = dbo.f_Auto_MaHD()
+        insert into HoaDon(MaHD, NgayLap, TenNguoiNhan, DiaChiGiaoHang, LoiNhan, TrangThai, MaKH)
+        values(@MaHD, getdate(), @NguoiNhan, @DiaChi, @LoiNhan, N'Chưa Giao', @MaKH)
+        if exists (select MaGiamGia from GiamGia where MaGiamGia = @MaGiamGia)
+            if GETDATE() < (select NgayHetHan from GiamGia where MaGiamGia = @MaGiamGia)
+                update HoaDon
+                set MaGiamGia = @MaGiamGia where MaHD = @MaHD
+    end try
+    begin catch
+        select  error_message() as errormessage; 
+        if @@trancount > 0  
+            rollback tran
+    end catch
 if @@trancount > 0  
     commit tran;
 go
@@ -422,3 +423,34 @@ begin tran
 if @@trancount > 0  
     commit tran;
 go
+
+--drop proc sp_XemDoanhThu_2SP
+create proc sp_XemDoanhThu_2SP
+@Thang1 int,
+@Thang2 int
+as
+begin tran
+	begin try
+		select SP.MaSP, TenSP, SUM(CT1.ThanhTien) DoanhThu1,SUM(CT2.ThanhTien) DoanhThu2 from 
+		(select CTHD.MaSP, ThanhTien
+		from CT_HoaDon CTHD join HoaDon HD on CTHD.MaHD = HD.MaHD 
+		where month(NgayLap) = @Thang1) CT1 
+
+		right join SanPham SP on SP.MaSP = CT1.MaSP
+
+		left join 
+		(select CTHD.MaSP, ThanhTien
+		from CT_HoaDon CTHD join HoaDon HD on CTHD.MaHD = HD.MaHD 
+		where month(NgayLap) = @Thang2) CT2 on SP.MaSP = CT2.MaSP
+
+		group by SP.MaSP, TenSP
+		order by SP.MaSP
+	end try
+	begin catch
+		select  error_message() as errormessage; 
+		if @@trancount > 0  
+			rollback tran
+	end catch
+	if @@trancount > 0  
+		commit tran;
+	go
