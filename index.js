@@ -86,7 +86,7 @@ app.post("/log-in", function(req, res) {
                     .input('tk', sql.VARCHAR(50), `${req.body.username}`)
                     .input('mk', sql.VarChar(20), `${req.body.password}`)
                     .output('ma', sql.Char(10))
-                    .execute('sp_TK_Login')
+                    .execute('sp_Login')
                 pool.close()
                     //console.log(result)
                 req.session.user = result.output.ma

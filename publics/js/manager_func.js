@@ -92,7 +92,7 @@ function get_number() {
     }
     let a =document.querySelector('#desc')
     if(a) a.innerHTML = `<div id="asc">
-    <button type="button" style="width: 150px;" onclick="reverse_number('desc')">Xem not trend</button>
+    <button type="button" style="width: 150px; height: 37px; margin-left: 20px;" onclick="reverse_number('desc')">Bán không chạy</button>
   </div>`
   }
 
