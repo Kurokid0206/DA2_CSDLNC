@@ -115,14 +115,24 @@ on CT_NhapHang
 for insert, update, delete
 as
 begin
-	declare @MaDN as char(10) = NULL
+	declare @MaDN as char(10) 
+	declare @TongTien as int
 	if UPDATE(ThanhTien) or UPDATE(MaDonNhap)
-		set @MaDN = (select MaDonNhap from inserted)
-	else 
-		set @MaDN = (select MaDonNhap from deleted)
-	update DonNhapHang
-	set TongTien = (select SUM(ThanhTien) from CT_NhapHang where MaDonNhap = @MaDN) 
-	where MaDonNhap = @MaDN
+	begin
+		set @MaDN = (select MaDonNhap from DonNhapHang where exists (select * from inserted i where i.MaDonNhap = DonNhapHang.MaDonNhap))
+		set @TongTien = (select SUM(ThanhTien) from CT_NhapHang where MaDonNhap = @MaDN)
+		update DonNhapHang
+		set TongTien = @TongTien
+		where exists (select * from inserted i where i.MaDonNhap = DonNhapHang.MaDonNhap)
+	end
+	else
+	begin
+		set @MaDN = (select MaDonNhap from DonNhapHang where exists (select * from deleted d where d.MaDonNhap = DonNhapHang.MaDonNhap))
+		set @TongTien = (select SUM(ThanhTien) from CT_NhapHang where MaDonNhap = @MaDN)
+		update DonNhapHang
+		set TongTien = @TongTien
+		where exists (select * from deleted d where d.MaDonNhap = DonNhapHang.MaDonNhap)
+	end
 end
 go
 
