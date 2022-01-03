@@ -410,11 +410,12 @@ go
 create proc sp_Insert_CTHD
 	@MaHD char(10),
 	@SoLuong int,
-	@MaSP char(10)
+	@MaSP char(10),
+	@STT int
 as	
 begin tran
 	begin try
-		declare @STT as int = dbo.f_Auto_STT_NhapHang(@MaHD) 
+		--declare @STT as int = dbo.f_Auto_STT_NhapHang(@MaHD) 
 		insert into CT_HoaDon(MaHD, STT, MaSP, SoLuong)
 		values(@MaHD, @STT, @MaSP, @SoLuong)
 	end try

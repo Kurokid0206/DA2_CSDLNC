@@ -142,21 +142,21 @@ router.post("/insert-order", function(req, res) {
 
                                 //console.log("Transaction rollback")
                             })
-                            console.log(err)
+                            // console.log(err)
                             res.send(err)
                             return
                         } else {
 
-                            console.log(result)
-                            console.log(data)
+                            // console.log(result)
+                            // console.log(data)
 
                             function add_detail(elements, i) {
-                                console.log("de quy lan ", i)
+                                //console.log("de quy lan ", i)
                                 if (i >= elements.length) {
                                     transaction.commit(err => {
                                         // ... error checks
 
-                                        console.log("Transaction commit ket thuc de quy.")
+                                        // console.log("Transaction commit ket thuc de quy.")
 
                                     })
                                     res.send("Thanh cong")
@@ -177,7 +177,7 @@ router.post("/insert-order", function(req, res) {
                                                     // ... error checks
 
 
-                                                    console.log("Transaction rollback khi them san pham", element.MaSP)
+                                                    //console.log("Transaction rollback khi them san pham", element.MaSP)
 
                                                 })
                                                 console.log(err)
