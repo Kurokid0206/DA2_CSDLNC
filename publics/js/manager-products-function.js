@@ -58,6 +58,9 @@ function render_manager_view_products(data) {
             <input class="GiaBan-for-edit" type="number" value="${element.GiaBan}" disabled>
         </td>
         <td>
+            <input class="GiaGiam-for-edit" type="number" value="${element.GiaNhap}" disabled>
+        </td>
+        <td>
             <h6 style="margin:15px 0 0 0;">${element.SoLuongTon}</h6>
         </td>
         <td style="padding-top:15px;">
@@ -76,6 +79,7 @@ function save_manage_edit_product(MaSP) {
     var MauSac = tr.querySelector(` .MauSac-for-edit`).value;
     var ChuDe = tr.querySelector(` .ChuDe-for-edit`).value;
     var GiaBan = tr.querySelector(` .GiaBan-for-edit`).value;
+    var GiaNhap = tr.querySelector(` .GiaNhap-for-edit`).value;
     var tr = document.getElementById(MaSP);
     tr.querySelector(` .TenSP-for-edit`).disabled = true;
     tr.querySelector(` .MauSac-for-edit`).disabled = true;
@@ -92,7 +96,7 @@ function save_manage_edit_product(MaSP) {
 
     xhtml.open("POST", "/manage_product/save-edit-products");
     xhtml.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    xhtml.send(`MaSP=${MaSP}&TenSP=${TenSP}&MauSac=${MauSac}&ChuDe=${ChuDe}&GiaBan=${GiaBan}`);
+    xhtml.send(`MaSP=${MaSP}&TenSP=${TenSP}&MauSac=${MauSac}&ChuDe=${ChuDe}&GiaBan=${GiaBan}&GiaNhap=${GiaNhap}`);
 }
 
 function enable_edit(MaSP) {

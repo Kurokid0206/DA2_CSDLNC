@@ -10,7 +10,7 @@ BEGIN TRAN
     BEGIN TRY
         declare @NgayAD as date = getdate()
 		select sp.*,gia.GiaBan,gia.GiaNhap from SanPham sp join (select bg.* from BangGiaSP bg join (select MAX(NgayApDung) as NgayAD, MaSP from BangGiaSP
-                                                        where NgayApDung < @NgayAD 
+                                                        where NgayApDung <= @NgayAD 
                                                         group by MaSP
                                                         ) bg2
                                                         on bg.MaSP = bg2.MaSP and bg.NgayApDung = bg2.NgayAD) gia
@@ -60,17 +60,17 @@ begin tran
     end catch
 if @@trancount > 0
     commit tran;
-
+go
 -- drop procedure sp_TruyVet_GiaSP
 CREATE PROCEDURE sp_TruyVet_GiaSP
     @MaSP char(10)
 AS
 BEGIN TRAN
     BEGIN TRY
-        SELECT BangGiaSP.*, SanPham.TenSP
-        FROM BangGiaSP join SanPham
-		on BangGiaSP.MaSP = SanPham.MaSP
-        WHERE BangGiaSP.MaSP = @MaSP
+        SELECT bg.*, sp.TenSP
+        FROM BangGiaSP bg join SanPham sp
+		on bg.MaSP = sp.MaSP
+        WHERE bg.MaSP = @MaSP
         ORDER BY NgayApDung
 
     END TRY

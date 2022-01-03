@@ -88,7 +88,12 @@ function get_number() {
     render_number()
     if (!called) {
       render_in_out()
+      called=true
     }
+    let a =document.querySelector('#desc')
+    if(a) a.innerHTML = `<div id="asc">
+    <button type="button" style="width: 150px;" onclick="reverse_number('desc')">Xem not trend</button>
+  </div>`
   }
 
   xhtml.open('post', 'manager/get-number')
@@ -124,6 +129,27 @@ function render_number() {
     }
   }
   document.querySelector('#number-section tbody').innerHTML = tr
+}
+
+function reverse_number(sort) {
+  if (!called) {
+    return
+  }
+    document.querySelector('#number-section .page-number').value = 1
+    if (sort == 'desc') {
+      document.querySelector('#asc').innerHTML = `<div id="desc">
+      <button type="button" style="width: 150px; height: 37px; margin-left: 20px;" onclick="reverse_number('asc')">Bán chạy</button>
+      </div>`
+    } else {
+      document.querySelector('#desc').innerHTML = `<div id="asc">
+  <button type="button" style="width: 150px; height: 37px; margin-left: 20px;" onclick="reverse_number('desc')">Bán không chạy</button>
+</div>`
+    }
+    let data = glb_data.reverse()
+    glb_data = data
+
+    render_number()
+  
 }
 
 function render_in_out() {
@@ -308,7 +334,7 @@ function compare() {
   xhtml.send(`month1=${month1}&month2=${month2}`)
 }
 
-function render_compare(){
+function render_compare() {
   let data = glb_data
 
   if (data.length < 1) {
@@ -317,13 +343,13 @@ function render_compare(){
     <h6 style="margin:5px 0 0 0;">No result</h6></td>`
     return
   }
-  let page = document.querySelector('#Revenue-compare-section .page-number').value
+  let page = document.querySelector('#Revenue-compare-section .page-number')
+    .value
   tr = ``
   for (var i = (page - 1) * page_max; i < page * page_max; i++) {
     try {
       let element = data[i]
-      tr += 
-      `<tr>
+      tr += `<tr>
       <td scope="col" style="width: 100px;">
           <h6 style="margin:5px 0 0 0;">${element.MaSP}</h6>
       </td>
@@ -332,24 +358,24 @@ function render_compare(){
       </td>
       <td scope="col" style="width: 200px;">
           <h6 style="margin:5px 0 0 0;">`
-          
-          if(element.DoanhThu1 ==null){
-            tr+=0
-          }else{
-            tr+=element.DoanhThu1
-          }
-          
-          tr+=`</h6>
+
+      if (element.DoanhThu1 == null) {
+        tr += 0
+      } else {
+        tr += element.DoanhThu1
+      }
+
+      tr += `</h6>
       </td>
       <td scope="col" style="width: 200px;" class="compare">
           <h6 style="margin:5px 0 0 0;">
           `
-          if(element.DoanhThu2 ==null){
-            tr+=0
-          }else{
-            tr+=element.DoanhThu2
-          }
-         tr+= `
+      if (element.DoanhThu2 == null) {
+        tr += 0
+      } else {
+        tr += element.DoanhThu2
+      }
+      tr += `
           </h6>
       </td>
     </tr>
@@ -359,5 +385,4 @@ function render_compare(){
     }
   }
   document.querySelector('#Revenue-compare-section tbody').innerHTML = tr
-  
 }

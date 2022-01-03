@@ -173,8 +173,8 @@
                                                     Tổng doanh thu</h4>
                                             </th>
                                             <th scope="col" style="width: 200px;">
-                                                <h6 style="margin:5px 0 0 0; font-weight: bold;"
-                                                    id="Sum_Revenue">123456789 vnd</h6>
+                                                <h6 style="margin:5px 0 0 0; font-weight: bold;" id="Sum_Revenue"></h6>
+                                                123456789 vnd</h6>
                                             </th>
                                         </tr>
                                     </tbody>
@@ -198,7 +198,7 @@
                             <form class="custom-input">
                                 <h4>Theo tháng:</h4>
                                 <div style="display: flex; flex-direction: row;">
-                                    <select name="" id="" style="width: 40%;" >
+                                    <select name="" id="" style="width: 40%;">
                                         <option value="0" selected>Chọn tháng thứ nhất</option>
                                         <% for(var i=0;i<12;i++){%>
                                             <option value=<%=i+1%>>Tháng <%=i+1%>
@@ -206,14 +206,14 @@
                                             <%}%>
                                     </select>
 
-                                    <select name="" id="" style="width: 40%;">
+                                    <select name="" id="" style="width: 40%; margin-left: 10px;">
                                         <option value="0" selected>Chọn tháng thứ hai</option>
                                         <% for(var i=0;i<12;i++){%>
                                             <option value=<%=i+1%>>Tháng <%=i+1%>
                                             </option>
                                             <%}%>
                                     </select>
-                                    <button type="button" onclick=" compare()" style="height: 37px;">So sánh</button>
+                                    <button type="button" onclick=" compare()" style="height: 37px; margin-left: 10px;">So sánh</button>
                                 </div>
                                 <br>
                                 <table class="table" id="Revenue-table">
@@ -294,13 +294,20 @@
                             <h3 class="mb-35">Số lượng hàng</h3>
                             <form class="custom-input">
                                 <h4>Theo tháng:</h4>
-                                <select name="" id="" style="width: 50%;" onchange="get_number()">
-                                    <option value="0">Chọn tháng</option>
-                                    <% for(var i=0;i<12;i++){%>
-                                        <option value=<%=i+1%>>Tháng <%=i+1%>
-                                        </option>
-                                        <%}%>
-                                </select>
+                                <div style="display: flex; flex-direction: row;">
+                                    <select name="" id="" style="width: 50%;" onchange="get_number()">
+                                        <option value="0">Chọn tháng</option>
+                                        <% for(var i=0;i<12;i++){%>
+                                            <option value=<%=i+1%>>Tháng <%=i+1%>
+                                            </option>
+                                            <%}%>
+                                    </select>
+                                    <div id="asc">
+                                        <button type="button" style="width: 150px; height: 37px; margin-left: 20px;"
+                                            onclick="reverse_number('desc')">Bán
+                                            không chạy</button>
+                                    </div>
+                                </div>
                                 <br>
                                 <table class="table" id="Revenue-table">
                                     <thead>
@@ -340,8 +347,8 @@
                                                     Tổng lượng nhập/xuất</h4>
                                             </th>
                                             <th scope="col" style="width: 200px;">
-                                                <h6 style="margin:5px 0 0 0; font-weight: bold;" 
-                                                    id="Sum_in_out">0/0</h6>
+                                                <h6 style="margin:5px 0 0 0; font-weight: bold;" id="Sum_in_out">0/0
+                                                </h6>
                                             </th>
                                         </tr>
                                     </tbody>

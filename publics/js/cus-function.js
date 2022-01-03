@@ -4,6 +4,8 @@ var ids = ['new-order-section',
     'view-order-detail-section'
 ]
 
+var Shopping_bag = [];
+
 function cus_show(id) {
 
     ids.forEach(id => {
@@ -54,7 +56,8 @@ function render_product_for_customer(data) {
                     </div>
                     <h6 style="margin:5px 0 10px 0;">Màu: ${element.MauSac}</h6>
                     <h6 style="margin:5px 0 5px 0; height: 120px;">Chủ đề: ${element.ChuDe}</h6>
-                    <a class="btn btn-1" href="course-details.html" onclick="return Add_product_to_shopping('${element.MaSP}','${element.TenSP}');">Thêm vào giỏ hàng</a>
+                    <a class="btn btn-1"  onclick="return Add_product_to_shopping('${element.MaSP}','${element.TenSP}',${element.GiaBan});">Thêm vào giỏ hàng</a>
+                    
 
                 </div>
             </div>
@@ -62,6 +65,52 @@ function render_product_for_customer(data) {
         <!-- product card end -->`
     });
     table.innerHTML = tr
+}
+
+function Add_product_to_shopping(MaSP, TenSp, GiaBan) {
+    Shopping_bag.forEach(element => {
+        if (element.MaSP == MaSP) return false
+    })
+    Shopping_bag.push({ 'MaSP': MaSP, 'TenSP': TenSp, 'GiaBan': GiaBan });
+    event.target.innerHTML = "Đã thêm vào giỏ hàng";
+    event.target.removeAttribute("onclick")
+    add_order_detail(MaSP, TenSp);
+    return false;
+}
+
+function add_order_detail(MaSP, TenSP) {
+    var container = document.querySelector(`#order_detail-container`);
+    var CTDHs = document.querySelectorAll('.CT_donhang');
+
+    var temp = document.createElement('div');
+    temp.setAttribute('id', `CTDH${CTDHs.length}`)
+    temp.classList.add('CT_donhang')
+    temp.classList.add('enter-box')
+    temp.innerHTML = `
+    <h4 style="margin:5px 0 0 0; display: inline-block;">Sản phẩm ${CTDHs.length+1}:</h4>
+
+    <br><br>
+
+    <h6 style="margin:5px 0 0 0;">Sản phẩm:</h6>
+    <select name="product" id="select-product" placeholder="Chọn đối tác" required disacbled>
+        <option value="${MaSP}">${TenSP}</option>
+    </select>
+    <h6 style="margin:5px 0 0 0;">Số lượng:</h6>
+    <input type="number" name="quantity" placeholder="Số lượng" required/>
+    <br><br>`
+    container.appendChild(temp);
+
+
+}
+
+function check_order_epmty() {
+    if (Shopping_bag.length <= 0) {
+        document.getElementById('order_is_emp').style.display = "block"
+        document.getElementById('order_div').style.display = "none"
+    } else {
+        document.getElementById('order_is_emp').style.display = "none"
+        document.getElementById('order_div').style.display = "block"
+    }
 }
 
 function customer_view_order() {
@@ -73,14 +122,46 @@ function customer_view_order() {
 
     }
 
-    xhtml.open("GET", "cus-view-order");
+    xhtml.open("GET", "/customer/cus-view-order");
     //xhtml.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xhtml.send();
 
     return false;
 }
 
-function customer_view_order_detail(MaDH) {
+function render_view_order(data) {
+    if (data.length <= 0) {
+        document.querySelector("#bill tbody").innerHTML = "No result."
+        return;
+    }
+    var bill = document.querySelector("#bill tbody")
+    var tr = ``
+    data.forEach(element => {
+        tr = tr + `<tr><td scope="col" >
+        <h6 style="margin:5px 0 0 0;">${element.MaHD}</h6>
+        </td>
+        <td scope="col" >
+        <h6 style="margin:5px 0 0 0;">${element.DiaChiGiaoHang}</h6>
+        </td>
+        <td scope="col" >
+        <h6 style="margin:5px 0 0 0;">${element.TongTien}</h6>
+        </td>
+        <td scope="col" >
+        <h6 style="margin:5px 0 0 0;">${new Date(element.NgayLap).toISOString().slice(0, 10)}</h6>
+        </td>
+        <td scope="col" >
+        <h6 style="margin:5px 0 0 0;">${element.TrangThai}</h6>
+        </td>
+        <td><button class="btn-primary" onclick="customer_view_order_detail('${element.MaHD}')">
+        <h6 style="margin:5px 0 0 0; color: aliceblue;">Xem đơn</h6></button></td>
+        <td><button class="btn-danger" onclick="cancel_order('${element.MaHD}')">
+        <h6 style="margin:5px 0 0 0; color: aliceblue;">Hủy đơn</h6>
+        </button></td></tr>`
+    });
+    bill.innerHTML = tr
+}
+
+function customer_view_order_detail(MaHD) {
     cus_show('view-order-detail-section')
     var xhtml = new XMLHttpRequest();
     xhtml.onload = function() {
@@ -91,12 +172,41 @@ function customer_view_order_detail(MaDH) {
 
     }
 
-    xhtml.open("POST", "cus-view-order-detail");
+    xhtml.open("POST", "/customer/cus-view-order-detail");
     xhtml.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    xhtml.send('MaDH=' + MaDH);
+    xhtml.send('MaHD=' + MaHD);
 
     return false;
 }
+
+function render_view_order_detail(data) {
+    console.log(data)
+    if (data.length <= 0) {
+        document.querySelector("#bill-detail tbody").innerHTML = "No result."
+        return;
+    }
+    var bill = document.querySelector("#bill-detail tbody")
+    var tr = ``
+    data.forEach(element => {
+        tr = tr + `<tr>
+        <th scope="col" ">
+            <h6 style="margin:5px 0 0 0;">${element.MaSP}</h6>
+        </th>
+        <th scope="col" ">
+            <h6 style="margin:5px 0 0 0;">${element.TenSP}</h6>
+        </th>
+        <th scope="col" ">
+            <h6 style="margin:5px 0 0 0;">${element.SoLuong}</h6>
+        </th>
+        <th scope="col" ">
+            <h6 style="margin:5px 0 0 0;">${element.ThanhTien}</h6>
+        </th>
+    </tr>`
+    });
+    bill.innerHTML = tr
+}
+
+
 
 
 function insert_order() {
@@ -110,39 +220,24 @@ function insert_order() {
         temp = { MaSP: "", SoLuong: 0 };
     })
     data = JSON.stringify(data);
-    let supp = document.getElementById("select-partner")
-    let addr = document.getElementById("address")
-    let pay = document.getElementById("type-payment")
-    let CT_DHs = document.querySelectorAll(".CT_donhang")
+    let NguoiNhan = document.getElementById("NguoiNhan").value
+    let DiaChi = document.getElementById("address").value
+    let LoiNhan = document.getElementById("LoiNhan").value
+    let MaGiamGia = document.getElementById("MaGiamGia").value
+
     var xhtml = new XMLHttpRequest();
     xhtml.onload = function() {
         customer_view_order();
     }
 
-    xhtml.open("POST", "insert-order");
+    xhtml.open("POST", "customer/insert-order");
     xhtml.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    xhtml.send(`Httt=${pay.value}&DiaChi=${addr.value}&MaDT=${supp.value}&data=${data}`);
+    xhtml.send(`NguoiNhan=${NguoiNhan}&DiaChi=${DiaChi}&LoiNhan=${LoiNhan}&MaGiamGia=${MaGiamGia}&data=${data}`);
 
     return false;
 }
 
-function insert_order_detail() {
-    var xhtml = new XMLHttpRequest();
 
-    xhtml.onload = function() {
-
-        // input.value="";
-        // var data=JSON.parse(this.responseText)
-        // console.log(data)
-
-    }
-
-    xhtml.open("POST", "insert-order");
-    xhtml.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    xhtml.send(JSON.parse);
-
-    return false;
-}
 
 function insert_contract() {
     var xhtml = new XMLHttpRequest();
@@ -162,56 +257,10 @@ function insert_contract() {
 }
 
 
-function render_view_order(data) {
-    var bill = document.querySelector("#bill tbody")
-    var tr = ``
-    data.forEach(element => {
-        tr = tr + `<tr><td scope="col" style="width: 100px;">
-        <h6 style="margin:5px 0 0 0;">${element.MaDH}</h6>
-        </td>
-        <td scope="col" style="width: 200px;">
-        <h6 style="margin:5px 0 0 0;">${element.DiaChiGiaoHang}</h6>
-        </td>
-        <td scope="col" style="width: 100px;">
-        <h6 style="margin:5px 0 0 0;">${element.TongTien}</h6>
-        </td>
-        <td scope="col" style="width: 100px;">
-        <h6 style="margin:5px 0 0 0;">${element.TinhTrang}</h6>
-        </td>
-        <td><button class="btn-danger" onclick="customer_view_order_detail('${element.MaDH}')">
-        <h6 style="margin:5px 0 0 0; color: aliceblue;">Xem đơn</h6></button></td>
-        <td><button class="btn-danger" onclick="cancel_order('${element.MaDH}')">
-        <h6 style="margin:5px 0 0 0; color: aliceblue;">Hủy đơn</h6>
-        </button></td></tr>`
-    });
-    bill.innerHTML = tr
-}
 
 
-function render_view_order_detail(data) {
-    var bill = document.querySelector("#bill-detail tbody")
-    var tr = ``
-    data.forEach(element => {
-        tr = tr + `<tr>
-        <th scope="col" style="width: 120px;">
-            <h6 style="margin:5px 0 0 0;">${element.MaSP}</h6>
-        </th>
-        <th scope="col" style="width: 200px;">
-            <h6 style="margin:5px 0 0 0;">${element.TenSP}</h6>
-        </th>
-        <th scope="col" style="width: 100px;">
-            <h6 style="margin:5px 0 0 0;">${element.GiaBan}</h6>
-        </th>
-        <th scope="col" style="width: 100px;">
-            <h6 style="margin:5px 0 0 0;">${element.SoLuong}</h6>
-        </th>
-        <th scope="col" style="width: 10px;">
-            <h6 style="margin:5px 0 0 0;">${element.ThanhTien}</h6>
-        </th>
-    </tr>`
-    });
-    bill.innerHTML = tr
-}
+
+
 
 
 
@@ -255,51 +304,12 @@ function render_product(data, CTDH) {
     product.innerHTML = opt
 }
 
-function add_order_detail() {
-    var container = document.querySelector(`#order_detail-container`);
-    var CTDHs = document.querySelectorAll('.CT_donhang');
-
-    var temp = document.createElement('div');
-    temp.setAttribute('id', `CTDH${CTDHs.length}`)
-    temp.classList.add('CT_donhang')
-    temp.classList.add('enter-box')
-    temp.innerHTML = `
-    <h4 style="margin:5px 0 0 0; display: inline-block;">Sản phẩm ${CTDHs.length+1}:</h4>
-
-    <br><br>
-
-    <h6 style="margin:5px 0 0 0;">Sản phẩm:</h6>
-    <select name="product" id="select-product" placeholder="Chọn đối tác" required>
-        <option selected>Chọn sản phẩm</option>
-        <option value="Mã sp">Tên sản phẩm</option>
-    </select>
-    <h6 style="margin:5px 0 0 0;">Số lượng:</h6>
-    <input type="number" name="quantity" placeholder="Số lượng" required/>
-    <br><br>`
-    container.appendChild(temp);
 
 
-}
-
-function insert_product_branch() {
-    var xhtml = new XMLHttpRequest();
-    xhtml.onload = function() {
-
-        // input.value="";
-        // var data=JSON.parse(this.responseText)
-        // console.log(data)
-
-    }
-
-    xhtml.open("POST", "insert-product_branch");
-    xhtml.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    xhtml.send();
-
-    return false;
-}
 
 
-function cancel_order(MaDH) {
+
+function cancel_order(MaHD) {
     var xhtml = new XMLHttpRequest();
     xhtml.onload = function() {
 
@@ -307,9 +317,9 @@ function cancel_order(MaDH) {
 
     }
 
-    xhtml.open("POST", "cancel-order");
+    xhtml.open("POST", "customer/cancel-order");
     xhtml.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    xhtml.send("MaDH=" + MaDH);
+    xhtml.send("MaHD=" + MaHD);
 
     return false;
 }

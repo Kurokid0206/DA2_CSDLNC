@@ -322,7 +322,7 @@ begin tran
 		(select MaSP, NgayNhap from CT_NhapHang CTNH join DonNhapHang DN on CTNH.MaDonNhap = DN.MaDonNhap where month(NgayNhap) = @Thang) Nhap
 		on SP.MaSP = Nhap.MaSP
 		group by SP.MaSP, TenSP
-		order by SP.MaSP
+		order by TongXuat desc
 	end try
 	begin catch
 		select  error_message() as errormessage; 

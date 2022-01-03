@@ -34,7 +34,7 @@ router.post("/view-products", function(req, res) {
 
 
             pool.close()
-            console.log(result)
+                //console.log(result)
             res.send(result.recordset)
         } catch (err) {
             console.log(err.message)
@@ -166,7 +166,7 @@ router.post("/insert-product", function(req, res) {
                 .execute('sp_QL_Insert_SanPham')
 
             pool.close()
-            console.log(result)
+                //console.log(result)
             res.send(result.output.MaSP)
         } catch (err) {
             console.log(err.message)
@@ -197,15 +197,15 @@ router.post("/import-goods", function(req, res) {
                             transaction.rollback(err => {
                                 // ... error checks
 
-                                console.log("Transaction rollback")
+                                //console.log("Transaction rollback")
                             })
                             console.log(err)
                             res.send(err)
                             return
                         } else {
 
-                            console.log(result)
-                            console.log(data)
+                            //console.log(result)
+                            //console.log(data)
 
                             function add_detail(elements, i) {
                                 //console.log("de quy lan ", i)
@@ -213,7 +213,7 @@ router.post("/import-goods", function(req, res) {
                                     transaction.commit(err => {
                                         // ... error checks
 
-                                        console.log("Transaction commit ket thuc de quy.")
+                                        //console.log("Transaction commit ket thuc de quy.")
 
                                     })
                                     res.send("Thanh cong")
@@ -234,7 +234,7 @@ router.post("/import-goods", function(req, res) {
                                                     // ... error checks
 
 
-                                                    console.log("Transaction rollback khi them san pham", element.MaSP)
+                                                    //console.log("Transaction rollback khi them san pham", element.MaSP)
 
                                                 })
                                                 console.log(err)
@@ -286,7 +286,7 @@ router.get("/import-history-data", function(req, res) {
                 // .execute('sp_Insert_SanPham')
 
             pool.close()
-            console.log(result)
+                //console.log(result)
             res.send(result.recordset)
         } catch (err) {
             console.log(err.message)
@@ -315,7 +315,7 @@ router.post("/view-import-history-detail-data", function(req, res) {
                 // .execute('sp_Insert_SanPham')
 
             pool.close()
-            console.log(result)
+                //console.log(result)
             res.send(result.recordset)
         } catch (err) {
             console.log(err.message)
