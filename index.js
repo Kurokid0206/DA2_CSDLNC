@@ -61,7 +61,7 @@ config = {
 
 //home page
 app.get("/", function(req, res) {
-       res.render("index") //}
+       res.render("index")
 })
 
 
@@ -76,46 +76,45 @@ app.get("/", function(req, res) {
 //     res.sendFile(__dirname + "/html/registration.html")
 // })
 
-// app.post("/log-in", function(req, res) {
-//     //console.log(req.body)
-//     Promise.resolve('success')
-//         .then(async function() {
-//             try {
-//                 let pool = await sql.connect(config);
-//                 let result = await pool.request()
-//                     .input('tk', sql.VARCHAR(50), `${req.body.username}`)
-//                     .input('mk', sql.VarChar(20), `${req.body.password}`)
-//                     .output('ma', sql.Char(10))
-//                     .execute('sp_TK_Login')
-//                 pool.close()
-//                     //console.log(result)
-//                 req.session.user = result.output.ma
-//                 res.redirect("/")
-//                     //console.log(result.output.ma)
-//                     //console.log(req.session.user)
-//                     // let type = JSON.stringify(result.output)
-//                     // if (type.indexOf("KH") > -1) {
-//                     //     res.redirect("/customer")
-//                     // } else if (type.indexOf("TX") > -1) {
-//                     //     res.redirect("/driver")
-//                     // } else if (type.indexOf("DT") > -1) {
-//                     //     res.redirect("/supplier")
-//                     // } else if (type.indexOf("NV") > -1) {
-//                     //     res.redirect("/employee")
-//                     // } else if (type.indexOf("QTV") > -1){
-//                     //     res.redirect("/admin")
-//                     // } else{
-//                     //     res.redirect("/")
-//                     // }
-//             } catch (error) {
-//                 console.log(error.message);
-//                 return error.message
-//             }
-//         })
-// })
+app.post("/log-in", function(req, res) {
+    //console.log(req.body)
+    Promise.resolve('success')
+        .then(async function() {
+            try {
+                let pool = await sql.connect(config);
+                let result = await pool.request()
+                    .input('tk', sql.VARCHAR(50), `${req.body.username}`)
+                    .input('mk', sql.VarChar(20), `${req.body.password}`)
+                    .output('ma', sql.Char(10))
+                    .execute('sp_TK_Login')
+                pool.close()
+                    //console.log(result)
+                req.session.user = result.output.ma
+                    //console.log(result.output.ma)
+                    //console.log(req.session.user)
+                    let type = JSON.stringify(result.output)
+                    if (type.indexOf("KH") > -1) {
+                        res.redirect("/customer")
+                    } else if (type.indexOf("NV") > -1) {
+                        res.redirect("/emp")
+                    } else if (type.indexOf("QL") > -1) {
+                        res.redirect("/manager")
+                    } else if (type.indexOf("NS") > -1) {
+                        res.redirect("/emp_manager")
+                    } else if (type.indexOf("QTV") > -1){
+                        res.redirect("/manage_product")
+                    } else{
+                        res.redirect("/")
+                    }
+            } catch (error) {
+                console.log(error.message);
+                return error.message
+            }
+        })
+})
 
-// app.get("/log-out", function(req, res) {
-//     req.session.destroy();
-//     //console.log(req.session)
-//     res.redirect("/")
-// })
+app.get("/log-out", function(req, res) {
+    req.session.destroy();
+    //console.log(req.session)
+    res.redirect("/")
+})

@@ -60,17 +60,17 @@ begin tran
     end catch
 if @@trancount > 0
     commit tran;
-
+go
 -- drop procedure sp_TruyVet_GiaSP
 CREATE PROCEDURE sp_TruyVet_GiaSP
     @MaSP char(10)
 AS
 BEGIN TRAN
     BEGIN TRY
-        SELECT BangGiaSP.*, SanPham.TenSP
-        FROM BangGiaSP join SanPham
-		on BangGiaSP.MaSP = SanPham.MaSP
-        WHERE BangGiaSP.MaSP = @MaSP
+        SELECT bg.*, sp.TenSP
+        FROM BangGiaSP bg join SanPham sp
+		on bg.MaSP = sp.MaSP
+        WHERE bg.MaSP = @MaSP
         ORDER BY NgayApDung
 
     END TRY
