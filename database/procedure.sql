@@ -20,6 +20,7 @@ drop proc sp_Login
 drop proc sp_Disable_Enable_Login
 drop proc sp_Insert_HD
 drop proc sp_Insert_CTHD
+drop proc sp_XemDoanhThu_2SP
 go
 
 create procedure sp_Insert_KhackHang 
@@ -342,6 +343,8 @@ begin tran
 			declare @VaiTro as nvarchar(50)= (select VaiTro from TaiKhoan where TenTK = @TK)
 			if @VaiTro = N'Khách Hàng' set @Ma = (select MaKH from KhachHang where TaiKhoan = @TK)
 			else if @VaiTro = N'Nhân Viên' set @Ma = (select MaNV from NhanVien where TaiKhoan = @TK)
+			else if @VaiTro = N'Quản Lý' set @Ma = 'QL00000000'
+			else if @VaiTro = N'Nhân Sự' set @Ma = 'NS00000000'
 			else set @Ma = 'QTV0000000' 
 			end
 		else
@@ -424,7 +427,7 @@ if @@trancount > 0
     commit tran;
 go
 
---drop proc sp_XemDoanhThu_2SP
+
 create proc sp_XemDoanhThu_2SP
 @Thang1 int,
 @Thang2 int
