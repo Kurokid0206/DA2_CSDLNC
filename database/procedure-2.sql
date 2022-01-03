@@ -2,8 +2,8 @@
 go
 
 --Thêm sản phẩm
---DROP PROCEDURE sp_Insert_SanPham
-CREATE PROCEDURE sp_Insert_SanPham
+--DROP PROCEDURE sp_QL_Insert_SanPham
+CREATE PROCEDURE sp_QL_Insert_SanPham
     @MaSP char(10) output,
     @TenSP nvarchar(50),
     @SoLuongTon int,
