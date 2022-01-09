@@ -55,7 +55,7 @@ router.get("/cus-view-order", function(req, res) {
             //console.log(req.body.MaSP)
             let pool = await sql.connect(config);
             let result = await pool.request()
-                .query(`select * from HoaDon where MaKH = '${req.session.user}'`) //thay bằng section
+                .query(`select * from HoaDon where MaKH = '${req.session.user}' order by NgayLap DESC`) //thay bằng section
 
             pool.close()
                 //console.log(result)

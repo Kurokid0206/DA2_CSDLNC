@@ -5,6 +5,30 @@ var ids = ['new-order-section',
 ]
 
 var Shopping_bag = [];
+var glb_data = [];
+var page_max = 5;
+
+function prev(section) {
+    let page = document.querySelector(`#${section} .nav-page-number`)
+    if (page.value >= 2) {
+        page.value--
+    }
+
+}
+
+function next(section) {
+    let page = document.querySelector(`#${section} .nav-page-number`)
+    if (page.value < glb_data.length / page_max) {
+        page.value++
+    }
+}
+
+function check_navpage(section) {
+    let page = document.querySelector(`#${section} .nav-page-number`);
+    if (page.value >= glb_data.length / page_max) {
+        page.value = parseInt((glb_data.length / page_max).toFixed(0))
+    }
+}
 
 function cus_show(id) {
 
@@ -24,8 +48,8 @@ function customer_view_products() {
 
     var xhtml = new XMLHttpRequest();
     xhtml.onload = function() {
-
-        render_product_for_customer(JSON.parse(this.responseText))
+        glb_data = JSON.parse(this.responseText)
+        render_product_for_customer();
 
     }
 
@@ -35,7 +59,13 @@ function customer_view_products() {
     return false;
 }
 
-function render_product_for_customer(data) {
+function render_product_for_customer() {
+    var page_num = document.querySelector('#Search-product-section .nav-page-number').value;
+    var data = []
+    for (i = (page_num - 1) * page_max; i < page_num * page_max; i++) {
+        if (i >= glb_data.length) break;
+        data.push(glb_data[i])
+    }
 
     var table = document.querySelector("#Search-products-container")
     var tr = ``
@@ -119,8 +149,8 @@ function customer_view_order() {
     cus_show('view-order-section');
     var xhtml = new XMLHttpRequest();
     xhtml.onload = function() {
-
-        render_view_order(JSON.parse(this.responseText))
+        glb_data = JSON.parse(this.responseText);
+        render_view_order()
 
     }
 
@@ -131,7 +161,13 @@ function customer_view_order() {
     return false;
 }
 
-function render_view_order(data) {
+function render_view_order() {
+    var page_num = document.querySelector('#view-order-section .nav-page-number').value;
+    var data = []
+    for (i = (page_num - 1) * page_max; i < page_num * page_max; i++) {
+        if (i >= glb_data.length) break;
+        data.push(glb_data[i])
+    }
     if (data.length <= 0) {
         document.querySelector("#bill tbody").innerHTML = "No result."
         return;
@@ -146,7 +182,7 @@ function render_view_order(data) {
         <h6 style="margin:5px 0 0 0;">${element.DiaChiGiaoHang}</h6>
         </td>
         <td scope="col" >
-        <h6 style="margin:5px 0 0 0;">${element.TongTien}</h6>
+        <h6 style="margin:5px 0 0 0;">${(element.TongTien).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')} vnd</h6>
         </td>
         <td scope="col" >
         <h6 style="margin:5px 0 0 0;">${new Date(element.NgayLap).toISOString().slice(0, 10)}</h6>
@@ -201,7 +237,7 @@ function render_view_order_detail(data) {
             <h6 style="margin:5px 0 0 0;">${element.SoLuong}</h6>
         </th>
         <th scope="col" ">
-            <h6 style="margin:5px 0 0 0;">${element.ThanhTien}</h6>
+            <h6 style="margin:5px 0 0 0;">${(element.ThanhTien).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')} vnd</h6>
         </th>
     </tr>`
     });
