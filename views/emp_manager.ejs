@@ -145,6 +145,11 @@
                                         </tr>
                                     </tbody>
                                 </table>
+                                <div style="display: flex; justify-content: center;">
+                                    <button type="button" style="height: 35px; width: 75px;" onclick="prev('Revenue-section');render_revenue();">prev</button>
+                                    <input type="number" style="height: 35px;width: 100px;" class="page-number" value="1">
+                                    <button type="button" style="height: 35px; width: 75px;" onclick="next('Revenue-section');render_revenue();">next</button>
+                                </div>
                             </form>
                         </div>
                     </div>
@@ -221,8 +226,19 @@
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        <tr>
+                                            <td>
+                                                No result
+                                            </td>
+                                        </tr>
                                     </tbody>
+                                    
                                 </table>
+                                <div style="display: flex; justify-content: center;">
+                                    <button type="button" style="height: 35px; width: 75px;" onclick="prev('salary-section');render_salary();">prev</button>
+                                    <input type="number" style="height: 35px;width: 100px;" class="page-number" value="1">
+                                    <button type="button" style="height: 35px; width: 75px;" onclick="next('salary-section');render_salary();">next</button>
+                                </div>
                             </form>
                         </div>
                     </div>
