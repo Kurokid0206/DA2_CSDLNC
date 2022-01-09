@@ -55,7 +55,7 @@ router.get("/cus-view-order", function(req, res) {
             //console.log(req.body.MaSP)
             let pool = await sql.connect(config);
             let result = await pool.request()
-                .query(`select * from HoaDon where MaKH = '${req.session.user}'`) //thay bằng section
+                .query(`select * from HoaDon where MaKH = '${req.session.user}' order by NgayLap DESC`) //thay bằng section
 
             pool.close()
                 //console.log(result)
@@ -129,7 +129,7 @@ router.post("/insert-order", function(req, res) {
                 // ... error checks
 
                 const request = new sql.Request(transaction)
-                request.input('MaKH', sql.Char(10), req.session.user) 
+                request.input('MaKH', sql.Char(10), req.session.user)
                     .input('NguoiNhan', sql.NVarChar(50), req.body.NguoiNhan)
                     .input('DiaChi', sql.NVarChar(50), req.body.DiaChi)
                     .input('LoiNhan', sql.NVarChar(50), req.body.LoiNhan)
@@ -140,9 +140,9 @@ router.post("/insert-order", function(req, res) {
                             transaction.rollback(err => {
                                 // ... error checks
 
-                                //console.log("Transaction rollback")
+                                console.log("Transaction rollback")
                             })
-                            // console.log(err)
+                            console.log(err)
                             res.send(err)
                             return
                         } else {
@@ -151,12 +151,12 @@ router.post("/insert-order", function(req, res) {
                             // console.log(data)
 
                             function add_detail(elements, i) {
-                                //console.log("de quy lan ", i)
+                                console.log("de quy lan ", i)
                                 if (i >= elements.length) {
                                     transaction.commit(err => {
                                         // ... error checks
 
-                                        // console.log("Transaction commit ket thuc de quy.")
+                                        console.log("Transaction commit ket thuc de quy.")
 
                                     })
                                     res.send("Thanh cong")
@@ -177,7 +177,7 @@ router.post("/insert-order", function(req, res) {
                                                     // ... error checks
 
 
-                                                    //console.log("Transaction rollback khi them san pham", element.MaSP)
+                                                    console.log("Transaction rollback khi them san pham", element.MaSP)
 
                                                 })
                                                 console.log(err)

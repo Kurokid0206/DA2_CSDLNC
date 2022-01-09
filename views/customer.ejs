@@ -240,6 +240,11 @@
                                             <!-- /.row -->
                                         </div>
                                         <!-- /.List View End -->
+                                        <div style="display: flex; justify-content: center;">
+                                            <button type="button" style="height: 35px; width: 75px;" onclick="prev('Search-product-section');render_product_for_customer();">prev</button>
+                                            <input type="number" style="height: 35px;width: 100px;padding-left: 45px;" class="nav-page-number" value="1" onblur="check_navpage('Search-product-section');render_product_for_customer();">
+                                            <button type="button" style="height: 35px; width: 75px;" onclick="next('Search-product-section');render_product_for_customer();">next</button>
+                                        </div>
                                     </div>
                                     <!-- /.Tab panes -->
                                 </div>
@@ -258,7 +263,7 @@
             <div class="container">
                 <div class="row">
                     <div class="" style="margin: 0 auto; width: auto;">
-                        <div class="enter-box" style="padding: 87px;width: 1000px; margin: 0 auto;">
+                        <div class="enter-box" style="padding: 87px;width: 1200px; margin: 0 auto;">
                             <h3 class="mb-35">Quản lý đơn hàng</h3>
                             <table class="table " id="bill">
                                 <thead>
@@ -269,7 +274,7 @@
                                         <th scope="col" style="width: 200px;">
                                             <h6 style="margin:5px 0 0 0;">Địa Chỉ</h6>
                                         </th>
-                                        <th scope="col" style="width: 150px;">
+                                        <th scope="col" style="width: 200px;">
                                             <h6 style="margin:5px 0 0 0;">Tổng tiền</h6>
                                         </th>
                                         <th scope="col" style="width: 150px;">
@@ -288,6 +293,11 @@
 
                                 </tbody>
                             </table>
+                            <div style="display: flex; justify-content: center;">
+                                <button type="button" style="height: 35px; width: 75px;" onclick="prev('view-order-section');render_view_order();">prev</button>
+                                <input type="number" style="height: 35px;width: 100px;padding-left: 45px;" class="nav-page-number" value="1" onblur="check_navpage('view-order-section');render_view_order();">
+                                <button type="button" style="height: 35px; width: 75px;" onclick="next('view-order-section');render_view_order();">next</button>
+                            </div>
                         </div>
                     </div>
                 </div>

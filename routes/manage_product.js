@@ -133,6 +133,7 @@ router.post("/save-edit-products", function(req, res) {
                 .input('MauSac', sql.NVarChar(50), req.body.MauSac)
                 .input('ChuDe', sql.NVarChar(50), req.body.ChuDe)
                 .input('GiaBan', sql.Int, req.body.GiaBan)
+                .input('GiaNhap', sql.Int, req.body.GiaNhap)
                 .input('MaSP', sql.Char(10), req.body.MaSP)
                 .execute('sp_Update_SanPham')
 
@@ -305,7 +306,7 @@ router.post("/view-import-history-detail-data", function(req, res) {
         try {
             let pool = await sql.connect(config);
             let result = await pool.request()
-                .query(`select * from CT_NhapHang where MaDonNhap = '${req.body.MaDonNhap}'`)
+                .query(`select ct.*,sp.TenSP from CT_NhapHang ct join SanPham sp on ct.MaSP = sp.MaSP where MaDonNhap = '${req.body.MaDonNhap}'`)
                 // .input('SoLuongTon', sql.Int, req.body.SLTon)
                 // .input('TenSP', sql.NVarChar(50), req.body.TenSP)
                 // .input('MauSac', sql.NVarChar(50), req.body.MauSac)

@@ -5,6 +5,8 @@ var ids = ["manager-import-history-detail-section",
     "manager-products-price-section",
     "manager-products-section"
 ]
+var glb_data = []
+var page_max = 10
 
 function section_show(id) {
 
@@ -20,7 +22,8 @@ function get_product_for_manage() {
     var name = document.getElementById("product_name-for-seach-manager-products").value;
     var xhtml = new XMLHttpRequest();
     xhtml.onload = function() {
-        render_manager_view_products(JSON.parse(this.responseText))
+        glb_data = JSON.parse(this.responseText)
+        render_manager_view_products()
             // input.value="";
             // var data=JSON.parse(this.responseText)
             //console.log(this.responseText)
@@ -33,7 +36,35 @@ function get_product_for_manage() {
 
 }
 
-function render_manager_view_products(data) {
+function prev(section) {
+    let page = document.querySelector(`#${section} .nav-page-number`)
+    if (page.value >= 2) {
+        page.value--
+    }
+
+}
+
+function next(section) {
+    let page = document.querySelector(`#${section} .nav-page-number`)
+    if (page.value < glb_data.length / page_max) {
+        page.value++
+    }
+}
+
+function check_navpage(section) {
+    let page = document.querySelector(`#${section} .nav-page-number`);
+    if (page.value >= glb_data.length / page_max) {
+        page.value = parseInt((glb_data.length / page_max).toFixed(0))
+    }
+}
+
+function render_manager_view_products() {
+    var page_num = document.querySelector('#manager-products-section .nav-page-number').value;
+    var data = []
+    for (i = (page_num - 1) * page_max; i < page_num * page_max; i++) {
+        if (i >= glb_data.length) break;
+        data.push(glb_data[i])
+    }
     var table = document.querySelector("#manage-products-table tbody");
     if (data.length <= 0) {
         table.innerHTML = "No result."
@@ -58,7 +89,7 @@ function render_manager_view_products(data) {
             <input class="GiaBan-for-edit" type="number" value="${element.GiaBan}" disabled>
         </td>
         <td>
-            <input class="GiaGiam-for-edit" type="number" value="${element.GiaNhap}" disabled>
+            <input class="GiaNhap-for-edit" type="number" value="${element.GiaNhap}" disabled>
         </td>
         <td>
             <h6 style="margin:15px 0 0 0;">${element.SoLuongTon}</h6>
@@ -85,6 +116,7 @@ function save_manage_edit_product(MaSP) {
     tr.querySelector(` .MauSac-for-edit`).disabled = true;
     tr.querySelector(` .ChuDe-for-edit`).disabled = true;
     tr.querySelector(` .GiaBan-for-edit`).disabled = true;
+    tr.querySelector(` .GiaNhap-for-edit`).disabled = true;
     tr.querySelector(` .save-btn`).style.display = "none";
 
     var xhtml = new XMLHttpRequest();
@@ -105,6 +137,7 @@ function enable_edit(MaSP) {
     tr.querySelector(` .MauSac-for-edit`).disabled = false;
     tr.querySelector(` .ChuDe-for-edit`).disabled = false;
     tr.querySelector(` .GiaBan-for-edit`).disabled = false;
+    tr.querySelector(` .GiaNhap-for-edit`).disabled = false;
     tr.querySelector(` .save-btn`).disabled = false;
     tr.querySelector(` .save-btn`).style.display = "inline-block"
 }
@@ -203,7 +236,8 @@ function get_warehouse_data() {
     var name = document.getElementById("product_name-for-seach-warehouse").value;
     var xhtml = new XMLHttpRequest();
     xhtml.onload = function() {
-        render_warehouse_data(JSON.parse(this.responseText))
+        glb_data = JSON.parse(this.responseText);
+        render_warehouse_data()
             // input.value="";
             // var data=JSON.parse(this.responseText)
             //console.log(this.responseText)
@@ -216,7 +250,13 @@ function get_warehouse_data() {
 
 }
 
-function render_warehouse_data(data) {
+function render_warehouse_data() {
+    var page_num = document.querySelector('#manager-warehouse-section .nav-page-number').value;
+    var data = []
+    for (i = (page_num - 1) * page_max; i < page_num * page_max; i++) {
+        if (i >= glb_data.length) break;
+        data.push(glb_data[i])
+    }
     var table = document.querySelector("#manager-warehouse-table tbody");
     if (data.length <= 0) {
         table.innerHTML = "No result."
@@ -233,9 +273,6 @@ function render_warehouse_data(data) {
         </td>
         <td>
             <h6 style="margin:5px 0 0 0;color: rgb(0, 161, 27)">${element.SoLuongTon}</h>
-        </td>
-        <td>
-            <h6 style="margin:5px 0 0 0;color: rgb(255, 0, 119);">100</h>
         </td>
         <td>
             <button type="button" class="btn-primary" onclick="show_import_goods_form('${element.MaSP}');">Nhập hàng</button>
@@ -334,7 +371,6 @@ function import_goods() {
     let date = document.getElementById("NgayNhap").value
     var xhtml = new XMLHttpRequest();
     xhtml.onload = function() {
-        //section_show('manager-import-history-section');get_import_history();
         console.log(this.responseText)
     }
 
@@ -348,8 +384,8 @@ function import_goods() {
 function get_import_history() {
     var xhtml = new XMLHttpRequest();
     xhtml.onload = function() {
-
-        render_import_history(JSON.parse(this.responseText))
+        glb_data = JSON.parse(this.responseText)
+        render_import_history();
     }
 
 
@@ -358,7 +394,13 @@ function get_import_history() {
     xhtml.send();
 }
 
-function render_import_history(data) {
+function render_import_history() {
+    var page_num = document.querySelector('#manager-import-history-section .nav-page-number').value;
+    var data = []
+    for (i = (page_num - 1) * page_max; i < page_num * page_max; i++) {
+        if (i >= glb_data.length) break;
+        data.push(glb_data[i])
+    }
     var table = document.querySelector("#manager-import-history-table tbody");
     if (data.length <= 0) {
         table.innerHTML = "No result."
@@ -426,7 +468,7 @@ function render_import_history_detail(data) {
             <h6 style="margin:5px 0 0 0;">${element.SoLuong}</h>
         </td>
         <td>
-            <h6 style="margin:5px 0 0 0;">${element.TongTien}</h>
+            <h6 style="margin:5px 0 0 0;">${element.ThanhTien}</h>
         </td>
 
     </tr>`
