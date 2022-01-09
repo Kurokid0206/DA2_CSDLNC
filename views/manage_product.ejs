@@ -243,7 +243,11 @@
                                     </tbody>
 
                                 </table>
-
+                                <div style="display: flex; justify-content: center;">
+                                    <button type="button" style="height: 35px; width: 75px;" onclick="prev('manager-import-history-section');render_import_history();">prev</button>
+                                    <input type="number" style="height: 35px;width: 100px;" class="nav-page-number" value="1" onblur="check_navpage('manager-import-history-section');render_import_history();">
+                                    <button type="button" style="height: 35px; width: 75px;" onclick="next('manager-import-history-section');render_import_history();">next</button>
+                                </div>
                             </form>
 
 
@@ -330,9 +334,6 @@
                                                 <h6 style="margin:5px 0 0 0;">Số lượng tồn</h6>
                                             </th>
                                             <th scope="col" style="width: 200px;">
-                                                <h6 style="margin:5px 0 0 0;">Nhu cầu hiện tại</h6>
-                                            </th>
-                                            <th scope="col" style="width: 200px;">
                                                 <h6 style="margin:5px 0 0 0;">Nhập hàng</h6>
                                             </th>
                                         </tr>
@@ -346,7 +347,11 @@
                                     </tbody>
 
                                 </table>
-
+                                <div style="display: flex; justify-content: center;">
+                                    <button type="button" style="height: 35px; width: 75px;" onclick="prev('manager-warehouse-section');render_warehouse_data()();">prev</button>
+                                    <input type="number" style="height: 35px;width: 100px;" class="nav-page-number" value="1" onblur="check_navpage('manager-warehouse-section');render_warehouse_data()();">
+                                    <button type="button" style="height: 35px; width: 75px;" onclick="next('manager-warehouse-section');render_warehouse_data()();">next</button>
+                                </div>
                             </form>
 
 
@@ -463,6 +468,12 @@
 
                                     </tbody>
                                 </table>
+
+                                <div style="display: flex; justify-content: center;">
+                                    <button type="button" style="height: 35px; width: 75px;" onclick="prev('manager-products-section');render_manager_view_products();">prev</button>
+                                    <input type="number" style="height: 35px;width: 100px;" class="nav-page-number" value="1" onblur="check_navpage('manager-products-section');render_manager_view_products();">
+                                    <button type="button" style="height: 35px; width: 75px;" onclick="next('manager-products-section');render_manager_view_products();">next</button>
+                                </div>
 
                                 <button type="button" class="btn " id="add-product-btn" onclick="show_form('add-product-container')">Thêm sản phẩm</button>
                                 <br><br>

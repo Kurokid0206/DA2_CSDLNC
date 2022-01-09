@@ -36,9 +36,11 @@ function customer_view_products() {
 }
 
 function render_product_for_customer(data) {
+
     var table = document.querySelector("#Search-products-container")
     var tr = ``
     data.forEach(element => {
+        console.log(element.GiaBan)
         tr = tr + `<!-- product card start -->
         <div class="col-xs-12 mb-30">
             <div class="course-box list-view clearfix">
@@ -51,7 +53,7 @@ function render_product_for_customer(data) {
 
                     <div class="product-price clearfix">
                         <div class="pull-left">
-                            <h6><span>Giá: </span>${(element.GiaBan).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')} vnd</h6>
+                            <h6><span>Giá: </span>${element.GiaBan} vnd</h6>
                         </div>
                     </div>
                     <h6 style="margin:5px 0 10px 0;">Màu: ${element.MauSac}</h6>

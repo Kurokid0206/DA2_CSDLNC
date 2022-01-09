@@ -68,7 +68,8 @@ CREATE PROCEDURE sp_Update_SanPham
 	@TenSP nvarchar(50),
 	@MauSac nvarchar(50),
 	@ChuDe nvarchar(50),
-	@GiaBan int
+	@GiaBan int,
+	@GiaNhap int
 AS
 
 BEGIN TRAN
@@ -79,9 +80,16 @@ BEGIN TRAN
 
 		DECLARE @NgayApDung AS DATE
         SET @NgayApDung = GETDATE()
-
+		if exists (select* from BangGiaSP where NgayApDung = @NgayApDung and MaSP = @MaSP)
+		begin 
+			update BangGiaSP
+			Set GiaNhap = @GiaNhap, GiaBan = @GiaBan
+			where NgayApDung = @NgayApDung and MaSP = @MaSP
+		end else
+		begin
 		INSERT INTO BangGiaSP
-        VALUES(@MaSP, @NgayApDung, NULL, @GiaBan)
+        VALUES(@MaSP, @NgayApDung, @GiaNhap, @GiaBan)
+		end
 	END TRY
 	BEGIN CATCH
 		SELECT  error_number() AS errornumber,
@@ -109,7 +117,7 @@ BEGIN TRAN
 	BEGIN TRY
 		SET @MaDonNhap = dbo.f_Auto_MaDN()
 		INSERT INTO DonNhapHang
-        VALUES(@MaDonNhap, @NgayNhap)
+        VALUES(@MaDonNhap, @NgayNhap,NULL)
 	END TRY
 	BEGIN CATCH
 		SELECT  error_number() AS errornumber,
@@ -137,7 +145,7 @@ AS
 BEGIN TRAN
 	BEGIN TRY
 		INSERT INTO CT_NhapHang
-        VALUES(@STT, @MaDonNhap, @MaSP, @SoLuong)
+        VALUES(@STT, @MaDonNhap, @MaSP, @SoLuong,NULL)
 		update SanPham
 		set SoLuongTon=SoLuongTon+@SoLuong
 		where MaSP=@MaSP
