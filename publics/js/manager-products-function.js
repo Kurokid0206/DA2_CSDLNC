@@ -110,7 +110,7 @@ function save_manage_edit_product(MaSP) {
     var MauSac = tr.querySelector(` .MauSac-for-edit`).value;
     var ChuDe = tr.querySelector(` .ChuDe-for-edit`).value;
     var GiaBan = tr.querySelector(` .GiaBan-for-edit`).value;
-    var GiaNhap = tr.querySelector(` .GiaGiam-for-edit`).value;
+    var GiaNhap = tr.querySelector(` .GiaNhap-for-edit`).value;
     var tr = document.getElementById(MaSP);
     tr.querySelector(` .TenSP-for-edit`).disabled = true;
     tr.querySelector(` .MauSac-for-edit`).disabled = true;

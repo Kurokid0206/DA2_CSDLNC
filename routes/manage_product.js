@@ -126,7 +126,7 @@ router.post("/save-edit-products", function(req, res) {
 
     (async() => {
         try {
-            console.log(req.body)
+            //console.log(req.body)
             let pool = await sql.connect(config);
             let result = await pool.request()
                 .input('TenSP', sql.NVarChar(50), req.body.TenSP)
@@ -138,7 +138,7 @@ router.post("/save-edit-products", function(req, res) {
                 .execute('sp_Update_SanPham')
 
             pool.close()
-            console.log(result)
+            //console.log(result)
             res.send(req.body)
         } catch (err) {
             console.log(err.message)
