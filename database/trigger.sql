@@ -7,6 +7,8 @@ drop trigger trg_TongTien_HD
 drop trigger trg_ThanhTien_NH
 drop trigger trg_TongTien_NH
 drop trigger trg_TenND
+drop trigger trg_TenKH
+drop trigger trg_TenNV
 go
 
 create trigger trg_HieuSuat
@@ -136,6 +138,7 @@ begin
 end
 go
 
+
 create trigger trg_TenND
 on TaiKhoan
 for insert, update
@@ -151,5 +154,38 @@ begin
 	if @VaiTro like N'Nhân Viên'
 		update NhanVien
 		set TenNV = @Ten
+end
+go
+
+
+create trigger trg_TenKH
+on KhachHang
+for insert, update
+as
+begin
+	if UPDATE(TaiKhoan)
+	begin
+		declare @MaKH as char(10) = (select MaKH from inserted)
+		declare @TK as varchar(50) = (select TaiKhoan from inserted)
+		declare @Ten as nvarchar(50) = (select NguoiDung from TaiKhoan where TenTK = @TK)
+		update KhachHang
+		set HoTen = @Ten where MaKH = @MaKH
+	end
+end
+go
+
+create trigger trg_TenNV
+on NhanVien
+for insert, update
+as
+begin
+	if UPDATE(TaiKhoan)
+	begin
+		declare @MaNV as char(10) = (select MaNV from inserted)
+		declare @TK as varchar(50) = (select TaiKhoan from inserted)
+		declare @Ten as nvarchar(50) = (select NguoiDung from TaiKhoan where TenTK = @TK)
+		update NhanVien
+		set TenNV = @Ten where MaNV = @MaNV
+	end
 end
 go
