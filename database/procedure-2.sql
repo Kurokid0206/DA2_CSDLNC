@@ -170,8 +170,8 @@ CREATE PROCEDURE sp_View_LichSuNhap
 AS
 BEGIN TRAN
 	BEGIN TRY
-		--SELECT DonNhapHang.MaDonNhap, DonNhapHang.NgayNhap,  
-		--FROM DonNhapHang, CT_NhapHang
+		SELECT DonNhapHang.MaDonNhap, DonNhapHang.NgayNhap 
+		FROM DonNhapHang, CT_NhapHang
 	END TRY
 	BEGIN CATCH
 		SELECT  error_number() AS errornumber,
